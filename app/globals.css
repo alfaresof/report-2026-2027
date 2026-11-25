@@ -1728,6 +1728,10 @@ svg {
 
 .week-table tbody td:nth-child(2) {
   color: var(--ink-3);
+}
+
+.print-calendar .week-table tbody td:nth-child(2),
+.calendar-print .week-table tbody td:nth-child(2) {
   white-space: nowrap;
 }
 
@@ -1762,15 +1766,15 @@ svg {
 .youth-print-tasks {
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  gap: 22px;
   margin-top: 24px;
 }
 
-.youth-print-tasks section {
+.youth-print-person {
   break-inside: avoid;
 }
 
-.youth-print-tasks h4 {
+.youth-print-person h4 {
   display: flex;
   align-items: baseline;
   justify-content: space-between;
@@ -1781,45 +1785,102 @@ svg {
   font-weight: 600;
 }
 
-.youth-print-tasks h4 span {
+.youth-print-person h4 span {
   color: var(--gold-ink);
   font-family: var(--font-sans);
   font-size: 9.5px;
   font-weight: 500;
 }
 
-.youth-print-tasks ul {
+.print-solutions {
   display: flex;
   flex-direction: column;
-  gap: 3px;
-  margin: 8px 0 0;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.print-solution {
+  padding-top: 8px;
+  border-top: 1px solid var(--line-soft);
+}
+
+.print-solution:first-child {
+  padding-top: 0;
+  border-top: 0;
+}
+
+.print-solution-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.print-solution-logo {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 34px;
+  height: 24px;
+  padding: 2px;
+  border: 1px solid var(--line-soft);
+  border-radius: 4px;
+  background: #fff;
+  overflow: hidden;
+}
+
+.print-solution-logo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.print-solution-head h5 {
+  color: var(--ink);
+  font-family: var(--font-head);
+  font-size: 11.5px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.print-solution-head > span:last-child {
+  margin-inline-start: auto;
+  color: var(--ink-3);
+  font-size: 9px;
+  line-height: 1.5;
+  white-space: nowrap;
+}
+
+.print-solution ul {
+  display: flex;
+  flex-direction: column;
+  margin: 3px 0 0;
   padding: 0;
   list-style: none;
 }
 
-.youth-print-tasks li {
-  position: relative;
-  padding-inline-start: 14px;
+.print-solution li {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 3px 0;
+  border-top: 1px solid var(--line-soft);
   color: var(--ink-2);
-  font-size: 11.5px;
-  line-height: 1.8;
+  font-size: 10.5px;
+  line-height: 1.7;
 }
 
-.youth-print-tasks li::before {
-  content: "";
-  position: absolute;
-  inset-inline-start: 0;
-  top: 0.75em;
-  width: 4px;
-  height: 4px;
-  background: var(--gold);
-  transform: rotate(45deg);
+.print-solution li:first-child {
+  border-top: 0;
 }
 
-.youth-print-tasks p {
-  margin-top: 6px;
-  color: var(--ink-3);
-  font-size: 12px;
+.print-solution li > span:last-child {
+  flex: none;
+  color: var(--gold-ink);
+  font-size: 9px;
+  white-space: nowrap;
 }
 
 /* =========================================================
@@ -2838,21 +2899,48 @@ svg {
   }
 
   .youth-print-tasks {
-    gap: 4mm;
+    gap: 5mm;
     margin-top: 5mm;
   }
 
-  .youth-print-tasks h4 {
+  .youth-print-person h4 {
     font-size: 10pt;
   }
 
-  .youth-print-tasks h4 span {
+  .youth-print-person h4 span {
     font-size: 8pt;
   }
 
-  .youth-print-tasks li {
-    font-size: 9pt;
-    line-height: 1.65;
+  .print-solutions {
+    gap: 3mm;
+    margin-top: 2mm;
+  }
+
+  .print-solution {
+    padding-top: 2mm;
+  }
+
+  .print-solution-head h5 {
+    font-size: 9.5pt;
+  }
+
+  .print-solution-head > span:last-child {
+    font-size: 8pt;
+  }
+
+  .print-solution-logo {
+    width: 7mm;
+    height: 5.5mm;
+  }
+
+  .print-solution li {
+    padding: 1.5mm 0;
+    font-size: 8.5pt;
+    line-height: 1.6;
+  }
+
+  .print-solution li > span:last-child {
+    font-size: 8pt;
   }
 
   .draft-note {

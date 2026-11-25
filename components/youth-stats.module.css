@@ -320,16 +320,60 @@
 }
 
 .products {
-  margin-top: 8px;
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 7px 8px;
+  margin-top: 10px;
   color: rgba(247, 241, 229, 0.68);
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 300;
-  line-height: 1.9;
+  line-height: 1.8;
 }
 
 .productsLabel {
+  flex: none;
   color: var(--gold-2);
   font-weight: 500;
+  line-height: 1.9;
+}
+
+.productChips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.productChip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 2px 8px 2px 3px;
+  border: 1px solid rgba(247, 241, 229, 0.14);
+  border-radius: 999px;
+  background: rgba(247, 241, 229, 0.06);
+  color: rgba(247, 241, 229, 0.78);
+  font-size: 10px;
+  line-height: 1.6;
+}
+
+.productLogo {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 30px;
+  height: 22px;
+  padding: 2px;
+  border-radius: 5px;
+  background: #fff;
+  overflow: hidden;
+}
+
+.productLogo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
 .indexMark {
@@ -389,7 +433,7 @@
 
 .stats {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   margin: 14px 0 0;
   padding: 0;
   border-top: 1px solid rgba(247, 241, 229, 0.15);
@@ -402,7 +446,7 @@
   justify-content: flex-end;
   gap: 7px;
   min-width: 0;
-  padding: 20px 24px 18px;
+  padding: 18px 14px 16px;
 }
 
 .stat:first-child {
@@ -429,7 +473,7 @@
   margin: 0;
   color: var(--gold-2);
   font-family: var(--font-head);
-  font-size: clamp(30px, 3.4vw, 42px);
+  font-size: clamp(26px, 2.7vw, 36px);
   font-weight: 500;
   font-variant-numeric: tabular-nums;
   line-height: 1.05;
@@ -441,56 +485,105 @@
   font-weight: 300;
 }
 
-/* Tasks */
+/* Solutions / apps */
 
-.tasks {
+.solutions {
   display: flex;
   flex-direction: column;
-  margin: 10px 0 0;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.solution {
+  padding-top: 12px;
+  border-top: 1px solid rgba(247, 241, 229, 0.1);
+}
+
+.solution:first-child {
+  padding-top: 0;
+  border-top: 0;
+}
+
+.solutionHead {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.solutionLogo {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 42px;
+  height: 30px;
+  padding: 3px;
+  border-radius: 6px;
+  background: #fff;
+  overflow: hidden;
+}
+
+.solutionLogo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.solutionName {
+  color: var(--cream);
+  font-family: var(--font-head);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.solutionCount {
+  margin-inline-start: auto;
+  padding: 2px 8px;
+  border: 1px solid rgba(247, 241, 229, 0.14);
+  border-radius: 999px;
+  color: rgba(247, 241, 229, 0.55);
+  font-size: 8.5px;
+  line-height: 1.7;
+  white-space: nowrap;
+}
+
+.apps {
+  display: flex;
+  flex-direction: column;
+  margin: 6px 0 0;
   padding: 0;
   list-style: none;
 }
 
-.tasks li {
-  position: relative;
-  padding-block: 10px;
-  padding-inline-start: 22px;
-  border-top: 1px solid rgba(247, 241, 229, 0.09);
-  color: rgba(247, 241, 229, 0.82);
-  font-size: 13px;
-  font-weight: 300;
-  line-height: 1.85;
+.apps li {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 7px 0;
+  border-top: 1px solid rgba(247, 241, 229, 0.07);
 }
 
-.tasks li:first-child {
-  padding-top: 2px;
+.apps li:first-child {
   border-top: 0;
 }
 
-.tasks li::before {
-  content: "";
-  position: absolute;
-  inset-inline-start: 2px;
-  top: calc(10px + 0.78em);
-  width: 5px;
-  height: 5px;
-  border-radius: 1px;
-  background: var(--gold-2);
-  transform: rotate(45deg);
-  opacity: 0.85;
-}
-
-.tasks li:first-child::before {
-  top: calc(2px + 0.78em);
-}
-
-.empty {
-  margin: 12px 0 0;
-  color: rgba(247, 241, 229, 0.6);
-  font-family: var(--font-head);
-  font-size: 22px;
+.appName {
+  color: rgba(247, 241, 229, 0.82);
+  font-size: 12px;
   font-weight: 300;
-  line-height: 1.4;
+  line-height: 1.7;
+}
+
+.appFeatures {
+  flex: none;
+  color: var(--gold-2);
+  font-size: 9.5px;
+  font-weight: 500;
+  line-height: 1.7;
+  white-space: nowrap;
 }
 
 /* =========================================================
@@ -629,9 +722,29 @@
   }
 
   .products {
-    margin-top: 6px;
-    font-size: 12px;
-    line-height: 1.85;
+    margin-top: 8px;
+    font-size: 11px;
+    line-height: 1.8;
+  }
+
+  .productChip {
+    font-size: 9.5px;
+  }
+
+  .solutionCount {
+    font-size: 8px;
+  }
+
+  .solutionName {
+    font-size: 13px;
+  }
+
+  .appName {
+    font-size: 11.5px;
+  }
+
+  .appFeatures {
+    font-size: 9px;
   }
 
   .indexMark {
@@ -659,7 +772,4 @@
     font-size: 24px;
   }
 
-  .tasks li {
-    font-size: 12.5px;
-  }
 }

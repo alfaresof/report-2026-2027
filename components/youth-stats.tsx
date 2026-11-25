@@ -4,18 +4,14 @@ import { useId, useState } from "react";
 import styles from "./youth-stats.module.css";
 
 import type { YouthPerson } from "@/lib/youth";
+import {
+  formatAppCount,
+  formatFeatureCount,
+  formatYouthNumber,
+  youthTotals,
+} from "@/lib/youth-format";
 
 export type { YouthPerson };
-
-const numberFormatter = new Intl.NumberFormat("ar-EG");
-
-function formatNumber(value: number | null): string {
-  if (value === null || !Number.isFinite(value)) {
-    return "—";
-  }
-
-  return numberFormatter.format(value);
-}
 
 function CheckIcon() {
   return (
@@ -54,11 +50,9 @@ export function YouthStats({ people }: { people: YouthPerson[] }) {
     people.findIndex((person) => person.id === selected.id),
     0,
   );
-  const visibleTasks = selected.tasks
-    .filter((task) => task.trim().length > 0)
-    .slice(0, 15);
+  const totals = youthTotals(selected);
 
-  const stats: { label: string; value: number | null; hint: string }[] = [
+  const stats: { label: string; value: number; hint: string }[] = [
     {
       label: "عدد الأسطر البرمجية المكتوبة",
       value: selected.lines,
@@ -66,13 +60,18 @@ export function YouthStats({ people }: { people: YouthPerson[] }) {
     },
     {
       label: "عدد الميزات المنفذة",
-      value: selected.features,
-      hint: "محطات تطويرية مكتملة من ملف تقدم المشاريع",
+      value: totals.features,
+      hint: "ميزات داخل التطبيقات",
     },
     {
       label: "عدد المنتجات التي عمل عليها",
-      value: selected.productsCount,
-      hint: "حسب تقسيم العمل",
+      value: totals.products,
+      hint: "الحلول التي عمل عليها",
+    },
+    {
+      label: "عدد التطبيقات",
+      value: totals.apps,
+      hint: "التطبيقات الخارجة من الحلول",
     },
   ];
 
@@ -93,7 +92,7 @@ export function YouthStats({ people }: { people: YouthPerson[] }) {
           </h2>
         </div>
         <p className={styles.hint}>
-          اختر عضوًا لعرض إحصائيته وملخص مهامه.
+          اختر عضوًا لعرض إحصائيته وتطبيقاته وميزاتها.
         </p>
       </header>
 
@@ -136,17 +135,32 @@ export function YouthStats({ people }: { people: YouthPerson[] }) {
           <header className={styles.panelHead}>
             <div className={styles.identity}>
               <h3 className={styles.personTitle}>{selected.name}</h3>
-              <p className={styles.products}>
-                <span className={styles.productsLabel}>المنتجات:</span>{" "}
-                {selected.products.join("، ")}
-              </p>
+              <div className={styles.products}>
+                <span className={styles.productsLabel}>المنتجات:</span>
+                <span className={styles.productChips}>
+                  {selected.solutions.map((solution) => (
+                    <span className={styles.productChip} key={solution.id}>
+                      <span className={styles.productLogo}>
+                        <img
+                          src={solution.logo}
+                          alt=""
+                          width={40}
+                          height={28}
+                          loading="lazy"
+                        />
+                      </span>
+                      <span>{solution.name}</span>
+                    </span>
+                  ))}
+                </span>
+              </div>
             </div>
             <div className={styles.indexMark} aria-hidden="true">
               <span className={styles.indexNumber}>
-                {formatNumber(selectedIndex + 1)}
+                {formatYouthNumber(selectedIndex + 1)}
               </span>
               <span className={styles.indexTotal}>
-                من {formatNumber(people.length)}
+                من {formatYouthNumber(people.length)}
               </span>
             </div>
           </header>
@@ -167,14 +181,8 @@ export function YouthStats({ people }: { people: YouthPerson[] }) {
                   <dt className={styles.statLabel} title={stat.hint}>
                     {stat.label}
                   </dt>
-                  <dd
-                    className={styles.statValue}
-                    data-empty={stat.value === null ? "true" : undefined}
-                    aria-label={
-                      stat.value === null ? "غير متوفر" : undefined
-                    }
-                  >
-                    {formatNumber(stat.value)}
+                  <dd className={styles.statValue}>
+                    {formatYouthNumber(stat.value)}
                   </dd>
                 </div>
               ))}
@@ -191,15 +199,48 @@ export function YouthStats({ people }: { people: YouthPerson[] }) {
               ملخص المهام
             </h4>
 
-            {visibleTasks.length > 0 ? (
-              <ul className={styles.tasks}>
-                {visibleTasks.map((task, index) => (
-                  <li key={`${selected.id}-${index}`}>{task}</li>
-                ))}
-              </ul>
-            ) : (
-              <p className={styles.empty}>—</p>
-            )}
+            <div className={styles.solutions}>
+              {selected.solutions.map((solution) => (
+                <div className={styles.solution} key={solution.id}>
+                  <div
+                    className={styles.solutionHead}
+                    title={solution.note}
+                  >
+                    <span className={styles.solutionLogo}>
+                      <img
+                        src={solution.logo}
+                        alt=""
+                        width={44}
+                        height={32}
+                        loading="lazy"
+                      />
+                    </span>
+                    <h5 className={styles.solutionName}>{solution.name}</h5>
+                    <span className={styles.solutionCount}>
+                      {formatAppCount(solution.apps.length)}
+                    </span>
+                  </div>
+
+                  <ul className={styles.apps}>
+                    {solution.apps.map((app) => (
+                      <li
+                        key={`${solution.id}-${app.name}`}
+                        title={
+                          app.featureNames?.length
+                            ? app.featureNames.join("، ")
+                            : undefined
+                        }
+                      >
+                        <span className={styles.appName}>{app.name}</span>
+                        <span className={styles.appFeatures}>
+                          {formatFeatureCount(app.features)}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
           </section>
         </div>
       </div>
