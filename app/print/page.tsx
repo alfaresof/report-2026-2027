@@ -9,6 +9,7 @@ import { AssociationsView } from "@/components/associations";
 import { TechAssetsPrint } from "@/components/tech-assets-print";
 import { TechStructurePrint } from "@/components/tech-structure-print";
 import { reportMeta, topics } from "@/lib/topics";
+import { assetPath } from "@/lib/base-path";
 import { toArabicDigits } from "@/lib/format";
 
 export const metadata: Metadata = {
@@ -50,7 +51,7 @@ export default function PrintPage() {
             <div className="print-cover-top">
               <span className="print-brand">
                 <img
-                  src="/logos/riyadh-bw.svg"
+                  src={assetPath("/logos/riyadh-bw.svg")}
                   alt="الريادة الاجتماعية"
                   className="print-brand-logo"
                   width={215}

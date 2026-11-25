@@ -135,24 +135,170 @@ export const serviceGroups: TechServiceGroup[] = [
   },
 ];
 
-export const cloudSpaces = [
+export type CloudProvider = {
+  id: "google" | "microsoft";
+  name: string;
+  label: string;
+  logo: string;
+  monthly: number;
+  details: string[];
+};
+
+export const cloudSpacesCurrent: CloudProvider[] = [
   {
     id: "microsoft",
-    name: "مساحة Microsoft 365",
+    name: "مساحة Microsoft",
     label: "Microsoft 365",
-    detail: "البريد، Teams، ومساحة OneDrive.",
     logo: logo("microsoft.svg"),
-    current: 1000,
-    target: 1000,
+    monthly: 1000,
+    details: [
+      "٣٦ بريدًا إلكترونيًا.",
+      "١ تيرا مشتركة — ممتلئة.",
+      "Teams وOutlook وOffice.",
+    ],
   },
   {
     id: "google",
-    name: "مساحة Google Workspace",
+    name: "مساحة Google",
     label: "Google Workspace",
-    detail: "Gmail، Drive، وMeet.",
     logo: logo("google.svg"),
-    current: 2000,
-    target: 1000,
+    monthly: 2000,
+    details: [
+      "المساحة غير معروفة.",
+      "+١ تيرا لكل مستخدم.",
+      "Meet وGmail وGoogle Apps.",
+      "اشتراك Gemini مشمول.",
+    ],
+  },
+];
+
+export const cloudSpacesCurrentMonthlyTotal = 3000;
+export const cloudSpacesCurrentAnnualTotal = 36000;
+
+export const cloudSpacesTargetMonthly = 1000;
+export const cloudSpacesTargetAnnual = 12000;
+export const cloudSpacesMonthlySaving =
+  cloudSpacesCurrentMonthlyTotal - cloudSpacesTargetMonthly;
+export const cloudSpacesAnnualSaving =
+  cloudSpacesCurrentAnnualTotal - cloudSpacesTargetAnnual;
+
+export type MergeOption = {
+  id: "microsoft" | "google";
+  name: string;
+  title: string;
+  monthly: number;
+  annual: number;
+  logo: string;
+  tagline: string;
+  pros: string[];
+  cons: string[];
+  bestFor: string;
+};
+
+export const mergeOptions: MergeOption[] = [
+  {
+    id: "microsoft",
+    name: "Microsoft",
+    title: "الدمج على Microsoft",
+    monthly: cloudSpacesTargetMonthly,
+    annual: cloudSpacesTargetAnnual,
+    logo: logo("microsoft.svg"),
+    tagline: "نبقى على Office والبريد الحالي، ونلغي Google.",
+    pros: [
+      "بقاء الوضع والبرامج الحالية.",
+      "Office مشمول ضمن الاشتراك.",
+    ],
+    cons: [
+      "مساحة محدودة: ١ تيرا، وكل تيرا إضافية ٢٠٠ ر.س.",
+      "خدمات أخرى ضعيفة وغير مستخدمة.",
+      "قد نضطر لشراء Office فردي لبعض الموظفين.",
+      "قد نحتاج لإبقاء Google لبعض الموظفين.",
+    ],
+    bestFor: "إذا كان Office أساسيًا لمعظم الفريق.",
+  },
+  {
+    id: "google",
+    name: "Google",
+    title: "الدمج على Google",
+    monthly: cloudSpacesTargetMonthly,
+    annual: cloudSpacesTargetAnnual,
+    logo: logo("google.svg"),
+    tagline: "مساحة أكبر وGemini مشمول، مع شراء Office لمن يحتاجه.",
+    pros: [
+      "١ تيرا لكل موظف — نحو ٣٦ تيرا.",
+      "تطبيقات قابلة للاستخدام.",
+      "بريد أرخص للحسابات غير المهمة.",
+      "Gemini مشمول.",
+    ],
+    cons: [
+      "لا يشمل Office.",
+      "شراء Office لمن يحتاجه يرفع التكلفة.",
+    ],
+    bestFor: "إذا كانت المساحة والتكلفة أولوية، وOffice مقتصر على عدد محدود.",
+  },
+];
+
+export type CloudComparisonRow = {
+  id: string;
+  label: string;
+  microsoft: string;
+  google: string;
+  microsoftTone?: "positive" | "negative";
+  googleTone?: "positive" | "negative";
+};
+
+export const cloudComparison: CloudComparisonRow[] = [
+  {
+    id: "monthly",
+    label: "التكلفة الشهرية",
+    microsoft: "١٬٠٠٠ ر.س",
+    google: "١٬٠٠٠ ر.س",
+  },
+  {
+    id: "annual",
+    label: "التكلفة السنوية",
+    microsoft: "١٢٬٠٠٠ ر.س",
+    google: "١٢٬٠٠٠ ر.س",
+  },
+  {
+    id: "space",
+    label: "المساحة",
+    microsoft: "١ تيرا مشتركة، وكل تيرا إضافية ٢٠٠ ر.س",
+    google: "١ تيرا لكل موظف (~٣٦ تيرا)",
+  },
+  {
+    id: "office",
+    label: "Office",
+    microsoft: "مشمول",
+    google: "غير مشمول — يُشترى لمن يحتاجه",
+    microsoftTone: "positive",
+    googleTone: "negative",
+  },
+  {
+    id: "gemini",
+    label: "Gemini",
+    microsoft: "غير مشمول",
+    google: "مشمول",
+    microsoftTone: "negative",
+    googleTone: "positive",
+  },
+  {
+    id: "mail",
+    label: "البريد",
+    microsoft: "٣٦ حسابًا",
+    google: "٣٦ حسابًا",
+  },
+  {
+    id: "closeness",
+    label: "الأقرب للوضع الحالي",
+    microsoft: "نعم",
+    google: "لا",
+  },
+  {
+    id: "best",
+    label: "الأفضلية",
+    microsoft: "إذا كان Office أساسيًا",
+    google: "إذا كانت المساحة والتكلفة أولوية",
   },
 ];
 
@@ -248,17 +394,11 @@ export const serviceAnnualTotal = serviceGroups
     0,
   );
 
-export const cloudSpacesCurrentTotal = cloudSpaces.reduce(
-  (total, space) => total + space.current,
-  0,
-);
+export const techAssetsCurrentAnnual =
+  serviceAnnualTotal + cloudSpacesCurrentAnnualTotal;
 
-export const cloudSpacesTargetTotal = cloudSpaces.reduce(
-  (total, space) => total + space.target,
-  0,
-);
-
-export const techAssetsTotal = serviceAnnualTotal + cloudSpacesTargetTotal;
+export const techAssetsTargetAnnual =
+  serviceAnnualTotal + cloudSpacesTargetAnnual;
 
 export const aiAnnualDefault = aiProjects.reduce(
   (total, project) =>

@@ -2,12 +2,19 @@ import { formatSar, formatUsd } from "@/lib/format";
 import {
   aiProjects,
   aiRates,
-  cloudSpaces,
-  cloudSpacesCurrentTotal,
-  cloudSpacesTargetTotal,
+  cloudComparison,
+  cloudSpacesAnnualSaving,
+  cloudSpacesCurrent,
+  cloudSpacesCurrentAnnualTotal,
+  cloudSpacesCurrentMonthlyTotal,
+  cloudSpacesMonthlySaving,
+  cloudSpacesTargetAnnual,
+  cloudSpacesTargetMonthly,
+  mergeOptions,
   serviceAnnualTotal,
   serviceGroups,
-  techAssetsTotal,
+  techAssetsCurrentAnnual,
+  techAssetsTargetAnnual,
 } from "@/lib/tech-assets";
 
 function annualOf(service: { monthly?: number; annual?: number }): number {
@@ -34,14 +41,19 @@ export function TechAssetsPrint() {
           <span>ر.س / سنة</span>
         </div>
         <div>
-          <span>المساحات السحابية</span>
-          <strong>{formatSar(cloudSpacesTargetTotal)}</strong>
+          <span>المساحات الحالية</span>
+          <strong>{formatSar(cloudSpacesCurrentMonthlyTotal)}</strong>
+          <span>ر.س / شهر · {formatSar(cloudSpacesCurrentAnnualTotal)} سنويًا</span>
+        </div>
+        <div>
+          <span>الإجمالي الحالي</span>
+          <strong>{formatSar(techAssetsCurrentAnnual)}</strong>
           <span>ر.س / سنة</span>
         </div>
         <div>
-          <span>إجمالي العهد التقنية</span>
-          <strong>{formatSar(techAssetsTotal)}</strong>
-          <span>ر.س / سنة</span>
+          <span>الهدف بعد الدمج</span>
+          <strong>{formatSar(techAssetsTargetAnnual)}</strong>
+          <span>ر.س / سنة · وفر {formatSar(cloudSpacesAnnualSaving)}</span>
         </div>
       </section>
 
@@ -82,36 +94,95 @@ export function TechAssetsPrint() {
       </section>
 
       <section className="tech-assets-print-section">
-        <h3>المساحات السحابية</h3>
+        <h3>المساحات السحابية — الوضع الحالي</h3>
         <table className="tech-assets-print-table">
           <thead>
             <tr>
-              <th>المساحة</th>
-              <th>الوضع الحالي</th>
-              <th>تقدير ٢٠٢٧</th>
+              <th>المزوّد</th>
+              <th>شهريًا</th>
+              <th>سنويًا</th>
             </tr>
           </thead>
           <tbody>
-            {cloudSpaces.map((space) => (
+            {cloudSpacesCurrent.map((space) => (
               <tr key={space.id}>
                 <td>{space.name}</td>
-                <td>{formatSar(space.current)} ر.س</td>
-                <td>{formatSar(space.target)} ر.س</td>
+                <td>{formatSar(space.monthly)} ر.س</td>
+                <td>{formatSar(space.monthly * 12)} ر.س</td>
               </tr>
             ))}
           </tbody>
           <tfoot>
             <tr>
               <td>الإجمالي</td>
-              <td>{formatSar(cloudSpacesCurrentTotal)} ر.س</td>
-              <td>{formatSar(cloudSpacesTargetTotal)} ر.س</td>
+              <td>{formatSar(cloudSpacesCurrentMonthlyTotal)} ر.س</td>
+              <td>{formatSar(cloudSpacesCurrentAnnualTotal)} ر.س</td>
             </tr>
           </tfoot>
         </table>
         <p className="tech-assets-print-note">
-          التقدير على بقاء الوضع الحالي، مع نقل مساحة Google إلى باقة ١٬٠٠٠
-          ريال. إذا بقيت على وضعها الحالي (٢٬٠٠٠ ريال) يصبح إجمالي المساحات
-          ٣٬٠٠٠ ريال.
+          الوضع الحالي: مزوّدان في الوقت نفسه. الهدف دمج المساحات والبريد في
+          مزوّد واحد، بتكلفة تقديرية {formatSar(cloudSpacesTargetMonthly)} ر.س
+          شهريًا ({formatSar(cloudSpacesTargetAnnual)} ر.س سنويًا)، أي توفير{" "}
+          {formatSar(cloudSpacesMonthlySaving)} ر.س شهريًا و
+          {formatSar(cloudSpacesAnnualSaving)} ر.س سنويًا.
+        </p>
+      </section>
+
+      <section className="tech-assets-print-section">
+        <h3>خيارات الدمج</h3>
+        <table className="tech-assets-print-table">
+          <thead>
+            <tr>
+              <th>الخيار</th>
+              <th>شهريًا</th>
+              <th>سنويًا</th>
+              <th>المزايا</th>
+              <th>العيوب</th>
+            </tr>
+          </thead>
+          <tbody>
+            {mergeOptions.map((option) => (
+              <tr key={option.id}>
+                <td>{option.title}</td>
+                <td>{formatSar(option.monthly)} ر.س</td>
+                <td>{formatSar(option.annual)} ر.س</td>
+                <td>{option.pros.join(" · ")}</td>
+                <td>{option.cons.join(" · ")}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        <p className="tech-assets-print-note">
+          الخياران بتكلفة تقديرية واحدة. الفرق في المساحة وOffice وGemini،
+          والقرار يعتمد على عدد الموظفين الذين يحتاجون Office فعليًا.
+        </p>
+      </section>
+
+      <section className="tech-assets-print-section">
+        <h3>مقارنة الخيارين</h3>
+        <table className="tech-assets-print-table">
+          <thead>
+            <tr>
+              <th>المعيار</th>
+              <th>Microsoft</th>
+              <th>Google</th>
+            </tr>
+          </thead>
+          <tbody>
+            {cloudComparison.map((row) => (
+              <tr key={row.id}>
+                <td>{row.label}</td>
+                <td>{row.microsoft}</td>
+                <td>{row.google}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        <p className="tech-assets-print-note">
+          الدمج على Google أوسع (١ تيرا لكل موظف) وGemini مشمول، لكنه لا يشمل
+          Office. الدمج على Microsoft يحافظ على Office والوضع الحالي، لكن
+          المساحة المشتركة محدودة (١ تيرا) وكل تيرا إضافية ٢٠٠ ر.س.
         </p>
       </section>
 

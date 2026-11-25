@@ -7,12 +7,19 @@ import {
   aiProjects,
   aiRates,
   aiTools,
-  cloudSpaces,
-  cloudSpacesCurrentTotal,
-  cloudSpacesTargetTotal,
+  cloudComparison,
+  cloudSpacesAnnualSaving,
+  cloudSpacesCurrent,
+  cloudSpacesCurrentAnnualTotal,
+  cloudSpacesCurrentMonthlyTotal,
+  cloudSpacesMonthlySaving,
+  cloudSpacesTargetAnnual,
+  cloudSpacesTargetMonthly,
+  mergeOptions,
   serviceAnnualTotal,
   serviceGroups,
-  techAssetsTotal,
+  techAssetsCurrentAnnual,
+  techAssetsTargetAnnual,
 } from "@/lib/tech-assets";
 
 type SeatState = Record<string, { full: number; part: number }>;
@@ -182,8 +189,8 @@ export function TechAssets() {
             </h2>
           </div>
           <p className={styles.summaryNote}>
-            مبنية على فواتير ٢٠٢٦، بعد استبعاد الذكاء الاصطناعي والبنود غير
-            المتكررة.
+            الاشتراكات سنوية، والمساحات شهرية. الهدف دمج مزوّدي المساحات في
+            مزوّد واحد.
           </p>
         </div>
 
@@ -199,27 +206,38 @@ export function TechAssets() {
           </div>
 
           <div className={styles.summaryStat}>
-            <span className={styles.statLabel}>المساحات السحابية</span>
+            <span className={styles.statLabel}>المساحات الحالية</span>
             <strong className={styles.statValue}>
-              {formatSar(cloudSpacesTargetTotal)}
+              {formatSar(cloudSpacesCurrentMonthlyTotal)}
             </strong>
             <span className={styles.statUnit}>
-              ريال / سنة · بعد نقل قوقل
+              ريال / شهر · {formatSar(cloudSpacesCurrentAnnualTotal)} سنويًا
             </span>
           </div>
 
           <div className={styles.summaryStat}>
-            <span className={styles.statLabel}>الإجمالي مع المساحات</span>
-            <strong className={`${styles.statValue} ${styles.statValueGold}`}>
-              {formatSar(techAssetsTotal)}
+            <span className={styles.statLabel}>الإجمالي الحالي</span>
+            <strong className={styles.statValue}>
+              {formatSar(techAssetsCurrentAnnual)}
             </strong>
             <span className={styles.statUnit}>ريال / سنة · بدون الذكاء الاصطناعي</span>
+          </div>
+
+          <div className={styles.summaryStat}>
+            <span className={styles.statLabel}>الهدف بعد الدمج</span>
+            <strong className={`${styles.statValue} ${styles.statValueGold}`}>
+              {formatSar(techAssetsTargetAnnual)}
+            </strong>
+            <span className={styles.statUnit}>
+              ريال / سنة · وفر {formatSar(cloudSpacesAnnualSaving)} سنويًا
+            </span>
           </div>
         </div>
 
         <div className={styles.summaryFoot}>
           <span>
-            المتوسط الشهري للاشتراكات ≈ {formatSar(monthlyAverage)} ر.س
+            المتوسط الشهري للاشتراكات ≈ {formatSar(monthlyAverage)} ر.س · وفر
+            المساحات {formatSar(cloudSpacesMonthlySaving)} ر.س شهريًا
           </span>
           <a href="#ai-forecast" className={styles.summaryLink}>
             حاسبة الذكاء الاصطناعي
@@ -367,106 +385,226 @@ export function TechAssets() {
       >
         <div className={styles.blockHead}>
           <div>
-            <p className={styles.blockKicker}>بنود منفصلة</p>
+            <p className={styles.blockKicker}>المساحات · هدف الدمج</p>
             <h2 className={styles.blockTitle} id="tech-spaces-title">
-              المساحات السحابية.
+              مزوّدان الآن، ومزوّد واحد بعد الدمج.
             </h2>
           </div>
           <p className={styles.blockNote}>
-            محسوبة لوحدها، ولا تدخل في جدول الاشتراكات أعلاه.
+            الوضع الحالي ٣٬٠٠٠ ر.س شهريًا. الهدف دمج المساحات والبريد في مزوّد
+            واحد بخيارين: Microsoft أو Google.
           </p>
         </div>
 
-        <div className={styles.spacesGrid}>
-          {cloudSpaces.map((space) => {
-            const isGoogle = space.id === "google";
-            return (
-              <article
-                className={`${styles.spaceCard} ${
-                  isGoogle ? styles.spaceCardGold : ""
-                }`}
-                key={space.id}
-              >
-                <header className={styles.spaceHead}>
-                  <span className={styles.spaceLogo}>
+        <div className={styles.spaceSummary}>
+          <article className={styles.spaceCurrent}>
+            <header className={styles.spaceSummaryHead}>
+              <div>
+                <span className={styles.spaceSummaryKicker}>الوضع الحالي</span>
+                <h3 className={styles.spaceSummaryTitle}>
+                  ندفع لمزوّدين في الوقت نفسه.
+                </h3>
+              </div>
+              <span className={styles.spaceStatusTag}>قبل الدمج</span>
+            </header>
+
+            <div className={styles.spaceBigNumber}>
+              <strong>{formatSar(cloudSpacesCurrentMonthlyTotal)}</strong>
+              <span>ر.س / شهر</span>
+              <small>{formatSar(cloudSpacesCurrentAnnualTotal)} ر.س سنويًا</small>
+            </div>
+
+            <div className={styles.currentProviders}>
+              {cloudSpacesCurrent.map((space) => (
+                <div className={styles.currentProvider} key={space.id}>
+                  <span className={styles.currentProviderLogo}>
                     <img src={space.logo} alt="" />
                   </span>
                   <div>
-                    <h3 className={styles.spaceName}>{space.name}</h3>
-                    <p className={styles.spaceLabel}>{space.label}</p>
+                    <strong>{space.name}</strong>
+                    <span>{formatSar(space.monthly)} ر.س / شهر</span>
                   </div>
-                  <span className={styles.spaceTag}>
-                    {isGoogle ? "موصى به" : "مستمر"}
-                  </span>
-                </header>
-
-                <p className={styles.spaceDetail}>{space.detail}</p>
-
-                <div className={styles.spacePrice}>
-                  <span className={styles.spaceCurrentLabel}>
-                    {isGoogle ? "بعد نقل الباقة" : "التقدير السنوي"}
-                  </span>
-                  <div className={styles.spaceAmount}>
-                    <strong>{formatSar(space.target)}</strong>
-                    <span>ر.س / سنة</span>
-                  </div>
-                  {isGoogle ? (
-                    <span className={styles.spaceOld}>
-                      الوضع الحالي: <s>{formatSar(space.current)}</s> ر.س
-                    </span>
-                  ) : null}
                 </div>
-              </article>
-            );
-          })}
+              ))}
+            </div>
+
+            <div className={styles.providerDetails}>
+              {cloudSpacesCurrent.map((space) => (
+                <div className={styles.providerDetail} key={space.id}>
+                  <span className={styles.providerDetailName}>
+                    <img src={space.logo} alt="" />
+                    {space.label}
+                  </span>
+                  <ul>
+                    {space.details.map((detail) => (
+                      <li key={detail}>{detail}</li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          </article>
+
+          <article className={styles.spaceTarget}>
+            <header className={styles.spaceSummaryHead}>
+              <div>
+                <span className={styles.spaceSummaryKicker}>الهدف بعد الدمج · تقديري</span>
+                <h3 className={styles.spaceSummaryTitle}>
+                  مزوّد واحد للبريد والمساحة.
+                </h3>
+              </div>
+              <span className={`${styles.spaceStatusTag} ${styles.spaceStatusGold}`}>
+                هدف ٢٠٢٧
+              </span>
+            </header>
+
+            <div className={styles.spaceBigNumber}>
+              <strong>{formatSar(cloudSpacesTargetMonthly)}</strong>
+              <span>ر.س / شهر</span>
+              <small>{formatSar(cloudSpacesTargetAnnual)} ر.س سنويًا</small>
+            </div>
+
+            <p className={styles.spaceTargetText}>
+              إلغاء الاشتراك الثاني، والانتقال إلى مزوّد واحد بحسب الخيار
+              المعتمد.
+            </p>
+
+            <div className={styles.targetOptions}>
+              {mergeOptions.map((option) => (
+                <span className={styles.targetOption} key={option.id}>
+                  <img src={option.logo} alt="" />
+                  {option.name} · {formatSar(option.monthly)} ر.س
+                </span>
+              ))}
+            </div>
+
+            <div className={styles.savingChip}>
+              <span>التوفير المتوقع</span>
+              <strong>{formatSar(cloudSpacesMonthlySaving)} ر.س / شهر</strong>
+              <span>{formatSar(cloudSpacesAnnualSaving)} ر.س / سنة</span>
+            </div>
+          </article>
         </div>
 
-        <div className={styles.spaceCompare}>
-          <div className={styles.compareItem}>
-            <span className={styles.compareLabel}>الوضع الحالي</span>
-            <strong className={styles.compareValue}>
-              {formatSar(cloudSpacesCurrentTotal)}
-            </strong>
-            <span className={styles.compareUnit}>ر.س / سنة</span>
-            <span className={styles.compareBreak}>
-              Google ٢٬٠٠٠ + Microsoft ١٬٠٠٠
-            </span>
+        <div className={styles.mergeGrid}>
+          {mergeOptions.map((option) => (
+            <article className={styles.mergeCard} key={option.id}>
+              <header className={styles.mergeHead}>
+                <span className={styles.mergeLogo}>
+                  <img src={option.logo} alt="" />
+                </span>
+                <div className={styles.mergeIdentity}>
+                  <span className={styles.mergeBadge}>
+                    {option.id === "microsoft"
+                      ? "الأقرب للوضع الحالي"
+                      : "الأوسع مساحة"}
+                  </span>
+                  <h3>{option.title}</h3>
+                  <p>{option.tagline}</p>
+                </div>
+                <div className={styles.mergePrice}>
+                  <strong>{formatSar(option.monthly)}</strong>
+                  <span>ر.س / شهر</span>
+                </div>
+              </header>
+
+              <div className={styles.prosCons}>
+                <div className={styles.pros}>
+                  <h4>المزايا</h4>
+                  <ul>
+                    {option.pros.map((pro) => (
+                      <li key={pro}>{pro}</li>
+                    ))}
+                  </ul>
+                </div>
+                <div className={styles.cons}>
+                  <h4>العيوب</h4>
+                  <ul>
+                    {option.cons.map((con) => (
+                      <li key={con}>{con}</li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+
+              <p className={styles.bestFor}>
+                <strong>الأفضل إذا:</strong> {option.bestFor}
+              </p>
+            </article>
+          ))}
+        </div>
+
+        <div className={styles.compareBlock}>
+          <div className={styles.compareHead}>
+            <h3>مقارنة الخيارين</h3>
+            <span>نفس التكلفة، والفرق في المساحة وOffice وGemini.</span>
           </div>
 
-          <span className={styles.compareArrow} aria-hidden="true">
-            ←
-          </span>
-
-          <div className={`${styles.compareItem} ${styles.compareItemTarget}`}>
-            <span className={styles.compareLabel}>بعد نقل قوقل · المعتمد</span>
-            <strong className={styles.compareValue}>
-              {formatSar(cloudSpacesTargetTotal)}
-            </strong>
-            <span className={styles.compareUnit}>ر.س / سنة</span>
-            <span className={styles.compareBreak}>
-              Google ١٬٠٠٠ + Microsoft ١٬٠٠٠
-            </span>
-          </div>
-
-          <div className={styles.compareSaving}>
-            <span>الفرق</span>
-            <strong>
-              − {formatSar(cloudSpacesCurrentTotal - cloudSpacesTargetTotal)}
-            </strong>
-            <span>ر.س / سنة</span>
+          <div className={styles.compareTableWrap}>
+            <table className={styles.compareTable}>
+              <thead>
+                <tr>
+                  <th scope="col">المعيار</th>
+                  <th scope="col">
+                    <span className={styles.compareLogo}>
+                      <img src={mergeOptions[0].logo} alt="" />
+                    </span>
+                    Microsoft
+                  </th>
+                  <th scope="col">
+                    <span className={styles.compareLogo}>
+                      <img src={mergeOptions[1].logo} alt="" />
+                    </span>
+                    Google
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {cloudComparison.map((row) => (
+                  <tr key={row.id}>
+                    <th scope="row">{row.label}</th>
+                    <td
+                      className={
+                        row.microsoftTone === "positive"
+                          ? styles.positive
+                          : row.microsoftTone === "negative"
+                            ? styles.negative
+                            : undefined
+                      }
+                    >
+                      {row.microsoft}
+                    </td>
+                    <td
+                      className={
+                        row.googleTone === "positive"
+                          ? styles.positive
+                          : row.googleTone === "negative"
+                            ? styles.negative
+                            : undefined
+                      }
+                    >
+                      {row.google}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         </div>
 
         <div className={styles.recommendation}>
-          <span className={styles.recommendationBadge}>التوصية</span>
+          <span className={styles.recommendationBadge}>الخلاصة</span>
           <div>
             <h3 className={styles.recommendationTitle}>
-              التقدير على بقاء الوضع الحالي، والمعتمد بعد نقل قوقل ٢٬٠٠٠ ريال.
+              الدمج على Google أوسع، والدمج على Microsoft أقرب للوضع الحالي.
             </h3>
             <p className={styles.recommendationText}>
-              إذا بقيت مساحة Google على وضعها الحالي (٢٬٠٠٠ ريال) يصبح إجمالي
-              المساحات ٣٬٠٠٠ ريال. وبعد نقلها إلى باقة ١٬٠٠٠ ريال ينخفض الإجمالي
-              إلى ٢٬٠٠٠ ريال — وهو الرقم المعتمد في توقع ٢٠٢٧.
+              الخياران بتكلفة ١٬٠٠٠ ر.س شهريًا. Google يمنح ١ تيرا لكل موظف
+              وGemini، لكنه لا يشمل Office. Microsoft يحافظ على Office والوضع
+              الحالي، لكن المساحة محدودة (١ تيرا) وكل تيرا إضافية ٢٠٠ ر.س.
+              القرار يعتمد على عدد الموظفين الذين يحتاجون Office فعليًا: إذا
+              كان Office أساسيًا لمعظم الفريق فـMicrosoft هو الخيار العملي،
+              وإذا كان مقتصرًا على عدد محدود فـGoogle يوفّر مساحة أكبر.
             </p>
           </div>
         </div>
@@ -683,10 +821,11 @@ export function TechAssets() {
         <div>
           <h3 className={styles.sourceTitle}>كيف بُنيت الأرقام؟</h3>
           <p className={styles.sourceText}>
-            المصدر: تسويات العهدة (أبريل–أكتوبر ٢٠٢٦) وطلبات الصرف
-            (مايو–نوفمبر ٢٠٢٦). استُخدمت آخر دورة سعرية متاحة لكل خدمة،
-            واستُبعدت اشتراكات الذكاء الاصطناعي والتحويلات والبنود المكررة.
-            الذكاء الاصطناعي يُحسب في القسم أعلاه بحسب المشاريع.
+            المصدر: تسويات العهدة (أبريل–أكتوبر ٢٠٢٦)، وطلبات الصرف
+            (مايو–نوفمبر ٢٠٢٦)، وصورة المساحات الحالية والمستهدفة. استُخدمت
+            آخر دورة سعرية متاحة لكل خدمة، واستُبعدت اشتراكات الذكاء الاصطناعي
+            والتحويلات والبنود المكررة. الذكاء الاصطناعي يُحسب في القسم أعلاه
+            بحسب المشاريع.
           </p>
         </div>
       </section>

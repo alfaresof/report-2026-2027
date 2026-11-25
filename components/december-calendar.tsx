@@ -65,7 +65,6 @@ export function DecemberCalendar({ weeks }: { weeks: DecemberWeek[] }) {
                   isSelected ? " is-selected" : ""
                 }`}
                 aria-pressed={isSelected}
-                aria-label={`${week.label}: ${week.dates} — ${week.tag}`}
                 onClick={() => setSelectedId(week.id)}
               >
                 <span className="cal-week-meta">

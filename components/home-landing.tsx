@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { ArrowLeftIcon } from "@/components/icons";
 import { reportMeta, topics } from "@/lib/topics";
+import { assetPath } from "@/lib/base-path";
 import { toArabicDigits } from "@/lib/format";
 
 export function HomeLanding() {
@@ -47,7 +48,7 @@ export function HomeLanding() {
               rel="noreferrer"
             >
               <img
-                src="/logos/riyadh.svg"
+                src={assetPath("/logos/riyadh.svg")}
                 alt="الريادة الاجتماعية"
                 className="hero-logo"
                 width={215}
@@ -101,7 +102,7 @@ export function HomeLanding() {
 
                 <div className="cover-brand">
                   <img
-                    src="/logos/riyadh-bw.svg"
+                    src={assetPath("/logos/riyadh-bw.svg")}
                     alt=""
                     width={215}
                     height={96}

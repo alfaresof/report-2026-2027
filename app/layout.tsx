@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { IBM_Plex_Sans_Arabic } from "next/font/google";
+import { PasswordGate } from "@/components/password-gate";
 import "./globals.css";
 
 const body = IBM_Plex_Sans_Arabic({
@@ -15,7 +16,7 @@ export const metadata: Metadata = {
     template: "%s · تقرير ٢٠٢٦–٢٠٢٧",
   },
   description:
-    "محاور لمراجعة ٢٠٢٦ والتخطيط لـ ٢٠٢٧: الشباب، خطة ٢٠٢٧ والعقود، هيكلة القسم التقني، الذكاء الاصطناعي، الجمعيات، والعهد التقنية، واجتماع أوقاف حسنى.",
+    "محاور لمراجعة ٢٠٢٦ والتخطيط لـ ٢٠٢٧: الشباب، خطة ٢٠٢٧ والعقود، هيكلة القسم التقني، الذكاء الاصطناعي، الجمعيات، والعهد التقنية.",
   applicationName: "تقرير ٢٠٢٦–٢٠٢٧",
   authors: [{ name: "فريق العمل" }],
   robots: {
@@ -48,10 +49,14 @@ export default function RootLayout({
       className={body.variable}
     >
       <body>
-        <a className="skip-link" href="#main">
-          تخطَّ إلى المحتوى
-        </a>
-        <main id="main">{children}</main>
+        <PasswordGate>
+          <a className="skip-link" href="#main">
+            تخطَّ إلى المحتوى
+          </a>
+          <main id="main" tabIndex={-1}>
+            {children}
+          </main>
+        </PasswordGate>
       </body>
     </html>
   );

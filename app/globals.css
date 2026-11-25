@@ -1651,7 +1651,7 @@ svg {
   --week-tone: #9c3a33;
   --week-ink: #fff6ea;
   --week-label: #f3d3a4;
-  --week-muted: rgba(255, 246, 234, 0.6);
+  --week-muted: rgba(255, 246, 234, 0.75);
   --week-line: rgba(255, 246, 234, 0.18);
 }
 
@@ -1659,7 +1659,7 @@ svg {
   --week-tone: #c47a24;
   --week-ink: #211506;
   --week-label: #3b2506;
-  --week-muted: rgba(33, 21, 6, 0.62);
+  --week-muted: rgba(33, 21, 6, 0.78);
   --week-line: rgba(33, 21, 6, 0.18);
 }
 
@@ -1667,7 +1667,7 @@ svg {
   --week-tone: var(--green);
   --week-ink: var(--cream);
   --week-label: var(--gold-2);
-  --week-muted: rgba(244, 241, 236, 0.55);
+  --week-muted: rgba(244, 241, 236, 0.72);
   --week-line: rgba(244, 241, 236, 0.15);
 }
 
@@ -1852,7 +1852,7 @@ svg {
 .cal-panel-dates {
   border-inline-start: 1px solid rgba(244, 241, 236, 0.2);
   padding-inline-start: 12px;
-  color: rgba(244, 241, 236, 0.55);
+  color: rgba(244, 241, 236, 0.72);
   font-size: 9.5px;
 }
 
@@ -2573,7 +2573,7 @@ svg {
 
 .tech-assets-print-summary {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   overflow: hidden;
   border: 1px solid rgba(141, 159, 209, 0.3);
   border-radius: 12px;

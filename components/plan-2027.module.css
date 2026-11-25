@@ -170,8 +170,8 @@
 }
 
 .actionBtnGhost:hover {
-  border-color: #b5652a;
-  color: #b5652a;
+  border-color: var(--gold-ink);
+  color: var(--gold-ink);
 }
 
 .hint {
@@ -522,8 +522,8 @@
 }
 
 .removeButton:hover {
-  border-color: #b5652a;
-  color: #b5652a;
+  border-color: var(--gold-ink);
+  color: var(--gold-ink);
 }
 
 .productsNote {

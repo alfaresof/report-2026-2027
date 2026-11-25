@@ -381,7 +381,7 @@ export default async function TopicPage({ params }: PageProps) {
                   <a href="#tech-services">الاشتراكات التقنية</a>
                 </li>
                 <li>
-                  <a href="#tech-spaces">المساحات السحابية</a>
+                  <a href="#tech-spaces">المساحات وخيارات الدمج</a>
                 </li>
                 <li>
                   <a href="#ai-forecast">الذكاء الاصطناعي</a>
