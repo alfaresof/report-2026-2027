@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { PrintButton } from "@/components/print-button";
 import { LogoMark, ArrowRightIcon } from "@/components/icons";
+import { DecemberWeekTable } from "@/components/december-week-table";
+import { YouthPrint } from "@/components/youth-print";
 import { reportMeta, topics } from "@/lib/topics";
 import { toArabicDigits } from "@/lib/format";
 
@@ -29,7 +31,7 @@ export default function PrintPage() {
           </div>
 
           <div className="toolbar-actions">
-            <Link href="/" className="btn btn-line">
+            <Link href="/topics/" className="btn btn-line">
               <ArrowRightIcon size={16} />
               العودة للفهرس
             </Link>
@@ -90,29 +92,44 @@ export default function PrintPage() {
                 <span className="print-topic-num">{topic.number}</span>
                 <p className="print-topic-cat">{topic.category}</p>
                 <h2>{topic.title}</h2>
-                <p className="print-topic-lead">{topic.lead}</p>
+                {topic.lead ? (
+                  <p className="print-topic-lead">{topic.lead}</p>
+                ) : null}
               </header>
 
-              <div className="print-sections">
-                {topic.sections.map((section, sectionIndex) => (
-                  <section className="print-section" key={section.title}>
-                    <h3>
-                      <span>{toArabicDigits(sectionIndex + 1)}</span>
-                      {section.title}
-                    </h3>
-                    <p>{section.summary}</p>
-                  </section>
-                ))}
-              </div>
+              {topic.youthPeople ? (
+                <YouthPrint people={topic.youthPeople} />
+              ) : topic.leaveCalendar ? (
+                <div className="print-calendar">
+                  <h3>ديسمبر ٢٠٢٦</h3>
+                  <DecemberWeekTable weeks={topic.leaveCalendar} />
+                </div>
+              ) : (
+                <>
+                  <div className="print-sections">
+                    {topic.sections.map((section, sectionIndex) => (
+                      <section className="print-section" key={section.title}>
+                        <h3>
+                          <span>{toArabicDigits(sectionIndex + 1)}</span>
+                          {section.title}
+                        </h3>
+                        <p>{section.summary}</p>
+                      </section>
+                    ))}
+                  </div>
 
-              <div className="print-questions">
-                <h3>أسئلة المحور</h3>
-                <ul>
-                  {topic.questions.map((question) => (
-                    <li key={question}>{question}</li>
-                  ))}
-                </ul>
-              </div>
+                  {topic.questions.length > 0 ? (
+                    <div className="print-questions">
+                      <h3>أسئلة المحور</h3>
+                      <ul>
+                        {topic.questions.map((question) => (
+                          <li key={question}>{question}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  ) : null}
+                </>
+              )}
             </section>
           ))}
 

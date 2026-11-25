@@ -1,6 +1,23 @@
+import { youthPeople, type YouthPerson } from "@/lib/youth";
+
 export type TopicSection = {
   title: string;
   summary: string;
+};
+
+export type DecemberDay = {
+  day: number;
+  month?: string;
+  weekend?: boolean;
+  outside?: boolean;
+};
+
+export type DecemberWeek = {
+  id: string;
+  label: string;
+  dates: string;
+  days: DecemberDay[];
+  assessment: string;
 };
 
 export type Topic = {
@@ -12,6 +29,9 @@ export type Topic = {
   lead: string;
   sections: TopicSection[];
   questions: string[];
+  leaveCalendar?: DecemberWeek[];
+  youthPeople?: YouthPerson[];
+  status?: "ready";
 };
 
 export const reportMeta = {
@@ -23,66 +43,115 @@ export const reportMeta = {
   topicCount: 10,
 };
 
+const earlyDecemberAssessment =
+  "الإجازة في هذا الأسبوع في منتصف العمل، إذا كانت الجمعيات أطلقت حلولها ولا توجد تعديلات فهي مناسبة، أما إذا كانت التعديلات قائمة فهي غير مناسبة";
+
+const midDecemberAssessment =
+  "الفترة الأنسب، ولكن لو وجدت أي تعديلات في المشروع وكانت فترة عمل مهمة للجمعيات فهي غير مناسبة";
+
+const lastDecemberAssessment =
+  "إذا كان العمل على إغلاق المشروع فالفترة الأنسب هي هذا الأسبوع، حيث أنه سيكون استراحة من العمل البرمجي قبل الانتقال للمشروع التالي";
+
 export const topics: Topic[] = [
   {
     slug: "december-leave",
     number: "٠١",
     title: "ترتيب إجازة ديسمبر",
-    short: "توزيع الإجازات والمناوبات وتسليم المهام قبل نهاية العام.",
+    short: "تقويم ديسمبر وتقييم الأسابيع.",
     category: "تنظيم",
-    lead: "قبل أن يتوقف العمل نهاية العام، نحتاج ترتيبًا واضحًا للإجازات والمناوبات وتسليم المهام. الهدف أن تكون إجازة ديسمبر مريحة للفريق، وآمنة للعمل.",
-    sections: [
+    lead: "",
+    status: "ready",
+    sections: [],
+    questions: [],
+    leaveCalendar: [
       {
-        title: "جدول الإجازات",
-        summary:
-          "تواريخ إجازة كل عضو، ومدتها، وآلية الاعتماد، وما إذا كانت هناك إجازات متقاطعة تحتاج إعادة ترتيب.",
+        id: "week-1",
+        label: "الأسبوع الأول",
+        dates: "١–٣ ديسمبر",
+        assessment: earlyDecemberAssessment,
+        days: [
+          { day: 29, month: "نوفمبر", outside: true },
+          { day: 30, month: "نوفمبر", outside: true },
+          { day: 1 },
+          { day: 2 },
+          { day: 3 },
+          { day: 4, weekend: true },
+          { day: 5, weekend: true },
+        ],
       },
       {
-        title: "تغطية المناوبات",
-        summary:
-          "من يبقى على رأس العمل، وما المهام التي لا تحتمل التأجيل، وكيف تُستدعى الحالات العاجلة.",
+        id: "week-2",
+        label: "الأسبوع الثاني",
+        dates: "٦–١٠ ديسمبر",
+        assessment: earlyDecemberAssessment,
+        days: [
+          { day: 6 },
+          { day: 7 },
+          { day: 8 },
+          { day: 9 },
+          { day: 10 },
+          { day: 11, weekend: true },
+          { day: 12, weekend: true },
+        ],
       },
       {
-        title: "تسليم المهام قبل الإجازة",
-        summary:
-          "قائمة ما يجب إغلاقه أو تسليمه، والملفات والصلاحيات التي تحتاج ترتيبًا مسبقًا.",
+        id: "week-3",
+        label: "الأسبوع الثالث",
+        dates: "١٣–١٧ ديسمبر",
+        assessment: midDecemberAssessment,
+        days: [
+          { day: 13 },
+          { day: 14 },
+          { day: 15 },
+          { day: 16 },
+          { day: 17 },
+          { day: 18, weekend: true },
+          { day: 19, weekend: true },
+        ],
       },
-    ],
-    questions: [
-      "من يجب أن يبقى متاحًا خلال فترة الإجازة؟",
-      "ما المهام التي لا يمكن تأجيلها إلى يناير؟",
-      "كيف نوثّق كل تسليم واستلام قبل السفر؟",
+      {
+        id: "week-4",
+        label: "الأسبوع الرابع",
+        dates: "٢٠–٢٤ ديسمبر",
+        assessment: midDecemberAssessment,
+        days: [
+          { day: 20 },
+          { day: 21 },
+          { day: 22 },
+          { day: 23 },
+          { day: 24 },
+          { day: 25, weekend: true },
+          { day: 26, weekend: true },
+        ],
+      },
+      {
+        id: "week-5",
+        label: "الأسبوع الأخير",
+        dates: "٢٧–٣١ ديسمبر",
+        assessment: lastDecemberAssessment,
+        days: [
+          { day: 27 },
+          { day: 28 },
+          { day: 29 },
+          { day: 30 },
+          { day: 31 },
+          { day: 1, month: "يناير", weekend: true, outside: true },
+          { day: 2, month: "يناير", weekend: true, outside: true },
+        ],
+      },
     ],
   },
   {
     slug: "youth-2026",
     number: "٠٢",
     title: "تصور لما أنجزه الشباب",
-    short: "مراجعة إنجازات فريق الشباب في ٢٠٢٦ وقراءة أثرها.",
+    short: "إحصاءات العمل وملخص مهام كل شاب.",
     category: "مراجعة",
-    lead: "مراجعة صادقة لما أنجزه الشباب في ٢٠٢٦: ما تحقق، وما تعطّل، وما الذي يستحق أن نكرره أو نتوقف عنه.",
-    sections: [
-      {
-        title: "أبرز الإنجازات",
-        summary:
-          "الأعمال التي اكتملت فعلًا، ومن قام بها، وما الذي تغيّر نتيجة لها.",
-      },
-      {
-        title: "الأثر والأرقام",
-        summary:
-          "المؤشرات التي تثبت الأثر: عدد المستفيدين، المشاريع، الساعات، أو أي مقياس معتمد.",
-      },
-      {
-        title: "الدروس المستفادة",
-        summary:
-          "ما نجح ولماذا، وما تعطّل ولماذا، وما الذي نحمله معنا إلى ٢٠٢٧.",
-      },
-    ],
-    questions: [
-      "ما الإنجاز الذي نفتخر به أكثر؟",
-      "ما الذي لم يكتمل، وما السبب؟",
-      "أي تجربة تستحق التوسع العام القادم؟",
-    ],
+    lead: "",
+    sections: [],
+    questions: [],
+    youthPeople,
+    status: "ready",
   },
   {
     slug: "youth-2027",

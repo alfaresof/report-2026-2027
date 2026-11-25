@@ -17,9 +17,9 @@ export function SiteFooter() {
         </div>
 
         <div className="footer-links" aria-label="روابط التذييل">
-          <Link href="/#index">فهرس المحاور</Link>
+          <Link href="/">الرئيسية</Link>
+          <Link href="/topics/">فهرس المحاور</Link>
           <Link href="/print/">نسخة PDF</Link>
-          <Link href="/#approach">طريقة القراءة</Link>
         </div>
       </div>
 

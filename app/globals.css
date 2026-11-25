@@ -657,7 +657,7 @@ svg {
    ========================================================= */
 
 .index-section {
-  padding: 88px 0 80px;
+  padding: 48px 0 80px;
 }
 
 .section-head {
@@ -683,6 +683,10 @@ svg {
 .topic-list {
   margin-top: 42px;
   border-top: 1px solid var(--ink);
+}
+
+.topic-list-page {
+  margin-top: 0;
 }
 
 .topic-row {
@@ -796,55 +800,59 @@ svg {
   margin-top: 24px;
 }
 
+.list-foot-note {
+  color: var(--ink-3);
+  font-size: 11px;
+}
+
 /* =========================================================
-   Approach
+   Home intro
    ========================================================= */
 
-.approach {
-  padding: 78px 0 84px;
-  background: var(--paper-2);
-  border-block: 1px solid var(--line-soft);
+.home-intro {
+  padding: 76px 0 82px;
 }
 
-.approach-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1px;
-  margin: 42px 0 0;
-  padding: 0;
-  list-style: none;
-  background: var(--line);
-  border: 1px solid var(--line);
-  border-radius: 18px;
-  overflow: hidden;
+.home-intro-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 14px;
+  align-self: end;
 }
 
-.approach-card {
-  padding: 30px 28px 32px;
-  background: var(--paper-raised);
-  transition: background 0.25s ease;
+/* =========================================================
+   Topics index page
+   ========================================================= */
+
+.page-hero {
+  padding: 38px 0 44px;
+  border-bottom: 1px solid var(--line);
 }
 
-.approach-card:hover {
-  background: #fffdf7;
+.page-hero h1 {
+  max-width: 20ch;
+  font-size: clamp(34px, 4.8vw, 54px);
+  line-height: 1.2;
 }
 
-.approach-num {
-  color: var(--gold-ink);
-  font-family: var(--font-head);
-  font-size: 10px;
-  letter-spacing: 0.1em;
+.page-lead {
+  max-width: 64ch;
+  margin-top: 14px;
+  color: var(--ink-2);
+  font-size: 15px;
+  font-weight: 300;
+  line-height: 1.95;
 }
 
-.approach-card h3 {
-  margin: 12px 0 8px;
-  font-size: 19px;
-}
-
-.approach-card p {
+.page-meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px 16px;
+  margin-top: 24px;
   color: var(--ink-3);
-  font-size: 12.5px;
-  line-height: 1.9;
+  font-size: 10.5px;
 }
 
 /* =========================================================
@@ -1091,6 +1099,15 @@ svg {
   border: 1px solid rgba(183, 138, 63, 0.4);
   border-radius: 999px;
   color: var(--gold-ink);
+  font-size: 9.5px;
+}
+
+.ready-inline {
+  padding: 2px 9px;
+  border: 1px solid rgba(14, 64, 53, 0.28);
+  border-radius: 999px;
+  background: rgba(14, 64, 53, 0.06);
+  color: var(--green);
   font-size: 9.5px;
 }
 
@@ -1355,6 +1372,10 @@ svg {
   color: var(--gold-ink);
 }
 
+.fact-card dd.is-ready {
+  color: var(--green);
+}
+
 .toc ol {
   display: flex;
   flex-direction: column;
@@ -1412,6 +1433,393 @@ svg {
   color: var(--ink-3);
   font-size: 14.5px;
   line-height: 1.9;
+}
+
+
+/* =========================================================
+   December leave calendar
+   ========================================================= */
+
+.calendar-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--ink);
+}
+
+.calendar-head .eyebrow {
+  margin-bottom: 6px;
+}
+
+.calendar-head h2 {
+  font-size: clamp(24px, 2.8vw, 30px);
+}
+
+.calendar-hint {
+  margin-top: 10px;
+  color: var(--ink-3);
+  font-size: 11px;
+  line-height: 1.7;
+}
+
+.december {
+  margin-top: 18px;
+}
+
+.cal-card {
+  padding: 20px;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background: var(--paper-raised);
+}
+
+.cal-weekdays {
+  display: grid;
+  grid-template-columns: 104px repeat(7, minmax(0, 1fr));
+  gap: 6px;
+  padding: 0 6px 8px;
+  border-bottom: 1px solid var(--line-soft);
+}
+
+.cal-weekdays span {
+  color: var(--ink-3);
+  font-size: 9px;
+  line-height: 1.5;
+  text-align: center;
+}
+
+.cal-weekdays .cal-weekdays-label {
+  padding-inline-start: 4px;
+  text-align: start;
+}
+
+.cal-weekdays .is-weekend {
+  color: var(--gold-ink);
+}
+
+.cal-weeks {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding-top: 6px;
+}
+
+.cal-week {
+  display: grid;
+  grid-template-columns: 104px repeat(7, minmax(0, 1fr));
+  align-items: stretch;
+  gap: 6px;
+  width: 100%;
+  padding: 6px;
+  border: 1px solid transparent;
+  border-radius: 12px;
+  background: transparent;
+  color: var(--ink);
+  font-family: var(--font-sans);
+  text-align: start;
+  cursor: pointer;
+  transition: background 0.18s ease, border-color 0.18s ease,
+    color 0.18s ease;
+}
+
+.cal-week:hover {
+  border-color: var(--line);
+  background: #fffaf0;
+}
+
+.cal-week.is-selected {
+  border-color: var(--green);
+  background: var(--green);
+  color: var(--cream);
+}
+
+.cal-week-meta {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2px;
+  padding: 4px 8px;
+  border-inline-end: 1px solid var(--line-soft);
+}
+
+.cal-week.is-selected .cal-week-meta {
+  border-color: rgba(247, 241, 229, 0.15);
+}
+
+.cal-week-label {
+  font-family: var(--font-head);
+  font-size: 11.5px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.cal-week-dates {
+  color: var(--ink-3);
+  font-size: 9px;
+  line-height: 1.4;
+}
+
+.cal-week.is-selected .cal-week-label {
+  color: var(--gold-2);
+}
+
+.cal-week.is-selected .cal-week-dates {
+  color: rgba(247, 241, 229, 0.55);
+}
+
+.cal-day {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 46px;
+  border-radius: 8px;
+  color: var(--ink-2);
+}
+
+.cal-day-num {
+  font-family: var(--font-head);
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+.cal-day-month {
+  margin-top: 1px;
+  color: var(--ink-3);
+  font-size: 7px;
+  line-height: 1.2;
+}
+
+.cal-day.is-weekend {
+  color: var(--ink-3);
+}
+
+.cal-day.is-outside {
+  opacity: 0.38;
+}
+
+.cal-week.is-selected .cal-day {
+  color: var(--cream);
+}
+
+.cal-week.is-selected .cal-day.is-weekend {
+  color: rgba(247, 241, 229, 0.5);
+}
+
+.cal-week.is-selected .cal-day.is-outside {
+  opacity: 0.4;
+}
+
+.cal-week.is-selected .cal-day-month {
+  color: rgba(247, 241, 229, 0.45);
+}
+
+.cal-panel {
+  position: relative;
+  overflow: hidden;
+  margin-top: 16px;
+  padding: 24px 28px 26px;
+  border-radius: 20px;
+  background: var(--green-2);
+  color: var(--cream);
+}
+
+.cal-panel::after {
+  content: "";
+  position: absolute;
+  inset-inline-start: -40px;
+  bottom: -80px;
+  width: 200px;
+  height: 200px;
+  border: 1px solid rgba(183, 138, 63, 0.2);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.cal-panel-body {
+  position: relative;
+  z-index: 1;
+  animation: cal-fade 0.22s ease;
+}
+
+.cal-panel-head {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+}
+
+.cal-panel-kicker {
+  color: var(--gold-2);
+  font-size: 9px;
+  letter-spacing: 0.12em;
+}
+
+.cal-panel-head h3 {
+  color: var(--cream);
+  font-size: 17px;
+}
+
+.cal-panel-dates {
+  border-inline-start: 1px solid rgba(247, 241, 229, 0.2);
+  padding-inline-start: 12px;
+  color: rgba(247, 241, 229, 0.55);
+  font-size: 9.5px;
+}
+
+.cal-verdict {
+  max-width: 68ch;
+  margin-top: 14px;
+  color: rgba(247, 241, 229, 0.88);
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 1.95;
+}
+
+@keyframes cal-fade {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.calendar-print {
+  display: none;
+}
+
+.week-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+
+.week-table th,
+.week-table td {
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  text-align: start;
+  vertical-align: top;
+}
+
+.week-table thead th {
+  background: var(--paper-2);
+  color: var(--ink-2);
+  font-size: 10.5px;
+  font-weight: 600;
+}
+
+.week-table tbody th {
+  font-family: var(--font-head);
+  font-size: 11.5px;
+  white-space: nowrap;
+}
+
+.week-table tbody td {
+  color: var(--ink-2);
+  line-height: 1.8;
+}
+
+.week-table tbody td:nth-child(2) {
+  color: var(--ink-3);
+  white-space: nowrap;
+}
+
+.print-calendar {
+  margin-top: 26px;
+}
+
+.print-calendar > h3 {
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+
+/* =========================================================
+   Youth print summary
+   ========================================================= */
+
+.youth-print {
+  display: none;
+}
+
+.youth-print-block > h3 {
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+.youth-print-table th,
+.youth-print-table td {
+  vertical-align: top;
+}
+
+.youth-print-tasks {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  margin-top: 24px;
+}
+
+.youth-print-tasks section {
+  break-inside: avoid;
+}
+
+.youth-print-tasks h4 {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--line);
+  font-size: 12.5px;
+  font-weight: 600;
+}
+
+.youth-print-tasks h4 span {
+  color: var(--gold-ink);
+  font-family: var(--font-sans);
+  font-size: 9.5px;
+  font-weight: 500;
+}
+
+.youth-print-tasks ul {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  margin: 8px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.youth-print-tasks li {
+  position: relative;
+  padding-inline-start: 14px;
+  color: var(--ink-2);
+  font-size: 11.5px;
+  line-height: 1.8;
+}
+
+.youth-print-tasks li::before {
+  content: "";
+  position: absolute;
+  inset-inline-start: 0;
+  top: 0.75em;
+  width: 4px;
+  height: 4px;
+  background: var(--gold);
+  transform: rotate(45deg);
+}
+
+.youth-print-tasks p {
+  margin-top: 6px;
+  color: var(--ink-3);
+  font-size: 12px;
 }
 
 /* =========================================================
@@ -1838,10 +2246,6 @@ svg {
     height: 32px;
   }
 
-  .approach-grid {
-    grid-template-columns: 1fr;
-  }
-
   .topic-nav {
     grid-template-columns: 1fr;
   }
@@ -1929,9 +2333,12 @@ svg {
     border-top: 0;
   }
 
-  .index-section,
-  .approach {
-    padding-block: 60px;
+  .index-section {
+    padding-block: 48px 60px;
+  }
+
+  .home-intro {
+    padding-block: 56px;
   }
 
   .topic-list {
@@ -1943,8 +2350,95 @@ svg {
     flex-direction: column;
   }
 
+  .page-hero {
+    padding-top: 26px;
+  }
+
+  .page-hero h1 {
+    font-size: clamp(30px, 9vw, 38px);
+  }
+
+  .page-lead {
+    font-size: 14px;
+  }
+
+  .page-meta {
+    gap: 8px;
+    font-size: 9.5px;
+  }
+
+  .cal-weekdays {
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    gap: 2px;
+    padding-inline: 0;
+  }
+
+  .cal-weekdays-label {
+    display: none;
+  }
+
+  .cal-week {
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    gap: 2px;
+    padding: 4px;
+  }
+
+  .cal-week-meta {
+    display: none;
+  }
+
+  .cal-day {
+    min-height: 44px;
+  }
+
+  .cal-day-num {
+    font-size: 13px;
+  }
+
+  .cal-day-month {
+    font-size: 6.5px;
+  }
+
+  .cal-card {
+    padding: 12px;
+  }
+
+  .cal-panel {
+    padding: 20px;
+  }
+
+  .cal-verdict {
+    font-size: 15px;
+  }
+
   .topic-hero {
     padding-top: 28px;
+  }
+
+  .calendar-head h2 {
+    font-size: 22px;
+  }
+
+  .cal-day {
+    min-height: 40px;
+  }
+
+  .cal-day-num {
+    font-size: 12px;
+  }
+
+  .cal-panel {
+    padding: 18px;
+    border-radius: 16px;
+  }
+
+  .cal-panel-head h3 {
+    font-size: 16px;
+  }
+
+  .cal-verdict {
+    font-size: 14.5px;
+    line-height: 1.9;
   }
 
   .topic-hero h1 {
@@ -2273,6 +2767,92 @@ svg {
     border-color: #bbb;
     background: #fff;
     color: #8a682c;
+  }
+
+  .calendar-head,
+  .calendar-hint,
+  .cal-card,
+  .cal-panel {
+    display: none !important;
+  }
+
+  .calendar-print {
+    display: block;
+  }
+
+  .calendar-print > h3 {
+    margin-bottom: 3mm;
+    font-size: 12pt;
+  }
+
+  .week-table {
+    font-size: 9pt;
+  }
+
+  .week-table th,
+  .week-table td {
+    padding: 2.5mm;
+    border: 1px solid #bbb;
+  }
+
+  .week-table thead th {
+    background: #f4f0e6 !important;
+    color: #333;
+  }
+
+  .week-table tbody th {
+    font-size: 9.5pt;
+  }
+
+  .week-table tbody td {
+    color: #333;
+    line-height: 1.7;
+  }
+
+  .print-calendar {
+    margin-top: 6mm;
+  }
+
+  .print-calendar > h3 {
+    margin-bottom: 3mm;
+    font-size: 12pt;
+  }
+
+  .youth-screen {
+    display: none !important;
+  }
+
+  .youth-print {
+    display: block;
+  }
+
+  .youth-print-block > h3 {
+    margin-bottom: 3mm;
+    font-size: 12pt;
+  }
+
+  .youth-print-table th,
+  .youth-print-table td {
+    padding: 2mm;
+    font-size: 8.5pt;
+  }
+
+  .youth-print-tasks {
+    gap: 4mm;
+    margin-top: 5mm;
+  }
+
+  .youth-print-tasks h4 {
+    font-size: 10pt;
+  }
+
+  .youth-print-tasks h4 span {
+    font-size: 8pt;
+  }
+
+  .youth-print-tasks li {
+    font-size: 9pt;
+    line-height: 1.65;
   }
 
   .draft-note {

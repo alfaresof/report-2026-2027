@@ -14,11 +14,8 @@ export function SiteHeader() {
         </Link>
 
         <nav className="header-nav" aria-label="التنقل الرئيسي">
-          <Link href="/#index" className="nav-link">
-            الفهرس
-          </Link>
-          <Link href="/#approach" className="nav-link">
-            طريقة القراءة
+          <Link href="/topics/" className="nav-link">
+            المحاور
           </Link>
           <Link href="/print/" className="btn btn-ink btn-sm header-cta">
             <DownloadIcon size={16} />

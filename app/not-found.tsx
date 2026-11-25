@@ -14,7 +14,7 @@ export default function NotFound() {
           ربما تغيّر الرابط أو أن المحور لم يُضف بعد. العودة إلى الفهرس تعرض
           المحاور العشرة كاملة.
         </p>
-        <Link href="/" className="btn btn-ink">
+        <Link href="/topics/" className="btn btn-ink">
           <ArrowRightIcon size={16} />
           العودة إلى الفهرس
         </Link>

@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { topics, reportMeta } from "@/lib/topics";
+import { reportMeta } from "@/lib/topics";
+import { toArabicDigits } from "@/lib/format";
 import { ArrowLeftIcon, DownloadIcon } from "@/components/icons";
 
 export default function HomePage() {
@@ -29,7 +30,7 @@ export default function HomePage() {
               </p>
 
               <div className="hero-actions">
-                <Link href="#index" className="btn btn-gold">
+                <Link href="/topics/" className="btn btn-gold">
                   استعرض المحاور
                   <ArrowLeftIcon size={17} />
                 </Link>
@@ -43,13 +44,13 @@ export default function HomePage() {
                 <span className="status-dot" aria-hidden="true" />
                 {reportMeta.status}
                 <span className="hero-note-sep" aria-hidden="true" />
-                {reportMeta.topicCount} محاور
+                {toArabicDigits(reportMeta.topicCount)} محاور
               </div>
             </div>
 
             <div className="hero-visual" aria-hidden="true">
               <div className="cover-card">
-                <span className="cover-badge" aria-hidden="true">
+                <span className="cover-badge">
                   <strong>١٠</strong>
                   <span>محاور</span>
                 </span>
@@ -100,99 +101,32 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="index-section" id="index">
+      <section className="home-intro">
         <div className="container">
           <div className="section-head">
             <div>
               <p className="eyebrow">
                 <span className="eyebrow-rule" />
-                الفهرس
+                عن التقرير
               </p>
               <h2>
-                عشرة محاور،
-                <span className="heading-muted"> صفحة لكل واحد.</span>
+                من إغلاق ٢٠٢٦
+                <span className="heading-muted"> إلى خطة ٢٠٢٧.</span>
               </h2>
             </div>
-            <p className="section-side">
-              اضغط على أي محور لعرض تفاصيله وأسئلته. المحتوى التفصيلي يُضاف
-              تباعًا بعد الاعتماد.
-            </p>
-          </div>
 
-          <div className="topic-list">
-            {topics.map((topic) => (
-              <Link
-                key={topic.slug}
-                href={`/report/${topic.slug}/`}
-                className="topic-row"
-              >
-                <span className="topic-num">{topic.number}</span>
-                <span className="topic-body">
-                  <span className="topic-title">{topic.title}</span>
-                  <span className="topic-short">{topic.short}</span>
-                </span>
-                <span className="topic-chip">{topic.category}</span>
-                <span className="topic-arrow">
-                  <ArrowLeftIcon size={16} />
-                </span>
+            <div className="home-intro-copy">
+              <p className="section-side">
+                عشرة محاور مرتبة: ما نُغلقه في ٢٠٢٦، والقرارات التي لا تحتمل
+                التأجيل، ثم خطة العام القادم للشباب والعقود وكفاءة العمل
+                والذكاء الاصطناعي والشراكات.
+              </p>
+              <Link href="/topics/" className="text-link home-intro-link">
+                افتح فهرس المحاور
+                <ArrowLeftIcon size={15} />
               </Link>
-            ))}
-          </div>
-
-          <div className="list-foot">
-            <span className="status-pill">
-              <span className="status-dot" aria-hidden="true" />
-              {reportMeta.status}
-            </span>
-            <Link href="/print/" className="text-link">
-              تحميل النسخة الكاملة PDF
-              <ArrowLeftIcon size={15} />
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      <section className="approach" id="approach">
-        <div className="container">
-          <div className="section-head approach-head">
-            <div>
-              <p className="eyebrow">
-                <span className="eyebrow-rule" />
-                طريقة القراءة
-              </p>
-              <h2>ثلاث حركات، لا أكثر.</h2>
             </div>
-            <p className="section-side">
-              التقرير مرتب بهذا المنطق: نغلق ما انتهى، نحسم ما يحتاج قرارًا، ثم
-              نبدأ العام بخطة واضحة.
-            </p>
           </div>
-
-          <ol className="approach-grid">
-            <li className="approach-card">
-              <span className="approach-num">٠١</span>
-              <h3>نُغلق ٢٠٢٦</h3>
-              <p>
-                إجازة ديسمبر، وإنجازات الشباب، والعهد والمساحات: ملفات تُقفل
-                قبل نهاية العام.
-              </p>
-            </li>
-            <li className="approach-card">
-              <span className="approach-num">٠٢</span>
-              <h3>نحسم القرارات</h3>
-              <p>
-                كفاءة العمل، واستمرار سيف: قرارات واضحة لا تُترك لبداية العام.
-              </p>
-            </li>
-            <li className="approach-card">
-              <span className="approach-num">٠٣</span>
-              <h3>نبدأ ٢٠٢٧</h3>
-              <p>
-                خطة الشباب، والعقود، والذكاء الاصطناعي، والجمعيات، واجتماع أوقاف
-                حسنى.
-              </p>
-            </li>
-          </ol>
         </div>
       </section>
 

@@ -27,6 +27,10 @@ export const metadata: Metadata = {
     "عشرة محاور لمراجعة ٢٠٢٦ والتخطيط لـ ٢٠٢٧: الشباب، العقود، كفاءة العمل، الذكاء الاصطناعي، الجمعيات، والعهد التقنية.",
   applicationName: "تقرير ٢٠٢٦–٢٠٢٧",
   authors: [{ name: "فريق العمل" }],
+  robots: {
+    index: false,
+    follow: false,
+  },
   openGraph: {
     title: "تقرير ختام ٢٠٢٦ وخطة ٢٠٢٧",
     description:
@@ -46,7 +50,12 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="ar" dir="rtl" className={`${display.variable} ${body.variable}`}>
+    <html
+      lang="ar"
+      dir="rtl"
+      data-scroll-behavior="smooth"
+      className={`${display.variable} ${body.variable}`}
+    >
       <body>
         <a className="skip-link" href="#main">
           تخطَّ إلى المحتوى
