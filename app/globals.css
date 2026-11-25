@@ -1892,6 +1892,398 @@ svg {
   line-height: 1.6;
 }
 
+
+/* =========================================================
+   Plan 2027
+   ========================================================= */
+
+.plan-contracts {
+  margin-top: 48px;
+  padding-top: 24px;
+  border-top: 1px solid var(--line);
+}
+
+.plan-print {
+  margin-top: 24px;
+}
+
+.plan-print > h3 {
+  margin-bottom: 12px;
+  font-size: 15px;
+}
+
+.plan-print-stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-bottom: 22px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--paper-raised);
+  overflow: hidden;
+}
+
+.plan-print-stats > div {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 14px 16px;
+  border-inline-start: 1px solid var(--line-soft);
+}
+
+.plan-print-stats > div:first-child {
+  border-inline-start: 0;
+}
+
+.plan-print-stats span {
+  color: var(--ink-3);
+  font-size: 10px;
+  line-height: 1.6;
+}
+
+.plan-print-stats strong {
+  color: var(--green);
+  font-family: var(--font-head);
+  font-size: 26px;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.plan-print-stats small {
+  color: var(--ink-3);
+  font-size: 8px;
+  line-height: 1.4;
+}
+
+.plan-print > h4 {
+  margin: 20px 0 8px;
+  font-size: 14px;
+}
+
+.plan-print-table {
+  font-size: 11px;
+}
+
+.plan-print-table tbody th {
+  white-space: normal;
+  font-family: var(--font-sans);
+  font-size: 10.5px;
+  font-weight: 600;
+}
+
+.plan-print-table tbody th small {
+  display: block;
+  margin-top: 3px;
+  color: var(--ink-3);
+  font-size: 8.5px;
+  font-weight: 400;
+  line-height: 1.6;
+}
+
+.plan-print-table td {
+  font-size: 10.5px;
+}
+
+.plan-print-note {
+  margin-top: 10px;
+  color: var(--ink-3);
+  font-size: 10px;
+  line-height: 1.8;
+}
+
+.print-contracts {
+  margin-top: 26px;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+}
+
+.print-contracts > h3 {
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+.print-contracts .print-section h3 {
+  font-size: 12px;
+}
+
+/* =========================================================
+   Tech structure print summary
+   ========================================================= */
+
+.tech-print {
+  display: none;
+}
+
+.tech-print-block {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.tech-print-section {
+  break-inside: avoid;
+}
+
+.tech-print-heading {
+  display: flex;
+  align-items: baseline;
+  justify-content: flex-start;
+  gap: 10px;
+  margin-bottom: 9px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--line);
+}
+
+.tech-print-heading h3 {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.tech-print-heading span {
+  color: var(--ink-3);
+  font-size: 9.5px;
+  line-height: 1.6;
+}
+
+.tech-print-director {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  width: min(100%, 340px);
+  padding: 9px 11px;
+  border-radius: 8px;
+  background: var(--green);
+  color: var(--cream);
+}
+
+.tech-print-avatar {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 28px;
+  height: 28px;
+  border: 1px solid rgba(216, 189, 139, 0.4);
+  border-radius: 50%;
+  color: var(--gold-2);
+  font-family: var(--font-head);
+  font-size: 8.5px;
+  line-height: 1;
+}
+
+.tech-print-director strong {
+  display: block;
+  font-family: var(--font-head);
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.tech-print-role {
+  display: block;
+  color: rgba(247, 241, 229, 0.6);
+  font-size: 8.5px;
+  line-height: 1.5;
+}
+
+.tech-print-badge {
+  margin-inline-start: auto;
+  padding: 1px 7px;
+  border: 1px solid rgba(216, 189, 139, 0.35);
+  border-radius: 999px;
+  color: var(--gold-2);
+  font-size: 7.5px;
+  line-height: 1.7;
+  white-space: nowrap;
+}
+
+.tech-print-people {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.tech-print-person {
+  padding: 7px 9px;
+  border: 1px dashed rgba(20, 35, 31, 0.18);
+  border-radius: 6px;
+  background: #faf7f0;
+}
+
+.tech-print-person strong {
+  display: block;
+  font-family: var(--font-head);
+  font-size: 9.5px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.tech-print-person span {
+  display: block;
+  color: var(--ink-3);
+  font-size: 8px;
+  line-height: 1.5;
+}
+
+.tech-print-scope {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-top: 8px;
+  padding: 5px 9px;
+  border: 1px dashed rgba(183, 138, 63, 0.4);
+  border-radius: 999px;
+  color: var(--gold-ink);
+  font-size: 9px;
+  line-height: 1.6;
+}
+
+.tech-print-scope span {
+  color: var(--ink-3);
+  font-size: 7.5px;
+  letter-spacing: 0.06em;
+}
+
+.tech-print-problem {
+  margin-top: 7px;
+  padding: 6px 9px;
+  border-inline-start: 2px solid var(--gold);
+  background: rgba(183, 138, 63, 0.06);
+  color: var(--ink-2);
+  font-size: 9px;
+  line-height: 1.75;
+}
+
+.tech-print-departments {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.tech-print-department {
+  padding: 8px 9px;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  break-inside: avoid;
+}
+
+.tech-print-department.is-projects {
+  border-color: rgba(14, 64, 53, 0.22);
+  background: #f8fbf8;
+}
+
+.tech-print-department.is-products {
+  border-color: rgba(183, 138, 63, 0.28);
+  background: #fdf9f0;
+}
+
+.tech-print-dept-head {
+  padding-bottom: 5px;
+  border-bottom: 1px solid var(--line-soft);
+}
+
+.tech-print-dept-head h4 {
+  font-family: var(--font-head);
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.tech-print-dept-head p {
+  margin-top: 2px;
+  color: var(--ink-3);
+  font-size: 8.5px;
+  line-height: 1.65;
+}
+
+.tech-print-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 5px 0;
+  border-top: 1px solid var(--line-soft);
+}
+
+.tech-print-dept-head + .tech-print-row {
+  border-top: 0;
+}
+
+.tech-print-person-copy strong {
+  display: block;
+  font-family: var(--font-head);
+  font-size: 9.5px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.tech-print-person-copy span {
+  display: block;
+  color: var(--ink-3);
+  font-size: 8px;
+  line-height: 1.5;
+}
+
+.tech-print-tag {
+  flex: none;
+  padding: 1px 5px;
+  border: 1px solid rgba(183, 138, 63, 0.35);
+  border-radius: 999px;
+  color: var(--gold-ink);
+  font-size: 7px;
+  line-height: 1.7;
+  white-space: nowrap;
+}
+
+.tech-print-note {
+  margin-top: 8px;
+  padding: 7px 9px;
+  border-inline-start: 2px solid var(--gold);
+  border-start-end-radius: 6px;
+  border-end-end-radius: 6px;
+  background: rgba(183, 138, 63, 0.06);
+  color: var(--ink-2);
+  font-size: 9px;
+  line-height: 1.75;
+}
+
+.tech-print-note strong {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.tech-print-saif {
+  margin-top: 8px;
+  padding: 9px 10px;
+  border: 1px solid rgba(183, 138, 63, 0.35);
+  border-radius: 7px;
+  background: #fbf3e3;
+  break-inside: avoid;
+}
+
+.tech-print-saif-label {
+  color: var(--gold-ink);
+  font-size: 7.5px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+}
+
+.tech-print-saif h4 {
+  margin-top: 2px;
+  font-family: var(--font-head);
+  font-size: 10.5px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.tech-print-saif p {
+  margin-top: 3px;
+  color: var(--ink-2);
+  font-size: 8.5px;
+  line-height: 1.8;
+}
+
 /* =========================================================
    Print / full report page
    ========================================================= */
@@ -2839,6 +3231,24 @@ svg {
     color: #8a682c;
   }
 
+  .questions-block.tech-questions {
+    margin-top: 3mm;
+    padding: 3mm 4.5mm;
+  }
+
+  .questions-block.tech-questions h2 {
+    font-size: 11.5pt;
+  }
+
+  .questions-block.tech-questions li {
+    padding-block: 1.4mm;
+  }
+
+  .print-questions.tech-questions {
+    margin-top: 3mm;
+    padding: 3mm 4.5mm;
+  }
+
   .calendar-head,
   .calendar-hint,
   .cal-card,
@@ -2883,6 +3293,91 @@ svg {
     margin-top: 6mm;
   }
 
+  .plan-contracts {
+    margin-top: 6mm;
+    padding-top: 4mm;
+    border-top: 1pt solid #999;
+  }
+
+  .plan-print {
+    margin-top: 4mm;
+  }
+
+  .plan-print > h3 {
+    font-size: 12pt;
+    margin-bottom: 3mm;
+  }
+
+  .plan-print-stats {
+    margin-bottom: 5mm;
+    border: 1px solid #bbb;
+    border-radius: 2mm;
+  }
+
+  .plan-print-stats > div {
+    padding: 3mm 4mm;
+    border-inline-start: 1px solid #ddd;
+  }
+
+  .plan-print-stats span {
+    color: #555;
+    font-size: 8pt;
+  }
+
+  .plan-print-stats strong {
+    color: #111;
+    font-size: 18pt;
+  }
+
+  .plan-print-stats small {
+    color: #777;
+    font-size: 7pt;
+  }
+
+  .plan-print > h4 {
+    margin: 4mm 0 2mm;
+    font-size: 10.5pt;
+  }
+
+  .plan-print-table {
+    font-size: 8.5pt;
+  }
+
+  .plan-print-table tbody th {
+    font-size: 8.5pt;
+  }
+
+  .plan-print-table tbody th small {
+    color: #666;
+    font-size: 7pt;
+  }
+
+  .plan-print-table td {
+    font-size: 8.5pt;
+  }
+
+  .plan-print-note {
+    color: #555;
+    font-size: 8pt;
+    line-height: 1.7;
+  }
+
+  .print-contracts {
+    margin-top: 6mm;
+    padding-top: 4mm;
+    border-top: 1px solid #ccc;
+    page-break-inside: auto;
+  }
+
+  .print-contracts .print-section h3 {
+    font-size: 9.5pt;
+  }
+
+  .print-contracts > h3 {
+    font-size: 11pt;
+    margin-bottom: 3mm;
+  }
+
   .print-calendar > h3 {
     margin-bottom: 3mm;
     font-size: 12pt;
@@ -2890,6 +3385,151 @@ svg {
 
   .youth-screen {
     display: none !important;
+  }
+
+  .tech-screen {
+    display: none !important;
+  }
+
+  .tech-print {
+    display: block;
+  }
+
+  .tech-print-block {
+    gap: 3mm;
+  }
+
+  .tech-print-section {
+    page-break-inside: avoid;
+  }
+
+  .tech-print-heading {
+    margin-bottom: 1.5mm;
+    padding-bottom: 1mm;
+  }
+
+  .tech-print-heading h3 {
+    font-size: 11.5pt;
+  }
+
+  .tech-print-heading span {
+    font-size: 8pt;
+  }
+
+  .tech-print-director {
+    width: min(100%, 88mm);
+    padding: 1.5mm 3mm;
+    border-radius: 2mm;
+  }
+
+  .tech-print-avatar {
+    width: 7mm;
+    height: 7mm;
+    font-size: 7pt;
+  }
+
+  .tech-print-director strong {
+    font-size: 9pt;
+  }
+
+  .tech-print-role {
+    font-size: 7.5pt;
+  }
+
+  .tech-print-badge {
+    font-size: 6.5pt;
+  }
+
+  .tech-print-people {
+    gap: 2mm;
+    margin-top: 1.5mm;
+  }
+
+  .tech-print-person {
+    padding: 1mm 2mm;
+    border-radius: 1.5mm;
+  }
+
+  .tech-print-person strong {
+    font-size: 8pt;
+  }
+
+  .tech-print-person span {
+    font-size: 6.8pt;
+  }
+
+  .tech-print-scope {
+    margin-top: 1.5mm;
+    padding: 0.8mm 2.5mm;
+    font-size: 7.5pt;
+  }
+
+  .tech-print-scope span {
+    font-size: 6.5pt;
+  }
+
+  .tech-print-problem {
+    margin-top: 1mm;
+    padding: 1mm 2.5mm;
+    font-size: 7.8pt;
+  }
+
+  .tech-print-departments {
+    gap: 2.5mm;
+    margin-top: 1.5mm;
+  }
+
+  .tech-print-department {
+    padding: 1.5mm 2.5mm;
+    border-radius: 2mm;
+  }
+
+  .tech-print-dept-head h4 {
+    font-size: 9pt;
+  }
+
+  .tech-print-dept-head p {
+    font-size: 7.2pt;
+  }
+
+  .tech-print-row {
+    padding: 1mm 0;
+  }
+
+  .tech-print-person-copy strong {
+    font-size: 8pt;
+  }
+
+  .tech-print-person-copy span {
+    font-size: 6.8pt;
+  }
+
+  .tech-print-tag {
+    font-size: 6.2pt;
+  }
+
+  .tech-print-note {
+    margin-top: 1.5mm;
+    padding: 1mm 2.5mm;
+    font-size: 7.5pt;
+  }
+
+  .tech-print-saif {
+    margin-top: 1.5mm;
+    padding: 1.5mm 2.5mm;
+    border-radius: 2mm;
+  }
+
+  .tech-print-saif-label {
+    font-size: 6.2pt;
+  }
+
+  .tech-print-saif h4 {
+    font-size: 9pt;
+  }
+
+  .tech-print-saif p {
+    font-size: 7.5pt;
   }
 
   .youth-print {

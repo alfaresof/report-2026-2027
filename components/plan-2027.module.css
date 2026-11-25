@@ -1,0 +1,950 @@
+.plan {
+  color: var(--ink);
+}
+
+/* =========================================================
+   Summary
+   ========================================================= */
+
+.summary {
+  position: relative;
+  overflow: hidden;
+  padding: 26px 28px 22px;
+  border-radius: 24px;
+  background:
+    radial-gradient(
+      120% 130% at 88% -10%,
+      rgba(183, 138, 63, 0.22),
+      transparent 55%
+    ),
+    linear-gradient(150deg, var(--green) 0%, var(--green-2) 72%);
+  color: var(--cream);
+  box-shadow: 0 30px 70px -46px rgba(10, 43, 36, 0.6);
+}
+
+.summary::after {
+  content: "";
+  position: absolute;
+  inset-inline-start: -100px;
+  bottom: -150px;
+  width: 320px;
+  height: 320px;
+  border: 1px solid rgba(216, 189, 139, 0.18);
+  border-radius: 50%;
+  box-shadow: 0 0 0 34px rgba(216, 189, 139, 0.035);
+  pointer-events: none;
+}
+
+.summaryTop {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(247, 241, 229, 0.14);
+}
+
+.summaryKicker {
+  margin-bottom: 5px;
+  color: var(--gold-2);
+  font-size: 9.5px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+}
+
+.summaryTitle {
+  color: var(--cream);
+  font-size: clamp(21px, 2.5vw, 27px);
+  line-height: 1.35;
+}
+
+.summaryNote {
+  padding-bottom: 3px;
+  color: rgba(247, 241, 229, 0.5);
+  font-size: 9.5px;
+  line-height: 1.7;
+}
+
+.summaryStats {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-top: 4px;
+}
+
+.summaryStat {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 16px 20px 2px;
+  border-inline-start: 1px solid rgba(247, 241, 229, 0.13);
+}
+
+.summaryStat:first-child {
+  padding-inline-start: 0;
+  border-inline-start: 0;
+}
+
+.statLabel {
+  color: rgba(247, 241, 229, 0.6);
+  font-size: 10.5px;
+  line-height: 1.7;
+}
+
+.statValue {
+  color: var(--gold-2);
+  font-family: var(--font-head);
+  font-size: clamp(30px, 3.4vw, 42px);
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+}
+
+.statUnit {
+  color: rgba(247, 241, 229, 0.42);
+  font-size: 8px;
+  line-height: 1.4;
+}
+
+/* =========================================================
+   Calculator
+   ========================================================= */
+
+.calculator {
+  margin-top: 30px;
+}
+
+.calcHead {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.calcKicker {
+  margin-bottom: 5px;
+  color: var(--gold-ink);
+  font-size: 9.5px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+}
+
+.calcTitle {
+  font-size: clamp(22px, 2.6vw, 28px);
+}
+
+.calcActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  padding-bottom: 3px;
+}
+
+.actionBtn,
+.actionBtnGhost {
+  padding: 5px 11px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--ink-2);
+  font-family: var(--font-sans);
+  font-size: 9.5px;
+  line-height: 1.6;
+  cursor: pointer;
+  transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
+}
+
+.actionBtn:hover {
+  border-color: var(--gold);
+  color: var(--gold-ink);
+  background: rgba(183, 138, 63, 0.05);
+}
+
+.actionBtnGhost {
+  color: var(--ink-3);
+}
+
+.actionBtnGhost:hover {
+  border-color: #a4552f;
+  color: #a4552f;
+}
+
+.hint {
+  margin-top: 7px;
+  color: var(--ink-3);
+  font-size: 10px;
+  line-height: 1.8;
+}
+
+.workspace {
+  display: grid;
+  grid-template-columns: 230px minmax(0, 1fr);
+  align-items: start;
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.library {
+  position: sticky;
+  top: 96px;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--paper-raised);
+}
+
+.libraryHead {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+  padding-bottom: 9px;
+  border-bottom: 1px solid var(--line-soft);
+}
+
+.libraryTitle {
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.libraryHint {
+  color: var(--ink-3);
+  font-size: 8px;
+  white-space: nowrap;
+}
+
+.libraryList {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin: 8px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.libraryItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 8px;
+  border: 1px solid var(--line-soft);
+  border-radius: 9px;
+  background: var(--paper);
+  cursor: grab;
+  transition: border-color 0.18s ease, background 0.18s ease,
+    opacity 0.18s ease;
+}
+
+.libraryItem:hover {
+  border-color: var(--gold);
+  background: #fffaf0;
+}
+
+.libraryItem.isSelected {
+  border-style: dashed;
+  background: transparent;
+  cursor: default;
+  opacity: 0.55;
+}
+
+.dragHandle {
+  display: flex;
+  flex-direction: column;
+  flex: none;
+  gap: 2px;
+  width: 7px;
+}
+
+.dragHandle span {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--ink-3);
+}
+
+.libraryMain {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+}
+
+.libraryName {
+  color: var(--ink);
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.libraryMeta {
+  color: var(--ink-3);
+  font-size: 8px;
+  line-height: 1.5;
+}
+
+.addedBadge {
+  margin-inline-start: auto;
+  padding: 1px 6px;
+  border-radius: 999px;
+  background: rgba(14, 64, 53, 0.08);
+  color: var(--green);
+  font-size: 7.5px;
+  line-height: 1.6;
+  white-space: nowrap;
+}
+
+.addButton {
+  margin-inline-start: auto;
+  padding: 2px 7px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--paper-raised);
+  color: var(--ink-2);
+  font-family: var(--font-sans);
+  font-size: 8px;
+  line-height: 1.6;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.addButton:hover {
+  border-color: var(--gold);
+  color: var(--gold-ink);
+}
+
+/* =========================================================
+   Plan / drop zone
+   ========================================================= */
+
+.dropZone {
+  padding: 14px;
+  border: 1px dashed rgba(183, 138, 63, 0.5);
+  border-radius: 18px;
+  background: rgba(183, 138, 63, 0.03);
+  transition: border-color 0.18s ease, background 0.18s ease;
+}
+
+.dropZone.isOver {
+  border-color: var(--gold);
+  background: rgba(183, 138, 63, 0.09);
+}
+
+.planHead {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--line);
+}
+
+.planTitle {
+  font-size: 15px;
+}
+
+.planCount {
+  color: var(--ink-3);
+  font-size: 9px;
+  white-space: nowrap;
+}
+
+.planCards {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.projectCard {
+  padding: 14px 16px;
+  border: 1px solid var(--line);
+  border-radius: 13px;
+  background: var(--paper-raised);
+  box-shadow: 0 12px 28px -24px rgba(10, 43, 36, 0.35);
+}
+
+.cardTop {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.cardIdentity {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.cardTag {
+  color: var(--gold-ink);
+  font-size: 8px;
+  line-height: 1.5;
+  letter-spacing: 0.04em;
+}
+
+.cardTitle {
+  color: var(--ink);
+  font-size: 14.5px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.cardActions {
+  display: flex;
+  align-items: center;
+  flex: none;
+  gap: 6px;
+}
+
+.productBadge {
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: var(--green);
+  color: var(--cream);
+  font-size: 8px;
+  line-height: 1.6;
+  white-space: nowrap;
+}
+
+.removeButton {
+  display: grid;
+  place-items: center;
+  width: 21px;
+  height: 21px;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: transparent;
+  color: var(--ink-3);
+  font-size: 13px;
+  line-height: 1;
+  cursor: pointer;
+  transition: border-color 0.18s ease, color 0.18s ease;
+}
+
+.removeButton:hover {
+  border-color: #a4552f;
+  color: #a4552f;
+}
+
+.productsNote {
+  margin-top: 5px;
+  color: var(--ink-2);
+  font-size: 9.5px;
+  line-height: 1.7;
+}
+
+.cardNote {
+  margin-top: 3px;
+  color: var(--ink-3);
+  font-size: 9.5px;
+  line-height: 1.7;
+}
+
+.cardStaff {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-top: 8px;
+}
+
+.staffPill,
+.staffPillMuted {
+  padding: 1px 7px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--ink-2);
+  font-size: 8px;
+  line-height: 1.6;
+  white-space: nowrap;
+}
+
+.staffPillMuted {
+  border-style: dashed;
+  color: var(--ink-3);
+}
+
+.stepper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 9px;
+  padding-top: 8px;
+  border-top: 1px solid var(--line-soft);
+}
+
+.stepperText {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.stepperLabel {
+  color: var(--ink-2);
+  font-size: 9px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.stepperRule {
+  color: var(--ink-3);
+  font-size: 8px;
+  line-height: 1.5;
+}
+
+.stepperControls {
+  display: flex;
+  align-items: center;
+  flex: none;
+  gap: 6px;
+}
+
+.stepButton {
+  display: grid;
+  place-items: center;
+  width: 23px;
+  height: 23px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--paper-raised);
+  color: var(--ink-2);
+  font-size: 13px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.stepButton:hover:not(:disabled) {
+  border-color: var(--gold);
+  color: var(--gold-ink);
+}
+
+.stepButton:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.stepValue {
+  display: flex;
+  align-items: baseline;
+  gap: 3px;
+  color: var(--ink);
+  font-family: var(--font-head);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.stepValue small {
+  color: var(--ink-3);
+  font-family: var(--font-sans);
+  font-size: 7.5px;
+  font-weight: 400;
+}
+
+.emptyPlan {
+  padding: 30px 10px;
+  color: var(--ink-3);
+  font-size: 10.5px;
+  line-height: 1.8;
+  text-align: center;
+}
+
+/* =========================================================
+   Staff
+   ========================================================= */
+
+.staffCard {
+  position: relative;
+  overflow: hidden;
+  margin-top: 28px;
+  padding: 24px 26px 20px;
+  border-radius: 22px;
+  background:
+    radial-gradient(
+      110% 120% at 10% -10%,
+      rgba(183, 138, 63, 0.18),
+      transparent 58%
+    ),
+    linear-gradient(150deg, var(--green) 0%, var(--green-2) 75%);
+  color: var(--cream);
+}
+
+.staffCard::after {
+  content: "";
+  position: absolute;
+  inset-inline-end: -110px;
+  bottom: -160px;
+  width: 320px;
+  height: 320px;
+  border: 1px solid rgba(216, 189, 139, 0.18);
+  border-radius: 50%;
+  box-shadow: 0 0 0 34px rgba(216, 189, 139, 0.035);
+  pointer-events: none;
+}
+
+.staffHead {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  padding-bottom: 13px;
+  border-bottom: 1px solid rgba(247, 241, 229, 0.14);
+}
+
+.staffKicker {
+  margin-bottom: 4px;
+  color: var(--gold-2);
+  font-size: 8.5px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+}
+
+.staffTitle {
+  color: var(--cream);
+  font-size: clamp(20px, 2.4vw, 26px);
+}
+
+.staffNote {
+  padding-bottom: 3px;
+  color: rgba(247, 241, 229, 0.45);
+  font-size: 8px;
+  white-space: nowrap;
+}
+
+.staffGrid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin-top: 5px;
+}
+
+.role {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 15px 16px 5px;
+  border-inline-start: 1px solid rgba(247, 241, 229, 0.12);
+}
+
+.role:first-child {
+  padding-inline-start: 0;
+  border-inline-start: 0;
+}
+
+.roleLabel {
+  color: rgba(247, 241, 229, 0.55);
+  font-size: 9px;
+  line-height: 1.6;
+}
+
+.roleCount {
+  color: var(--gold-2);
+  font-family: var(--font-head);
+  font-size: 27px;
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+.roleNames {
+  color: rgba(247, 241, 229, 0.75);
+  font-size: 9px;
+  line-height: 1.75;
+}
+
+.roleNames span {
+  display: block;
+  color: var(--gold-2);
+  font-size: 8px;
+}
+
+.staffBottom {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 18px;
+  margin-top: 9px;
+  padding-top: 11px;
+  border-top: 1px solid rgba(247, 241, 229, 0.13);
+}
+
+.total {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+
+.totalLabel {
+  color: rgba(247, 241, 229, 0.55);
+  font-size: 9.5px;
+}
+
+.totalValue {
+  color: var(--gold-2);
+  font-family: var(--font-head);
+  font-size: 31px;
+  font-weight: 500;
+  line-height: 1.1;
+}
+
+.additionalNote {
+  max-width: 54ch;
+  color: rgba(247, 241, 229, 0.45);
+  font-size: 8.5px;
+  line-height: 1.8;
+}
+
+/* =========================================================
+   Responsive
+   ========================================================= */
+
+@media screen and (max-width: 900px) {
+  .workspace {
+    grid-template-columns: 1fr;
+  }
+
+  .library {
+    position: static;
+  }
+
+  .libraryList {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media screen and (max-width: 720px) {
+  .summary {
+    padding: 22px 20px 18px;
+  }
+
+  .summaryTop {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .summaryStats {
+    grid-template-columns: 1fr;
+  }
+
+  .summaryStat {
+    padding: 12px 0;
+    border-inline-start: 0;
+    border-top: 1px solid rgba(247, 241, 229, 0.12);
+  }
+
+  .summaryStat:first-child {
+    border-top: 0;
+  }
+
+  .calcHead {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .calcActions {
+    padding-bottom: 0;
+  }
+
+  .staffCard {
+    padding: 20px 18px 18px;
+  }
+
+  .staffHead {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .staffGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .role {
+    padding: 12px 12px 5px;
+  }
+
+  .role:nth-child(odd) {
+    padding-inline-start: 0;
+    border-inline-start: 0;
+  }
+
+  .role:nth-child(n + 3) {
+    border-top: 1px solid rgba(247, 241, 229, 0.1);
+  }
+
+  .staffBottom {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 6px;
+  }
+}
+
+@media screen and (max-width: 520px) {
+  .libraryList {
+    grid-template-columns: 1fr;
+  }
+
+  .projectCard {
+    padding: 12px;
+  }
+
+  .cardTop {
+    gap: 8px;
+  }
+
+  .cardActions {
+    gap: 4px;
+  }
+
+  .productBadge {
+    font-size: 7.5px;
+  }
+
+  .stepper {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 7px;
+  }
+
+  .stepperControls {
+    align-self: flex-end;
+  }
+
+  .staffGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .role {
+    padding: 10px 0;
+    border-inline-start: 0;
+    border-top: 1px solid rgba(247, 241, 229, 0.1);
+  }
+
+  .role:first-child {
+    border-top: 0;
+  }
+
+  .role:nth-child(n + 3) {
+    border-top: 1px solid rgba(247, 241, 229, 0.1);
+  }
+}
+
+/* =========================================================
+   Print
+   ========================================================= */
+
+@media print {
+  .library,
+  .calcHead,
+  .calcActions,
+  .hint,
+  .stepper,
+  .removeButton,
+  .addButton,
+  .dragHandle,
+  .summaryNote {
+    display: none !important;
+  }
+
+  .workspace {
+    display: block;
+    margin-top: 4mm;
+  }
+
+  .dropZone {
+    padding: 0;
+    border: 0;
+    background: transparent;
+  }
+
+  .planCards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4mm;
+    margin-top: 3mm;
+  }
+
+  .projectCard {
+    break-inside: avoid;
+    box-shadow: none;
+    padding: 3mm;
+  }
+
+  .summary {
+    break-inside: avoid;
+    padding: 5mm;
+    border-radius: 3mm;
+    background: var(--green-2) !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .summaryStats {
+    margin-top: 2mm;
+  }
+
+  .summaryStat {
+    padding: 3mm 4mm 1mm;
+  }
+
+  .statValue {
+    font-size: 22pt;
+  }
+
+  .statLabel {
+    font-size: 8pt;
+  }
+
+  .staffCard {
+    break-inside: avoid;
+    margin-top: 5mm;
+    padding: 4mm;
+    border-radius: 3mm;
+    background: var(--green-2) !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .staffGrid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .role {
+    padding: 2.5mm 2.5mm 1mm;
+  }
+
+  .roleCount {
+    font-size: 17pt;
+  }
+
+  .roleLabel,
+  .roleNames {
+    font-size: 8pt;
+  }
+
+  .staffBottom {
+    margin-top: 2mm;
+    padding-top: 2mm;
+  }
+
+  .totalValue {
+    font-size: 20pt;
+  }
+
+  .additionalNote {
+    font-size: 7.5pt;
+  }
+}

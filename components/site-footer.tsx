@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { LogoMark } from "@/components/icons";
-import { reportMeta } from "@/lib/topics";
+import { reportMeta, topics } from "@/lib/topics";
+import { toArabicDigits } from "@/lib/format";
 
 export function SiteFooter() {
   return (
@@ -25,7 +26,7 @@ export function SiteFooter() {
 
       <div className="container footer-bottom">
         <p>أُعدّ للمراجعة والاعتماد قبل التوزيع.</p>
-        <p className="footer-count">{reportMeta.topicCount} محاور · ٢٠٢٦ → ٢٠٢٧</p>
+        <p className="footer-count">{toArabicDigits(topics.length, 1)} محاور · ٢٠٢٦ → ٢٠٢٧</p>
       </div>
     </footer>
   );

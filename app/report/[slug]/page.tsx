@@ -3,6 +3,9 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { PrintButton } from "@/components/print-button";
 import { DecemberCalendar } from "@/components/december-calendar";
+import { Plan2027 } from "@/components/plan-2027";
+import { TechStructureView } from "@/components/tech-structure";
+import { TechStructurePrint } from "@/components/tech-structure-print";
 import { YouthStats } from "@/components/youth-stats";
 import { YouthPrint } from "@/components/youth-print";
 import {
@@ -61,7 +64,7 @@ export default async function TopicPage({ params }: PageProps) {
           <div className="topic-seal" aria-hidden="true">
             <span className="topic-seal-label">المحور</span>
             <strong>{topic.number}</strong>
-            <span className="topic-seal-total">من ١٠</span>
+            <span className="topic-seal-total">من {toArabicDigits(topics.length, 1)}</span>
           </div>
 
           <nav className="breadcrumb" aria-label="مسار التنقل">
@@ -80,7 +83,7 @@ export default async function TopicPage({ params }: PageProps) {
 
           <div className="topic-meta">
             <span>
-              المحور {toArabicDigits(index + 1)} من {toArabicDigits(topics.length)}
+              المحور {toArabicDigits(index + 1)} من {toArabicDigits(topics.length, 1)}
             </span>
             <span className="meta-dot" aria-hidden="true" />
             <span>آخر تحديث: {reportMeta.date}</span>
@@ -96,7 +99,62 @@ export default async function TopicPage({ params }: PageProps) {
 
       <div className="container topic-layout">
         <div className="topic-main">
-          {topic.youthPeople ? (
+          {topic.slug === "plan-2027" ? (
+            <>
+              <Plan2027 />
+
+              <section
+                className="plan-contracts"
+                id="plan-contracts"
+                aria-labelledby="plan-contracts-title"
+              >
+                <div className="block-head">
+                  <h2 id="plan-contracts-title">العقود القادمة</h2>
+                  <span className="count-label">
+                    {toArabicDigits(topic.sections.length)} أقسام · قيد التعبئة
+                  </span>
+                </div>
+
+                <div className="section-list">
+                  {topic.sections.map((section, sectionIndex) => (
+                    <section
+                      className="content-section"
+                      key={section.title}
+                    >
+                      <span className="content-num">
+                        {toArabicDigits(sectionIndex + 1)}
+                      </span>
+                      <div>
+                        <div className="content-head">
+                          <h3>{section.title}</h3>
+                          <span className="draft-tag">
+                            <span className="status-dot" aria-hidden="true" />
+                            قيد التعبئة
+                          </span>
+                        </div>
+                        <p>{section.summary}</p>
+                      </div>
+                    </section>
+                  ))}
+                </div>
+
+                <section
+                  className="questions-block"
+                  aria-labelledby="plan-contracts-questions"
+                >
+                  <div className="questions-head">
+                    <QuestionIcon size={19} />
+                    <h2 id="plan-contracts-questions">أسئلة العقود</h2>
+                  </div>
+                  <ul>
+                    {topic.questions.map((question) => (
+                      <li key={question}>{question}</li>
+                    ))}
+                  </ul>
+                </section>
+              </section>
+            </>
+          ) : topic.youthPeople ? (
             <>
               <YouthStats people={topic.youthPeople} />
               <div className="youth-print">
@@ -125,6 +183,29 @@ export default async function TopicPage({ params }: PageProps) {
               </p>
               <DecemberCalendar weeks={topic.leaveCalendar} />
             </section>
+          ) : topic.techStructure ? (
+            <>
+              <TechStructureView data={topic.techStructure} />
+              <div className="tech-print">
+                <TechStructurePrint data={topic.techStructure} />
+              </div>
+
+              <section
+                className="questions-block tech-questions"
+                id="questions"
+                aria-labelledby="questions-title"
+              >
+                <div className="questions-head">
+                  <QuestionIcon size={19} />
+                  <h2 id="questions-title">أسئلة يُجيب عنها المحور</h2>
+                </div>
+                <ul>
+                  {topic.questions.map((question) => (
+                    <li key={question}>{question}</li>
+                  ))}
+                </ul>
+              </section>
+            </>
           ) : (
             <>
               <section aria-labelledby="covers-title">
@@ -207,7 +288,7 @@ export default async function TopicPage({ params }: PageProps) {
                   <ListIcon size={13} />
                   الفهرس
                 </span>
-                <span className="topic-nav-title">كل المحاور العشرة</span>
+                <span className="topic-nav-title">كل المحاور</span>
               </Link>
             )}
 
@@ -238,7 +319,7 @@ export default async function TopicPage({ params }: PageProps) {
               <div>
                 <dt>الترتيب</dt>
                 <dd>
-                  {topic.number} من {toArabicDigits(topics.length)}
+                  {topic.number} من {toArabicDigits(topics.length, 1)}
                 </dd>
               </div>
               <div>
@@ -260,7 +341,22 @@ export default async function TopicPage({ params }: PageProps) {
 
           <nav className="aside-card toc" aria-label="فهرس المحور">
             <p className="aside-title">في هذه الصفحة</p>
-            {topic.youthPeople ? (
+            {topic.slug === "plan-2027" ? (
+              <ol>
+                <li>
+                  <a href="#plan-summary">الملخص</a>
+                </li>
+                <li>
+                  <a href="#plan-calculator">الحاسبة</a>
+                </li>
+                <li>
+                  <a href="#plan-staff">الفريق</a>
+                </li>
+                <li>
+                  <a href="#plan-contracts">العقود القادمة</a>
+                </li>
+              </ol>
+            ) : topic.youthPeople ? (
               <ol>
                 <li>
                   <a href="#youth">إنجازات الشباب</a>
@@ -279,6 +375,24 @@ export default async function TopicPage({ params }: PageProps) {
                 </li>
                 <li>
                   <a href="#week-assessment">تقييم الأسبوع</a>
+                </li>
+              </ol>
+            ) : topic.techStructure ? (
+              <ol>
+                <li>
+                  <a href="#tech-structure">الهيكلتان</a>
+                </li>
+                <li>
+                  <a href="#why">لماذا قسمان؟</a>
+                </li>
+                <li>
+                  <a href="#flexibility">المرونة</a>
+                </li>
+                <li>
+                  <a href="#saif">استمرار سيف</a>
+                </li>
+                <li>
+                  <a href="#questions">أسئلة المحور</a>
                 </li>
               </ol>
             ) : (

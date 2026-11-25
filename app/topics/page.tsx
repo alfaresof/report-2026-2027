@@ -7,7 +7,7 @@ import { toArabicDigits } from "@/lib/format";
 export const metadata: Metadata = {
   title: "فهرس المحاور",
   description:
-    "فهرس محاور تقرير ختام ٢٠٢٦ وخطة ٢٠٢٧: الإجازة، إنجازات الشباب، خطة ٢٠٢٧، العقود، كفاءة العمل، الذكاء الاصطناعي، الجمعيات، والعهد التقنية.",
+    "فهرس محاور تقرير ختام ٢٠٢٦ وخطة ٢٠٢٧: الإجازة، إنجازات الشباب، خطة ٢٠٢٧ (الشباب والعقود)، هيكلة القسم التقني، الذكاء الاصطناعي، الجمعيات، والعهد التقنية، واجتماع أوقاف حسنى.",
 };
 
 export default function TopicsPage() {
@@ -28,8 +28,9 @@ export default function TopicsPage() {
 
           <h1>محاور التقرير</h1>
           <p className="page-lead">
-            عشرة محاور تغطي إغلاق ٢٠٢٦، والقرارات، وخطة ٢٠٢٧. كل محور صفحة
-            مستقلة: ما يغطيه، والأسئلة التي يجيب عنها، ثم التفاصيل بعد الاعتماد.
+            {toArabicDigits(topics.length, 1)} محاور تغطي إغلاق ٢٠٢٦، والقرارات،
+            وخطة ٢٠٢٧. كل محور صفحة مستقلة: ما يغطيه، والأسئلة التي يجيب عنها،
+            ثم التفاصيل بعد الاعتماد.
           </p>
 
           <div className="page-meta">
@@ -37,7 +38,7 @@ export default function TopicsPage() {
               <span className="status-dot" aria-hidden="true" />
               {reportMeta.status}
             </span>
-            <span>{toArabicDigits(topics.length)} محاور</span>
+            <span>{toArabicDigits(topics.length, 1)} محاور</span>
             <span>آخر تحديث: {reportMeta.date}</span>
             <Link href="/print/" className="text-link">
               النسخة الكاملة PDF

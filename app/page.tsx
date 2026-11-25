@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { reportMeta } from "@/lib/topics";
+import { reportMeta, topics } from "@/lib/topics";
 import { toArabicDigits } from "@/lib/format";
 import { ArrowLeftIcon, DownloadIcon } from "@/components/icons";
 
@@ -26,7 +26,8 @@ export default function HomePage() {
 
               <p className="hero-desc">
                 مراجعة لما تحقق، وقرارات لما يجب أن يتغير، وتصور واضح لما نبدأ
-                به العام القادم. عشرة محاور تُقرأ واحدة واحدة.
+                به العام القادم. {toArabicDigits(topics.length, 1)} محاور تُقرأ
+                واحدة واحدة.
               </p>
 
               <div className="hero-actions">
@@ -44,14 +45,14 @@ export default function HomePage() {
                 <span className="status-dot" aria-hidden="true" />
                 {reportMeta.status}
                 <span className="hero-note-sep" aria-hidden="true" />
-                {toArabicDigits(reportMeta.topicCount)} محاور
+                {toArabicDigits(topics.length, 1)} محاور
               </div>
             </div>
 
             <div className="hero-visual" aria-hidden="true">
               <div className="cover-card">
                 <span className="cover-badge">
-                  <strong>١٠</strong>
+                  <strong>{toArabicDigits(topics.length, 1)}</strong>
                   <span>محاور</span>
                 </span>
 
@@ -117,9 +118,9 @@ export default function HomePage() {
 
             <div className="home-intro-copy">
               <p className="section-side">
-                عشرة محاور مرتبة: ما نُغلقه في ٢٠٢٦، والقرارات التي لا تحتمل
-                التأجيل، ثم خطة العام القادم للشباب والعقود وكفاءة العمل
-                والذكاء الاصطناعي والشراكات.
+                {toArabicDigits(topics.length, 1)} محاور مرتبة: ما نُغلقه في ٢٠٢٦،
+                والقرارات التي لا تحتمل التأجيل، ثم خطة ٢٠٢٧ للشباب والعقود،
+                وهيكلة القسم التقني والذكاء الاصطناعي والشراكات.
               </p>
               <Link href="/topics/" className="text-link home-intro-link">
                 افتح فهرس المحاور

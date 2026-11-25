@@ -12,7 +12,7 @@ export default function NotFound() {
         <h1>هذا المحور غير موجود.</h1>
         <p>
           ربما تغيّر الرابط أو أن المحور لم يُضف بعد. العودة إلى الفهرس تعرض
-          المحاور العشرة كاملة.
+          المحاور كاملة.
         </p>
         <Link href="/topics/" className="btn btn-ink">
           <ArrowRightIcon size={16} />

@@ -4,6 +4,8 @@ import { PrintButton } from "@/components/print-button";
 import { LogoMark, ArrowRightIcon } from "@/components/icons";
 import { DecemberWeekTable } from "@/components/december-week-table";
 import { YouthPrint } from "@/components/youth-print";
+import { Plan2027Print } from "@/components/plan-2027-print";
+import { TechStructurePrint } from "@/components/tech-structure-print";
 import { reportMeta, topics } from "@/lib/topics";
 import { toArabicDigits } from "@/lib/format";
 
@@ -62,7 +64,8 @@ export default function PrintPage() {
               </h2>
               <p className="print-cover-desc">
                 مراجعة لما تحقق، وقرارات لما يجب أن يتغير، وتصور واضح لما نبدأ
-                به العام القادم. عشرة محاور تُقرأ واحدة واحدة.
+                به العام القادم. {toArabicDigits(topics.length, 1)} محاور تُقرأ
+                واحدة واحدة.
               </p>
             </div>
 
@@ -81,7 +84,7 @@ export default function PrintPage() {
             <div className="print-cover-foot">
               <span>{reportMeta.status}</span>
               <span>
-                {toArabicDigits(reportMeta.topicCount)} محاور · {reportMeta.edition}
+                {toArabicDigits(topics.length, 1)} محاور · {reportMeta.edition}
               </span>
             </div>
           </section>
@@ -97,13 +100,59 @@ export default function PrintPage() {
                 ) : null}
               </header>
 
-              {topic.youthPeople ? (
+              {topic.slug === "plan-2027" ? (
+                <>
+                  <Plan2027Print />
+
+                  <div className="print-contracts">
+                    <h3>العقود القادمة</h3>
+
+                    <div className="print-sections">
+                      {topic.sections.map((section, sectionIndex) => (
+                        <section className="print-section" key={section.title}>
+                          <h3>
+                            <span>{toArabicDigits(sectionIndex + 1)}</span>
+                            {section.title}
+                          </h3>
+                          <p>{section.summary}</p>
+                        </section>
+                      ))}
+                    </div>
+
+                    {topic.questions.length > 0 ? (
+                      <div className="print-questions">
+                        <h3>أسئلة العقود</h3>
+                        <ul>
+                          {topic.questions.map((question) => (
+                            <li key={question}>{question}</li>
+                          ))}
+                        </ul>
+                      </div>
+                    ) : null}
+                  </div>
+                </>
+              ) : topic.youthPeople ? (
                 <YouthPrint people={topic.youthPeople} />
               ) : topic.leaveCalendar ? (
                 <div className="print-calendar">
                   <h3>ديسمبر ٢٠٢٦</h3>
                   <DecemberWeekTable weeks={topic.leaveCalendar} />
                 </div>
+              ) : topic.techStructure ? (
+                <>
+                  <TechStructurePrint data={topic.techStructure} />
+
+                  {topic.questions.length > 0 ? (
+                    <div className="print-questions tech-questions">
+                      <h3>أسئلة المحور</h3>
+                      <ul>
+                        {topic.questions.map((question) => (
+                          <li key={question}>{question}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  ) : null}
+                </>
               ) : (
                 <>
                   <div className="print-sections">
