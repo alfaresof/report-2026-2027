@@ -182,19 +182,34 @@
 
 .workspace {
   display: grid;
-  grid-template-columns: 230px minmax(0, 1fr);
-  align-items: start;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: stretch;
   gap: 16px;
   margin-top: 16px;
+}
+
+.library,
+.planner {
+  height: clamp(560px, 68vh, 720px);
 }
 
 .library {
   position: sticky;
   top: 96px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
   padding: 14px;
   border: 1px solid var(--line);
   border-radius: 16px;
   background: var(--paper-raised);
+  transition: border-color 0.18s ease, background 0.18s ease;
+}
+
+.library.isOver {
+  border-color: var(--gold);
+  background: rgba(183, 138, 63, 0.06);
+  box-shadow: 0 0 0 3px rgba(183, 138, 63, 0.08);
 }
 
 .libraryHead {
@@ -219,17 +234,26 @@
 
 .libraryList {
   display: flex;
+  flex: 1;
   flex-direction: column;
+  min-height: 0;
   gap: 5px;
   margin: 8px 0 0;
   padding: 0;
+  overflow-y: auto;
   list-style: none;
+}
+
+.libraryList li {
+  flex: 1;
+  min-height: 44px;
 }
 
 .libraryItem {
   display: flex;
   align-items: center;
   gap: 8px;
+  height: 100%;
   padding: 7px 8px;
   border: 1px solid var(--line-soft);
   border-radius: 9px;
@@ -321,6 +345,10 @@
    ========================================================= */
 
 .dropZone {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
   padding: 14px;
   border: 1px dashed rgba(183, 138, 63, 0.5);
   border-radius: 18px;
@@ -354,9 +382,13 @@
 
 .planCards {
   display: flex;
+  flex: 1;
   flex-direction: column;
+  min-height: 0;
   gap: 10px;
   margin-top: 12px;
+  padding-inline-end: 4px;
+  overflow-y: auto;
 }
 
 .projectCard {
@@ -365,6 +397,15 @@
   border-radius: 13px;
   background: var(--paper-raised);
   box-shadow: 0 12px 28px -24px rgba(10, 43, 36, 0.35);
+  cursor: grab;
+}
+
+.projectCard:active {
+  cursor: grabbing;
+}
+
+.projectCard button {
+  cursor: pointer;
 }
 
 .cardTop {
@@ -713,13 +754,33 @@
     grid-template-columns: 1fr;
   }
 
+  .library,
+  .planner {
+    height: auto;
+  }
+
   .library {
     position: static;
+    overflow: visible;
   }
 
   .libraryList {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
+    overflow: visible;
+  }
+
+  .libraryList li {
+    flex: none;
+  }
+
+  .dropZone {
+    height: auto;
+    overflow: visible;
+  }
+
+  .planCards {
+    overflow: visible;
   }
 }
 
@@ -864,7 +925,13 @@
     margin-top: 4mm;
   }
 
+  .planner {
+    height: auto;
+  }
+
   .dropZone {
+    height: auto;
+    overflow: visible;
     padding: 0;
     border: 0;
     background: transparent;
@@ -875,6 +942,7 @@
     grid-template-columns: 1fr 1fr;
     gap: 4mm;
     margin-top: 3mm;
+    overflow: visible;
   }
 
   .projectCard {

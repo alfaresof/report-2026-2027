@@ -2049,6 +2049,7 @@ svg {
   align-items: center;
   gap: 9px;
   width: min(100%, 340px);
+  margin-inline: auto;
   padding: 9px 11px;
   border-radius: 8px;
   background: var(--green);
@@ -2234,6 +2235,50 @@ svg {
   font-size: 7px;
   line-height: 1.7;
   white-space: nowrap;
+}
+
+.tech-print-why {
+  margin-top: 8px;
+  padding: 7px 9px;
+  border: 1px solid var(--line-soft);
+  border-radius: 7px;
+  background: #faf7f0;
+  break-inside: avoid;
+}
+
+.tech-print-why h4 {
+  margin-bottom: 5px;
+  font-family: var(--font-head);
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.tech-print-why-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.tech-print-why-item {
+  padding-inline-start: 7px;
+  border-inline-start: 2px solid var(--gold);
+}
+
+.tech-print-why-item strong {
+  display: block;
+  font-family: var(--font-head);
+  font-size: 9.5px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.tech-print-why-item span {
+  display: block;
+  margin-top: 1px;
+  color: var(--ink-3);
+  font-size: 8px;
+  line-height: 1.65;
 }
 
 .tech-print-note {
@@ -3178,6 +3223,14 @@ svg {
     padding: 7mm 0 0;
   }
 
+  .topic-page-tech .topic-layout {
+    padding-top: 2mm;
+  }
+
+  .topic-page-tech .tech-print-block {
+    gap: 1mm;
+  }
+
   .block-head {
     border-bottom: 1pt solid #111;
     padding-bottom: 2mm;
@@ -3506,6 +3559,34 @@ svg {
 
   .tech-print-tag {
     font-size: 6.2pt;
+  }
+
+  .tech-print-why {
+    margin-top: 1.5mm;
+    padding: 1mm 2.5mm;
+    border-radius: 2mm;
+  }
+
+  .tech-print-why h4 {
+    margin-bottom: 1mm;
+    font-size: 8.5pt;
+  }
+
+  .tech-print-why-grid {
+    gap: 2.5mm;
+  }
+
+  .tech-print-why-item {
+    padding-inline-start: 2mm;
+  }
+
+  .tech-print-why-item strong {
+    font-size: 8pt;
+  }
+
+  .tech-print-why-item span {
+    font-size: 7pt;
+    line-height: 1.6;
   }
 
   .tech-print-note {

@@ -33,7 +33,9 @@ export function TechStructurePrint({ data }: { data: TechStructure }) {
           {data.current.scope}
         </p>
 
-        <p className="tech-print-problem">{data.current.summary}</p>
+        <p className="tech-print-problem">
+          <strong>المشكلة:</strong> {data.current.summary}
+        </p>
       </section>
 
       <section className="tech-print-section">
@@ -82,6 +84,18 @@ export function TechStructurePrint({ data }: { data: TechStructure }) {
               </div>
             </section>
           ))}
+        </div>
+
+        <div className="tech-print-why">
+          <h4>لماذا قسمان؟</h4>
+          <div className="tech-print-why-grid">
+            {data.reasons.map((reason) => (
+              <div className="tech-print-why-item" key={reason.id}>
+                <strong>{reason.title}</strong>
+                <span>{reason.text}</span>
+              </div>
+            ))}
+          </div>
         </div>
 
         <p className="tech-print-note">

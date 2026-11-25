@@ -30,8 +30,12 @@ export function Plan2027() {
     ...planDefaults.selected,
   ]);
   const [units, setUnits] = useState(planDefaults.units);
-  const [draggingId, setDraggingId] = useState<string | null>(null);
-  const [isOver, setIsOver] = useState(false);
+  const [dragging, setDragging] = useState<{
+    id: string;
+    source: "library" | "plan";
+  } | null>(null);
+  const [isOverPlan, setIsOverPlan] = useState(false);
+  const [isOverLibrary, setIsOverLibrary] = useState(false);
 
   const calc = calculatePlan(selected, units);
   const selectedSet = new Set(selected);
@@ -46,29 +50,62 @@ export function Plan2027() {
     setSelected((current) => current.filter((item) => item !== id));
   };
 
-  const handleDragStart = (
-    event: React.DragEvent<HTMLDivElement>,
-    id: string,
-  ) => {
-    event.dataTransfer.setData("text/plain", id);
-    event.dataTransfer.effectAllowed = "copy";
-    setDraggingId(id);
+  const resetDrag = () => {
+    setDragging(null);
+    setIsOverPlan(false);
+    setIsOverLibrary(false);
   };
 
-  const handleDrop = (event: React.DragEvent<HTMLDivElement>) => {
-    event.preventDefault();
-    const id = event.dataTransfer.getData("text/plain") || draggingId;
+  const handleDragStart = (
+    event: React.DragEvent<HTMLElement>,
+    id: string,
+    source: "library" | "plan",
+  ) => {
+    event.dataTransfer.setData("text/plain", id);
+    event.dataTransfer.setData("application/x-plan-2027-source", source);
+    event.dataTransfer.effectAllowed = source === "plan" ? "move" : "copy";
+    setDragging({ id, source });
+  };
 
-    if (id) {
+  const handlePlanDrop = (event: React.DragEvent<HTMLDivElement>) => {
+    event.preventDefault();
+    const source =
+      event.dataTransfer.getData("application/x-plan-2027-source") ||
+      dragging?.source;
+    const id =
+      event.dataTransfer.getData("text/plain") || dragging?.id;
+
+    if (source === "library" && id) {
       addProject(id);
     }
 
-    setDraggingId(null);
-    setIsOver(false);
+    resetDrag();
+  };
+
+  const handleLibraryDrop = (event: React.DragEvent<HTMLElement>) => {
+    event.preventDefault();
+    const source =
+      event.dataTransfer.getData("application/x-plan-2027-source") ||
+      dragging?.source;
+    const id =
+      event.dataTransfer.getData("text/plain") || dragging?.id;
+
+    if (source === "plan" && id) {
+      removeProject(id);
+    }
+
+    resetDrag();
   };
 
   const planCard = (project: PlanProjectComputed) => (
-    <article className={styles.projectCard} key={project.id}>
+    <article
+      className={styles.projectCard}
+      key={project.id}
+      draggable
+      onDragStart={(event) => handleDragStart(event, project.id, "plan")}
+      onDragEnd={resetDrag}
+      title="اسحب المشروع إلى قائمة المشاريع لإزالته"
+    >
       <header className={styles.cardTop}>
         <div className={styles.cardIdentity}>
           {project.tag ? <span className={styles.cardTag}>{project.tag}</span> : null}
@@ -215,9 +252,9 @@ export function Plan2027() {
       >
         <div className={styles.calcHead}>
           <div>
-            <p className={styles.calcKicker}>الحاسبة</p>
+            <p className={styles.calcKicker}>الخطة</p>
             <h2 className={styles.calcTitle} id="plan-calculator-title">
-              اختر المشاريع
+              حاسبة المشاريع
             </h2>
           </div>
 
@@ -240,12 +277,37 @@ export function Plan2027() {
         </div>
 
         <p className={styles.hint}>
-          اسحب المشروع من القائمة إلى الخطة، أو أضفه بالزر. يمكنك إزالة أي
-          مشروع من الخطة للعودة إلى القائمة.
+          اسحب المشروع من القائمة إلى الخطة، أو من الخطة إلى القائمة لإزالته.
+          يمكنك أيضًا استخدام الأزرار.
         </p>
 
         <div className={styles.workspace}>
-          <aside className={styles.library} aria-label="قائمة المشاريع">
+          <aside
+            className={`${styles.library}${
+              isOverLibrary ? ` ${styles.isOver}` : ""
+            }`}
+            aria-label="قائمة المشاريع"
+            onDragOver={(event) => {
+              if (dragging?.source === "plan") {
+                event.preventDefault();
+                event.dataTransfer.dropEffect = "move";
+              }
+            }}
+            onDragEnter={(event) => {
+              if (dragging?.source === "plan") {
+                event.preventDefault();
+                setIsOverLibrary(true);
+              }
+            }}
+            onDragLeave={(event) => {
+              if (
+                !event.currentTarget.contains(event.relatedTarget as Node)
+              ) {
+                setIsOverLibrary(false);
+              }
+            }}
+            onDrop={handleLibraryDrop}
+          >
             <div className={styles.libraryHead}>
               <h3 className={styles.libraryTitle}>قائمة المشاريع</h3>
               <span className={styles.libraryHint}>اسحب إلى الخطة</span>
@@ -263,9 +325,9 @@ export function Plan2027() {
                       }`}
                       draggable={!isSelected}
                       onDragStart={(event) =>
-                        handleDragStart(event, project.id)
+                        handleDragStart(event, project.id, "library")
                       }
-                      onDragEnd={() => setDraggingId(null)}
+                      onDragEnd={resetDrag}
                       aria-disabled={isSelected}
                     >
                       <DragHandle />
@@ -303,24 +365,28 @@ export function Plan2027() {
           <div className={styles.planner}>
             <div
               className={`${styles.dropZone}${
-                isOver ? ` ${styles.isOver}` : ""
+                isOverPlan ? ` ${styles.isOver}` : ""
               }`}
               onDragOver={(event) => {
-                event.preventDefault();
-                event.dataTransfer.dropEffect = "copy";
+                if (dragging?.source === "library") {
+                  event.preventDefault();
+                  event.dataTransfer.dropEffect = "copy";
+                }
               }}
               onDragEnter={(event) => {
-                event.preventDefault();
-                setIsOver(true);
+                if (dragging?.source === "library") {
+                  event.preventDefault();
+                  setIsOverPlan(true);
+                }
               }}
               onDragLeave={(event) => {
                 if (
                   !event.currentTarget.contains(event.relatedTarget as Node)
                 ) {
-                  setIsOver(false);
+                  setIsOverPlan(false);
                 }
               }}
-              onDrop={handleDrop}
+              onDrop={handlePlanDrop}
             >
               <div className={styles.planHead}>
                 <h3 className={styles.planTitle}>خطة ٢٠٢٧</h3>

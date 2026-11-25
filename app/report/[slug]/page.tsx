@@ -58,7 +58,9 @@ export default async function TopicPage({ params }: PageProps) {
   const { previous, next, index } = getTopicNeighbours(slug);
 
   return (
-    <article className="topic-page">
+    <article
+      className={`topic-page${topic.techStructure ? " topic-page-tech" : ""}`}
+    >
       <header className="topic-hero">
         <div className="container topic-hero-inner">
           <div className="topic-seal" aria-hidden="true">
@@ -191,7 +193,7 @@ export default async function TopicPage({ params }: PageProps) {
               </div>
 
               <section
-                className="questions-block tech-questions"
+                className="questions-block tech-questions no-print"
                 id="questions"
                 aria-labelledby="questions-title"
               >
@@ -347,7 +349,7 @@ export default async function TopicPage({ params }: PageProps) {
                   <a href="#plan-summary">الملخص</a>
                 </li>
                 <li>
-                  <a href="#plan-calculator">الحاسبة</a>
+                  <a href="#plan-calculator">حاسبة المشاريع</a>
                 </li>
                 <li>
                   <a href="#plan-staff">الفريق</a>

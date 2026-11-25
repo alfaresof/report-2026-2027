@@ -198,7 +198,10 @@ function CurrentChart({ data }: { data: TechStructure }) {
         <span className={styles.problemIcon} aria-hidden="true">
           <AlertIcon />
         </span>
-        <span>{data.current.summary}</span>
+        <span>
+          <strong className={styles.problemLabel}>المشكلة:</strong>{" "}
+          {data.current.summary}
+        </span>
       </p>
     </div>
   );
@@ -410,7 +413,9 @@ export function TechStructureView({ data }: { data: TechStructure }) {
               لماذا قسمان؟
             </h3>
           </div>
-          <span className={styles.sectionNote}>ثلاثة أسباب مباشرة</span>
+          <span className={styles.sectionNote}>
+            التقسيمة السابقة: عامة وغير مركّزة
+          </span>
         </div>
 
         <ul className={styles.reasons}>

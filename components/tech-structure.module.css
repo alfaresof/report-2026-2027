@@ -358,7 +358,7 @@
 .dashedRail {
   position: absolute;
   top: 20px;
-  inset-inline: 14%;
+  inset-inline: calc(100% / 6 - 4px);
   height: 22px;
   border-top: 1px dashed rgba(20, 35, 31, 0.3);
 }
@@ -549,6 +549,11 @@
   flex: none;
   margin-top: 2px;
   color: var(--gold-ink);
+}
+
+.problemLabel {
+  color: var(--gold-ink);
+  font-weight: 600;
 }
 
 /* =========================================================
