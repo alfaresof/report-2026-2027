@@ -202,10 +202,7 @@ export function YouthStats({ people }: { people: YouthPerson[] }) {
             <div className={styles.solutions}>
               {selected.solutions.map((solution) => (
                 <div className={styles.solution} key={solution.id}>
-                  <div
-                    className={styles.solutionHead}
-                    title={solution.note}
-                  >
+                  <div className={styles.solutionHead}>
                     <span className={styles.solutionLogo}>
                       <img
                         src={solution.logo}
@@ -238,6 +235,10 @@ export function YouthStats({ people }: { people: YouthPerson[] }) {
                       </li>
                     ))}
                   </ul>
+
+                  {solution.note ? (
+                    <p className={styles.solutionNote}>{solution.note}</p>
+                  ) : null}
                 </div>
               ))}
             </div>

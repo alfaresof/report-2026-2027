@@ -1793,21 +1793,21 @@ svg {
 }
 
 .print-solutions {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: stretch;
   gap: 10px;
   margin-top: 10px;
 }
 
 .print-solution {
-  padding-top: 8px;
-  border-top: 1px solid var(--line-soft);
+  padding: 10px 11px;
+  border: 1px solid var(--line-soft);
+  border-radius: 8px;
+  background: #fffdf8;
+  break-inside: avoid;
 }
 
-.print-solution:first-child {
-  padding-top: 0;
-  border-top: 0;
-}
 
 .print-solution-head {
   display: flex;
@@ -1881,6 +1881,15 @@ svg {
   color: var(--gold-ink);
   font-size: 9px;
   white-space: nowrap;
+}
+
+.print-solution-note {
+  margin-top: 6px;
+  padding-top: 4px;
+  border-top: 1px dashed var(--line-soft);
+  color: var(--ink-3);
+  font-size: 9px;
+  line-height: 1.6;
 }
 
 /* =========================================================
@@ -2912,12 +2921,15 @@ svg {
   }
 
   .print-solutions {
+    grid-template-columns: 1fr 1fr;
     gap: 3mm;
     margin-top: 2mm;
   }
 
   .print-solution {
-    padding-top: 2mm;
+    padding: 3mm;
+    border: 1px solid #ddd;
+    border-radius: 2mm;
   }
 
   .print-solution-head h5 {

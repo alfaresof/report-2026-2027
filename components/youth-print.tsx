@@ -65,6 +65,10 @@ export function YouthPrint({ people }: { people: YouthPerson[] }) {
                       </li>
                     ))}
                   </ul>
+
+                  {solution.note ? (
+                    <p className="print-solution-note">{solution.note}</p>
+                  ) : null}
                 </section>
               ))}
             </div>
