@@ -41,6 +41,7 @@ export const serviceGroups: TechServiceGroup[] = [
         logo: logo("cranl.png"),
         cycle: "monthly",
         monthly: 58.53,
+        note: "استضافة تطبيقات المشاريع والمنتجات.",
       },
       {
         id: "hostinger",
@@ -49,6 +50,7 @@ export const serviceGroups: TechServiceGroup[] = [
         logo: logo("hostinger.svg"),
         cycle: "monthly",
         monthly: 90.85,
+        note: "مواقع الجمعيات والمشاريع.",
       },
       {
         id: "bluehost",
@@ -66,6 +68,7 @@ export const serviceGroups: TechServiceGroup[] = [
         logo: logo("bunny.svg"),
         cycle: "monthly",
         monthly: 93.88,
+        note: "تسريع تحميل الأصول والوسائط.",
       },
       {
         id: "domains",
@@ -117,6 +120,7 @@ export const serviceGroups: TechServiceGroup[] = [
         logo: logo("resend.svg"),
         cycle: "monthly",
         monthly: 75.09,
+        note: "رسائل التحقق والإشعارات.",
       },
       {
         id: "soundcloud",
@@ -125,6 +129,7 @@ export const serviceGroups: TechServiceGroup[] = [
         logo: logo("soundcloud.svg"),
         cycle: "monthly",
         monthly: 37.99,
+        note: "بودكاست منصت.",
       },
     ],
   },

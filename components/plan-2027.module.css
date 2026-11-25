@@ -14,12 +14,12 @@
   background:
     radial-gradient(
       120% 130% at 88% -10%,
-      rgba(183, 138, 63, 0.22),
+      rgba(141, 159, 209, 0.22),
       transparent 55%
     ),
     linear-gradient(150deg, var(--green) 0%, var(--green-2) 72%);
   color: var(--cream);
-  box-shadow: 0 30px 70px -46px rgba(10, 43, 36, 0.6);
+  box-shadow: 0 30px 70px -46px rgba(34, 51, 65, 0.6);
 }
 
 .summary::after {
@@ -29,9 +29,9 @@
   bottom: -150px;
   width: 320px;
   height: 320px;
-  border: 1px solid rgba(216, 189, 139, 0.18);
+  border: 1px solid rgba(185, 197, 232, 0.18);
   border-radius: 50%;
-  box-shadow: 0 0 0 34px rgba(216, 189, 139, 0.035);
+  box-shadow: 0 0 0 34px rgba(185, 197, 232, 0.035);
   pointer-events: none;
 }
 
@@ -43,7 +43,7 @@
   justify-content: space-between;
   gap: 20px;
   padding-bottom: 16px;
-  border-bottom: 1px solid rgba(247, 241, 229, 0.14);
+  border-bottom: 1px solid rgba(244, 241, 236, 0.14);
 }
 
 .summaryKicker {
@@ -62,7 +62,7 @@
 
 .summaryNote {
   padding-bottom: 3px;
-  color: rgba(247, 241, 229, 0.5);
+  color: rgba(244, 241, 236, 0.7);
   font-size: 9.5px;
   line-height: 1.7;
 }
@@ -80,7 +80,7 @@
   flex-direction: column;
   gap: 3px;
   padding: 16px 20px 2px;
-  border-inline-start: 1px solid rgba(247, 241, 229, 0.13);
+  border-inline-start: 1px solid rgba(244, 241, 236, 0.13);
 }
 
 .summaryStat:first-child {
@@ -89,7 +89,7 @@
 }
 
 .statLabel {
-  color: rgba(247, 241, 229, 0.6);
+  color: rgba(244, 241, 236, 0.7);
   font-size: 10.5px;
   line-height: 1.7;
 }
@@ -105,7 +105,7 @@
 }
 
 .statUnit {
-  color: rgba(247, 241, 229, 0.42);
+  color: rgba(244, 241, 236, 0.7);
   font-size: 8px;
   line-height: 1.4;
 }
@@ -145,6 +145,7 @@
 }
 
 .actionBtn,
+.actionBtnPrimary,
 .actionBtnGhost {
   padding: 5px 11px;
   border: 1px solid var(--line);
@@ -161,7 +162,7 @@
 .actionBtn:hover {
   border-color: var(--gold);
   color: var(--gold-ink);
-  background: rgba(183, 138, 63, 0.05);
+  background: rgba(141, 159, 209, 0.05);
 }
 
 .actionBtnGhost {
@@ -169,8 +170,8 @@
 }
 
 .actionBtnGhost:hover {
-  border-color: #a4552f;
-  color: #a4552f;
+  border-color: #b5652a;
+  color: #b5652a;
 }
 
 .hint {
@@ -208,8 +209,8 @@
 
 .library.isOver {
   border-color: var(--gold);
-  background: rgba(183, 138, 63, 0.06);
-  box-shadow: 0 0 0 3px rgba(183, 138, 63, 0.08);
+  background: rgba(141, 159, 209, 0.06);
+  box-shadow: 0 0 0 3px rgba(141, 159, 209, 0.08);
 }
 
 .libraryHead {
@@ -237,7 +238,7 @@
   flex: 1;
   flex-direction: column;
   min-height: 0;
-  gap: 5px;
+  gap: 10px;
   margin: 8px 0 0;
   padding: 0;
   overflow-y: auto;
@@ -245,8 +246,15 @@
 }
 
 .libraryList li {
-  flex: 1;
-  min-height: 44px;
+  flex: none;
+}
+
+.emptyLibrary {
+  margin: 24px 0;
+  color: var(--ink-3);
+  font-size: 10.5px;
+  line-height: 1.8;
+  text-align: center;
 }
 
 .libraryItem {
@@ -265,7 +273,7 @@
 
 .libraryItem:hover {
   border-color: var(--gold);
-  background: #fffaf0;
+  background: #fcfbf8;
 }
 
 .libraryItem.isSelected {
@@ -314,7 +322,7 @@
   margin-inline-start: auto;
   padding: 1px 6px;
   border-radius: 999px;
-  background: rgba(14, 64, 53, 0.08);
+  background: rgba(36, 79, 79, 0.08);
   color: var(--green);
   font-size: 7.5px;
   line-height: 1.6;
@@ -350,15 +358,15 @@
   height: 100%;
   overflow: hidden;
   padding: 14px;
-  border: 1px dashed rgba(183, 138, 63, 0.5);
+  border: 1px dashed rgba(141, 159, 209, 0.5);
   border-radius: 18px;
-  background: rgba(183, 138, 63, 0.03);
+  background: rgba(141, 159, 209, 0.03);
   transition: border-color 0.18s ease, background 0.18s ease;
 }
 
 .dropZone.isOver {
   border-color: var(--gold);
-  background: rgba(183, 138, 63, 0.09);
+  background: rgba(141, 159, 209, 0.09);
 }
 
 .planHead {
@@ -396,7 +404,7 @@
   border: 1px solid var(--line);
   border-radius: 13px;
   background: var(--paper-raised);
-  box-shadow: 0 12px 28px -24px rgba(10, 43, 36, 0.35);
+  box-shadow: 0 12px 28px -24px rgba(34, 51, 65, 0.35);
   cursor: grab;
 }
 
@@ -406,6 +414,51 @@
 
 .projectCard button {
   cursor: pointer;
+}
+
+.libraryCard {
+  cursor: grab;
+}
+
+.libraryCard.isAdded {
+  border-style: dashed;
+  opacity: 0.58;
+  cursor: default;
+}
+
+.cardFooter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+  padding-top: 9px;
+  border-top: 1px solid var(--line-soft);
+}
+
+.addCardButton {
+  width: 100%;
+  padding: 6px 10px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--paper);
+  color: var(--ink-2);
+  font-family: var(--font-sans);
+  font-size: 9.5px;
+  font-weight: 600;
+  line-height: 1.6;
+  cursor: pointer;
+  transition: border-color 0.18s ease, color 0.18s ease,
+    background 0.18s ease;
+}
+
+.addCardButton:hover {
+  border-color: var(--gold);
+  background: rgba(141, 159, 209, 0.06);
+  color: var(--gold-ink);
+}
+
+.cardFooter .addedBadge {
+  margin-inline-start: 0;
 }
 
 .cardTop {
@@ -469,8 +522,8 @@
 }
 
 .removeButton:hover {
-  border-color: #a4552f;
-  color: #a4552f;
+  border-color: #b5652a;
+  color: #b5652a;
 }
 
 .productsNote {
@@ -608,7 +661,7 @@
   background:
     radial-gradient(
       110% 120% at 10% -10%,
-      rgba(183, 138, 63, 0.18),
+      rgba(141, 159, 209, 0.18),
       transparent 58%
     ),
     linear-gradient(150deg, var(--green) 0%, var(--green-2) 75%);
@@ -622,9 +675,9 @@
   bottom: -160px;
   width: 320px;
   height: 320px;
-  border: 1px solid rgba(216, 189, 139, 0.18);
+  border: 1px solid rgba(185, 197, 232, 0.18);
   border-radius: 50%;
-  box-shadow: 0 0 0 34px rgba(216, 189, 139, 0.035);
+  box-shadow: 0 0 0 34px rgba(185, 197, 232, 0.035);
   pointer-events: none;
 }
 
@@ -636,7 +689,7 @@
   justify-content: space-between;
   gap: 16px;
   padding-bottom: 13px;
-  border-bottom: 1px solid rgba(247, 241, 229, 0.14);
+  border-bottom: 1px solid rgba(244, 241, 236, 0.14);
 }
 
 .staffKicker {
@@ -654,7 +707,7 @@
 
 .staffNote {
   padding-bottom: 3px;
-  color: rgba(247, 241, 229, 0.45);
+  color: rgba(244, 241, 236, 0.7);
   font-size: 8px;
   white-space: nowrap;
 }
@@ -663,7 +716,7 @@
   position: relative;
   z-index: 1;
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(5, minmax(0, 1fr));
   margin-top: 5px;
 }
 
@@ -672,7 +725,7 @@
   flex-direction: column;
   gap: 3px;
   padding: 15px 16px 5px;
-  border-inline-start: 1px solid rgba(247, 241, 229, 0.12);
+  border-inline-start: 1px solid rgba(244, 241, 236, 0.12);
 }
 
 .role:first-child {
@@ -681,7 +734,7 @@
 }
 
 .roleLabel {
-  color: rgba(247, 241, 229, 0.55);
+  color: rgba(244, 241, 236, 0.7);
   font-size: 9px;
   line-height: 1.6;
 }
@@ -696,7 +749,7 @@
 }
 
 .roleNames {
-  color: rgba(247, 241, 229, 0.75);
+  color: rgba(244, 241, 236, 0.75);
   font-size: 9px;
   line-height: 1.75;
 }
@@ -716,7 +769,7 @@
   gap: 18px;
   margin-top: 9px;
   padding-top: 11px;
-  border-top: 1px solid rgba(247, 241, 229, 0.13);
+  border-top: 1px solid rgba(244, 241, 236, 0.13);
 }
 
 .total {
@@ -726,7 +779,7 @@
 }
 
 .totalLabel {
-  color: rgba(247, 241, 229, 0.55);
+  color: rgba(244, 241, 236, 0.7);
   font-size: 9.5px;
 }
 
@@ -740,7 +793,7 @@
 
 .additionalNote {
   max-width: 54ch;
-  color: rgba(247, 241, 229, 0.45);
+  color: rgba(244, 241, 236, 0.7);
   font-size: 8.5px;
   line-height: 1.8;
 }
@@ -802,7 +855,7 @@
   .summaryStat {
     padding: 12px 0;
     border-inline-start: 0;
-    border-top: 1px solid rgba(247, 241, 229, 0.12);
+    border-top: 1px solid rgba(244, 241, 236, 0.12);
   }
 
   .summaryStat:first-child {
@@ -843,7 +896,7 @@
   }
 
   .role:nth-child(n + 3) {
-    border-top: 1px solid rgba(247, 241, 229, 0.1);
+    border-top: 1px solid rgba(244, 241, 236, 0.1);
   }
 
   .staffBottom {
@@ -891,7 +944,7 @@
   .role {
     padding: 10px 0;
     border-inline-start: 0;
-    border-top: 1px solid rgba(247, 241, 229, 0.1);
+    border-top: 1px solid rgba(244, 241, 236, 0.1);
   }
 
   .role:first-child {
@@ -899,7 +952,7 @@
   }
 
   .role:nth-child(n + 3) {
-    border-top: 1px solid rgba(247, 241, 229, 0.1);
+    border-top: 1px solid rgba(244, 241, 236, 0.1);
   }
 }
 
@@ -987,7 +1040,7 @@
   }
 
   .staffGrid {
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(5, 1fr);
   }
 
   .role {

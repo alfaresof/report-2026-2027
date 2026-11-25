@@ -177,10 +177,10 @@ export function LogoMark({ className = "" }: { className?: string }) {
         height="12"
         rx="2.5"
         transform="rotate(45 20 20)"
-        stroke="#b78a3f"
+        stroke="#8d9fd1"
         strokeWidth="1.4"
       />
-      <circle cx="20" cy="20" r="2.6" fill="#b78a3f" />
+      <circle cx="20" cy="20" r="2.6" fill="#8d9fd1" />
     </svg>
   );
 }

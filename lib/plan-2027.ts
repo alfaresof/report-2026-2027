@@ -118,8 +118,10 @@ export const planTeam: {
   tester: null,
 };
 
+export const planAllSelected = planProjects.map((project) => project.id);
+
 export const planDefaults = {
-  selected: planProjects.map((project) => project.id),
+  selected: [] as string[],
   units: 2,
 };
 

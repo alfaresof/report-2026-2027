@@ -3,12 +3,18 @@ import {
   formatEngineerCount,
   formatPlanNumber,
   formatProductCount,
+  planAllSelected,
   planDefaults,
   planTeam,
 } from "@/lib/plan-2027";
 
 export function Plan2027Print() {
-  const calc = calculatePlan(planDefaults.selected, planDefaults.units);
+  const calc = calculatePlan(planAllSelected, planDefaults.units);
+  const fullEngineers = Math.floor(calc.engineers);
+  const partTimeEngineers = calc.engineers % 1 > 0 ? 1 : 0;
+  const additionalFullEngineers = Math.floor(calc.additional.engineers);
+  const additionalPartTimeEngineers =
+    calc.additional.engineers % 1 > 0 ? 1 : 0;
 
   return (
     <div className="plan-print">
@@ -87,13 +93,20 @@ export function Plan2027Print() {
             </td>
           </tr>
           <tr>
-            <th scope="row">مهندس برمجيات</th>
-            <td>{formatPlanNumber(calc.engineers)}</td>
+            <th scope="row">مهندس برمجيات — دوام كامل</th>
+            <td>{formatPlanNumber(fullEngineers)}</td>
             <td>
-              {planTeam.engineers.join("، ")}
-              {calc.additional.engineers > 0
-                ? ` + ${formatPlanNumber(calc.additional.engineers)} إضافي`
+              {calc.engineers > 0 ? planTeam.engineers.join("، ") : "—"}
+              {additionalFullEngineers > 0
+                ? ` + ${formatPlanNumber(additionalFullEngineers)} إضافي`
                 : ""}
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">مهندس برمجيات — دوام جزئي</th>
+            <td>{formatPlanNumber(partTimeEngineers)}</td>
+            <td>
+              {partTimeEngineers > 0 ? "مهندس جزئي إضافي" : "—"}
             </td>
           </tr>
           <tr>
@@ -113,7 +126,8 @@ export function Plan2027Print() {
         الفريق الحالي {formatPlanNumber(calc.baseTotal)}: {planTeam.director}، {planTeam.productManager}،{" "}
         {planTeam.engineers.join("، ")}. المطلوب إضافته:{" "}
         {formatPlanNumber(calc.additional.projectManagers)} مدير منتجات،{" "}
-        {formatPlanNumber(calc.additional.engineers)} مهندس برمجيات،{" "}
+        {formatPlanNumber(additionalFullEngineers)} مهندس دوام كامل،{" "}
+        {formatPlanNumber(additionalPartTimeEngineers)} مهندس دوام جزئي،{" "}
         {formatPlanNumber(calc.additional.testers)} مختبر.
       </p>
     </div>

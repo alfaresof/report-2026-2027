@@ -52,7 +52,7 @@
   padding: 4px 10px;
   border-radius: 999px;
   background: var(--gold);
-  color: #1d1608;
+  color: #1a2029;
   font-size: 9px;
   font-weight: 600;
   line-height: 1.6;
@@ -110,15 +110,15 @@
 .featured {
   position: relative;
   overflow: hidden;
-  border-color: rgba(183, 138, 63, 0.5);
+  border-color: rgba(141, 159, 209, 0.5);
   background:
     radial-gradient(
       110% 120% at 10% -10%,
-      rgba(183, 138, 63, 0.2),
+      rgba(141, 159, 209, 0.2),
       transparent 58%
     ),
     linear-gradient(150deg, var(--green) 0%, var(--green-2) 75%);
-  box-shadow: 0 28px 60px -44px rgba(10, 43, 36, 0.6);
+  box-shadow: 0 28px 60px -44px rgba(34, 51, 65, 0.6);
 }
 
 .featured::after {
@@ -128,18 +128,18 @@
   bottom: -130px;
   width: 260px;
   height: 260px;
-  border: 1px solid rgba(216, 189, 139, 0.18);
+  border: 1px solid rgba(185, 197, 232, 0.18);
   border-radius: 50%;
-  box-shadow: 0 0 0 30px rgba(216, 189, 139, 0.035);
+  box-shadow: 0 0 0 30px rgba(185, 197, 232, 0.035);
   pointer-events: none;
 }
 
 .featured .groupHead {
-  border-color: rgba(247, 241, 229, 0.14);
+  border-color: rgba(244, 241, 236, 0.14);
 }
 
 .featured .groupCount {
-  border-color: rgba(216, 189, 139, 0.3);
+  border-color: rgba(185, 197, 232, 0.3);
   color: var(--gold-2);
 }
 
@@ -153,8 +153,8 @@
 }
 
 .featured .item {
-  border-color: rgba(247, 241, 229, 0.12);
-  background: rgba(247, 241, 229, 0.05);
+  border-color: rgba(244, 241, 236, 0.12);
+  background: rgba(244, 241, 236, 0.05);
 }
 
 .featured .name {
@@ -236,7 +236,7 @@
   }
 
   .groupBadge {
-    background: #b78a3f !important;
+    background: #8d9fd1 !important;
     color: #fff;
     font-size: 8pt;
   }
@@ -266,27 +266,27 @@
   }
 
   .featured {
-    border-color: #b78a3f;
-    background: #0a2b24 !important;
+    border-color: #8d9fd1;
+    background: #223341 !important;
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
   }
 
   .featured .groupTitle {
-    color: #f7f1e5;
+    color: #f4f1ec;
   }
 
   .featured .groupCount {
-    border-color: rgba(247, 241, 229, 0.3);
-    color: #d8bd8b;
+    border-color: rgba(244, 241, 236, 0.3);
+    color: #b9c5e8;
   }
 
   .featured .item {
-    border-color: rgba(247, 241, 229, 0.2);
-    background: rgba(247, 241, 229, 0.06) !important;
+    border-color: rgba(244, 241, 236, 0.2);
+    background: rgba(244, 241, 236, 0.06) !important;
   }
 
   .featured .name {
-    color: #f7f1e5;
+    color: #f4f1ec;
   }
 }

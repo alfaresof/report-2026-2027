@@ -13,12 +13,16 @@ export type DecemberDay = {
   outside?: boolean;
 };
 
+export type DecemberTone = "red" | "orange" | "green";
+
 export type DecemberWeek = {
   id: string;
   label: string;
   dates: string;
   days: DecemberDay[];
   assessment: string;
+  tag: string;
+  tone: DecemberTone;
 };
 
 export type Topic = {
@@ -33,6 +37,7 @@ export type Topic = {
   leaveCalendar?: DecemberWeek[];
   youthPeople?: YouthPerson[];
   techStructure?: TechStructure;
+  techAssets?: true;
   status?: "ready";
 };
 
@@ -45,14 +50,20 @@ export const reportMeta = {
   topicCount: 8,
 };
 
-const earlyDecemberAssessment =
-  "الإجازة في هذا الأسبوع في منتصف العمل، إذا كانت الجمعيات أطلقت حلولها ولا توجد تعديلات فهي مناسبة، أما إذا كانت التعديلات قائمة فهي غير مناسبة";
+const firstWeekAssessment =
+  "الأسبوع الأول يقع في منتصف التعديلات التقنية؛ لذلك لا نوصي بالإجازة فيه، لأن العمل يكون في ذروة التعديلات والاختبارات.";
 
-const midDecemberAssessment =
-  "الفترة الأنسب، ولكن لو وجدت أي تعديلات في المشروع وكانت فترة عمل مهمة للجمعيات فهي غير مناسبة";
+const secondWeekAssessment =
+  "الأسبوع الثاني يستمر في منتصف التعديلات التقنية؛ لا نوصي بالإجازة فيه أيضًا، لأن التعديلات تكون قائمة والعمل يحتاج متابعة.";
 
-const lastDecemberAssessment =
-  "إذا كان العمل على إغلاق المشروع فالفترة الأنسب هي هذا الأسبوع، حيث أنه سيكون استراحة من العمل البرمجي قبل الانتقال للمشروع التالي";
+const thirdWeekAssessment =
+  "التعديلات قد تكون مستمرة في الأسبوع الثالث؛ الإجازة ممكنة لكنها غير مثالية، ويُفضّل تأجيلها إلى ما بعد اكتمال التعديلات.";
+
+const fourthWeekAssessment =
+  "توصيتنا أن تكون الإجازة في الأسبوع الرابع؛ فهو الفترة المفترضة لإقفال المشروع، والاستراحة قبيل الانتقال إلى المشروع التالي.";
+
+const fifthWeekAssessment =
+  "توصيتنا أن تكون الإجازة في الأسبوع الخامس؛ فهو أيضًا ضمن فترة إقفال المشروع، ومناسب للاستراحة قبل بداية العام الجديد.";
 
 export const topics: Topic[] = [
   {
@@ -61,7 +72,7 @@ export const topics: Topic[] = [
     title: "ترتيب إجازة ديسمبر",
     short: "تقويم ديسمبر وتقييم الأسابيع.",
     category: "تنظيم",
-    lead: "",
+    lead: "توصيتنا أن تكون إجازة ديسمبر في الأسبوع الرابع أو الخامس، لأنها الفترة المفترضة لإقفال المشروع. الأسابيع الأولى والثانية تتقاطع مع منتصف التعديلات التقنية، والثالث قد تشهد استمرارًا لها.",
     status: "ready",
     sections: [],
     questions: [],
@@ -70,7 +81,9 @@ export const topics: Topic[] = [
         id: "week-1",
         label: "الأسبوع الأول",
         dates: "١–٣ ديسمبر",
-        assessment: earlyDecemberAssessment,
+        assessment: firstWeekAssessment,
+        tag: "منتصف التعديلات التقنية",
+        tone: "red",
         days: [
           { day: 29, month: "نوفمبر", outside: true },
           { day: 30, month: "نوفمبر", outside: true },
@@ -85,7 +98,9 @@ export const topics: Topic[] = [
         id: "week-2",
         label: "الأسبوع الثاني",
         dates: "٦–١٠ ديسمبر",
-        assessment: earlyDecemberAssessment,
+        assessment: secondWeekAssessment,
+        tag: "منتصف التعديلات التقنية",
+        tone: "red",
         days: [
           { day: 6 },
           { day: 7 },
@@ -100,7 +115,9 @@ export const topics: Topic[] = [
         id: "week-3",
         label: "الأسبوع الثالث",
         dates: "١٣–١٧ ديسمبر",
-        assessment: midDecemberAssessment,
+        assessment: thirdWeekAssessment,
+        tag: "التعديلات قد تكون مستمرة",
+        tone: "orange",
         days: [
           { day: 13 },
           { day: 14 },
@@ -115,7 +132,9 @@ export const topics: Topic[] = [
         id: "week-4",
         label: "الأسبوع الرابع",
         dates: "٢٠–٢٤ ديسمبر",
-        assessment: midDecemberAssessment,
+        assessment: fourthWeekAssessment,
+        tag: "فترة إقفال المشروع — توصيتنا",
+        tone: "green",
         days: [
           { day: 20 },
           { day: 21 },
@@ -130,7 +149,9 @@ export const topics: Topic[] = [
         id: "week-5",
         label: "الأسبوع الأخير",
         dates: "٢٧–٣١ ديسمبر",
-        assessment: lastDecemberAssessment,
+        assessment: fifthWeekAssessment,
+        tag: "فترة إقفال المشروع — توصيتنا",
+        tone: "green",
         days: [
           { day: 27 },
           { day: 28 },
@@ -246,32 +267,18 @@ export const topics: Topic[] = [
   {
     slug: "tech-assets",
     number: "٠٧",
-    title: "مراجعة العهد التقنية والمساحات",
-    short: "جرد العهد والأجهزة والمساحات وحالتها وإجراءاتها.",
+    title: "العهد التقنية والمساحات",
+    short: "توقع اشتراكات ٢٠٢٧، والمساحات، وحاسبة الذكاء الاصطناعي.",
     category: "أصول",
-    lead: "جرد كامل للعهد التقنية والمساحات: ما نملكه، وحالته، ومن المسؤول عنه، وما يحتاج صيانة أو استبدالًا قبل نهاية العام.",
-    sections: [
-      {
-        title: "جرد العهد",
-        summary:
-          "الأجهزة والأدوات والأصول التقنية، وأرقامها، وحالة كل واحدة، والوثائق المرتبطة بها.",
-      },
-      {
-        title: "حالة المساحات",
-        summary:
-          "المساحات المستخدمة، وتجهيزاتها، وما تحتاجه من صيانة أو تحسين.",
-      },
-      {
-        title: "الإجراءات والمسؤوليات",
-        summary:
-          "آلية التسليم والاستلام، ومن يعتمد الإخراج أو الاستبدال، وكيف يُحدَّث السجل.",
-      },
-    ],
+    lead: "تقدير مبني على فواتير ٢٠٢٦: اشتراكات تقنية بنحو ٢٨٬١٠٠ ريال، ومساحات سحابية منفصلة بـ٢٬٠٠٠ ريال، وذكاء اصطناعي بحسب المشاريع خارج الاثنين.",
+    sections: [],
     questions: [
-      "ما العهد الموجودة ومن المسؤول عن كل واحدة؟",
-      "ما الذي يحتاج صيانة أو استبدالًا؟",
-      "كيف يُوثّق التسليم والاستلام؟",
+      "ما الاشتراكات التي نستمر بها في ٢٠٢٧؟",
+      "هل ننتقل بمساحة قوقل إلى الباقة الأقل؟",
+      "كم يكلف الذكاء الاصطناعي لكل مشروع؟",
     ],
+    techAssets: true,
+    status: "ready",
   },
   {
     slug: "hasna-meeting",

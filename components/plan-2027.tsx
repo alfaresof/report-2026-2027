@@ -9,21 +9,12 @@ import {
   formatProductCount,
   formatProjectCount,
   formatUnitCount,
+  planAllSelected,
   planDefaults,
   planProjects,
   planTeam,
   type PlanProjectComputed,
 } from "@/lib/plan-2027";
-
-function DragHandle() {
-  return (
-    <span className={styles.dragHandle} aria-hidden="true">
-      <span />
-      <span />
-      <span />
-    </span>
-  );
-}
 
 export function Plan2027() {
   const [selected, setSelected] = useState<string[]>(() => [
@@ -39,6 +30,35 @@ export function Plan2027() {
 
   const calc = calculatePlan(selected, units);
   const selectedSet = new Set(selected);
+  const fullEngineers = Math.floor(calc.engineers);
+  const partTimeEngineers = calc.engineers % 1 > 0 ? 1 : 0;
+  const additionalFullEngineers = Math.floor(calc.additional.engineers);
+  const additionalPartTimeEngineers =
+    calc.additional.engineers % 1 > 0 ? 1 : 0;
+
+  const libraryProjects: PlanProjectComputed[] = planProjects
+    .filter((project) => !selectedSet.has(project.id))
+    .map((project) => {
+      if (project.units) {
+        const count = Math.min(
+          project.units.max,
+          Math.max(project.units.min, units),
+        );
+
+        return {
+          ...project,
+          computedProducts: project.units.productsPerUnit * count,
+          computedEngineers: project.units.engineersPerUnit * count,
+          unitsCount: count,
+        };
+      }
+
+      return {
+        ...project,
+        computedProducts: project.products,
+        computedEngineers: project.engineers,
+      };
+    });
 
   const addProject = (id: string) => {
     setSelected((current) =>
@@ -72,8 +92,7 @@ export function Plan2027() {
     const source =
       event.dataTransfer.getData("application/x-plan-2027-source") ||
       dragging?.source;
-    const id =
-      event.dataTransfer.getData("text/plain") || dragging?.id;
+    const id = event.dataTransfer.getData("text/plain") || dragging?.id;
 
     if (source === "library" && id) {
       addProject(id);
@@ -87,8 +106,7 @@ export function Plan2027() {
     const source =
       event.dataTransfer.getData("application/x-plan-2027-source") ||
       dragging?.source;
-    const id =
-      event.dataTransfer.getData("text/plain") || dragging?.id;
+    const id = event.dataTransfer.getData("text/plain") || dragging?.id;
 
     if (source === "plan" && id) {
       removeProject(id);
@@ -97,102 +115,142 @@ export function Plan2027() {
     resetDrag();
   };
 
-  const planCard = (project: PlanProjectComputed) => (
-    <article
-      className={styles.projectCard}
-      key={project.id}
-      draggable
-      onDragStart={(event) => handleDragStart(event, project.id, "plan")}
-      onDragEnd={resetDrag}
-      title="اسحب المشروع إلى قائمة المشاريع لإزالته"
-    >
-      <header className={styles.cardTop}>
-        <div className={styles.cardIdentity}>
-          {project.tag ? <span className={styles.cardTag}>{project.tag}</span> : null}
-          <h4 className={styles.cardTitle}>{project.name}</h4>
-        </div>
+  const planCard = (
+    project: PlanProjectComputed,
+    variant: "library" | "plan",
+  ) => {
+    const isPlan = variant === "plan";
+    const isSelected = !isPlan && selectedSet.has(project.id);
 
-        <div className={styles.cardActions}>
-          <span className={styles.productBadge}>
-            {formatProductCount(project.computedProducts)}
-          </span>
-          <button
-            type="button"
-            className={styles.removeButton}
-            onClick={() => removeProject(project.id)}
-            aria-label={`إزالة ${project.name} من الخطة`}
-          >
-            ×
-          </button>
-        </div>
-      </header>
-
-      {project.productsNote ? (
-        <p className={styles.productsNote}>{project.productsNote}</p>
-      ) : null}
-
-      {project.note ? <p className={styles.cardNote}>{project.note}</p> : null}
-
-      <div className={styles.cardStaff}>
-        {project.computedEngineers > 0 ? (
-          <span className={styles.staffPill}>
-            {formatEngineerCount(project.computedEngineers)}
-          </span>
-        ) : (
-          <span className={styles.staffPillMuted}>منتجات البرنامج</span>
-        )}
-        {project.projectManagers > 0 ? (
-          <span className={styles.staffPill}>مدير منتجات</span>
-        ) : null}
-        {project.testers > 0 ? (
-          <span className={styles.staffPill}>مختبر</span>
-        ) : null}
-      </div>
-
-      {project.units ? (
-        <div className={styles.stepper}>
-          <div className={styles.stepperText}>
-            <span className={styles.stepperLabel}>عدد التمكين</span>
-            <span className={styles.stepperRule}>
-              كل ٢ تمكين = مهندس بدوام كامل
-            </span>
+    return (
+      <article
+        className={`${styles.projectCard}${
+          !isPlan ? ` ${styles.libraryCard}` : ""
+        }${isSelected ? ` ${styles.isAdded}` : ""}`}
+        key={`${variant}-${project.id}`}
+        draggable={isPlan || !isSelected}
+        onDragStart={(event) =>
+          handleDragStart(event, project.id, isPlan ? "plan" : "library")
+        }
+        onDragEnd={resetDrag}
+        title={
+          isPlan
+            ? "اسحب المشروع إلى قائمة المشاريع لإزالته"
+            : isSelected
+              ? "المشروع مضاف إلى الخطة"
+              : "اسحب المشروع إلى الخطة"
+        }
+      >
+        <header className={styles.cardTop}>
+          <div className={styles.cardIdentity}>
+            {project.tag ? (
+              <span className={styles.cardTag}>{project.tag}</span>
+            ) : null}
+            <h4 className={styles.cardTitle}>{project.name}</h4>
           </div>
 
-          <div className={styles.stepperControls}>
-            <button
-              type="button"
-              className={styles.stepButton}
-              onClick={() =>
-                setUnits((current) =>
-                  Math.max(project.units!.min, current - 1),
-                )
-              }
-              disabled={units <= project.units.min}
-              aria-label="تقليل عدد الجمعيات"
-            >
-              −
-            </button>
-            <span className={styles.stepValue}>
-              {formatUnitCount(units)}
+          <div className={styles.cardActions}>
+            <span className={styles.productBadge}>
+              {formatProductCount(project.computedProducts)}
             </span>
-            <button
-              type="button"
-              className={styles.stepButton}
-              onClick={() =>
-                setUnits((current) =>
-                  Math.min(project.units!.max, current + 1),
-                )
-              }
-              disabled={units >= project.units.max}
-              aria-label="زيادة عدد الجمعيات"
-            >
-              +
-            </button>
+            {isPlan ? (
+              <button
+                type="button"
+                className={styles.removeButton}
+                onClick={() => removeProject(project.id)}
+                aria-label={`إزالة ${project.name} من الخطة`}
+              >
+                ×
+              </button>
+            ) : null}
           </div>
+        </header>
+
+        {project.productsNote ? (
+          <p className={styles.productsNote}>{project.productsNote}</p>
+        ) : null}
+
+        {project.note ? (
+          <p className={styles.cardNote}>{project.note}</p>
+        ) : null}
+
+        <div className={styles.cardStaff}>
+          {project.computedEngineers > 0 ? (
+            <span className={styles.staffPill}>
+              {formatEngineerCount(project.computedEngineers)}
+            </span>
+          ) : (
+            <span className={styles.staffPillMuted}>منتجات البرنامج</span>
+          )}
+          {project.projectManagers > 0 ? (
+            <span className={styles.staffPill}>مدير منتجات</span>
+          ) : null}
+          {project.testers > 0 ? (
+            <span className={styles.staffPill}>مختبر</span>
+          ) : null}
         </div>
-      ) : null}
-    </article>
-  );
+
+        {isPlan && project.units ? (
+          <div className={styles.stepper}>
+            <div className={styles.stepperText}>
+              <span className={styles.stepperLabel}>عدد التمكين</span>
+              <span className={styles.stepperRule}>
+                كل ٢ تمكين = مهندس بدوام كامل
+              </span>
+            </div>
+
+            <div className={styles.stepperControls}>
+              <button
+                type="button"
+                className={styles.stepButton}
+                onClick={() =>
+                  setUnits((current) =>
+                    Math.max(project.units!.min, current - 1),
+                  )
+                }
+                disabled={units <= project.units.min}
+                aria-label="تقليل عدد الجمعيات"
+              >
+                −
+              </button>
+              <span className={styles.stepValue}>
+                {formatUnitCount(units)}
+              </span>
+              <button
+                type="button"
+                className={styles.stepButton}
+                onClick={() =>
+                  setUnits((current) =>
+                    Math.min(project.units!.max, current + 1),
+                  )
+                }
+                disabled={units >= project.units.max}
+                aria-label="زيادة عدد الجمعيات"
+              >
+                +
+              </button>
+            </div>
+          </div>
+        ) : null}
+
+        {!isPlan ? (
+          <div className={styles.cardFooter}>
+            {isSelected ? (
+              <span className={styles.addedBadge}>مضاف إلى الخطة</span>
+            ) : (
+              <button
+                type="button"
+                className={styles.addCardButton}
+                onClick={() => addProject(project.id)}
+              >
+                أضف إلى الخطة
+              </button>
+            )}
+          </div>
+        ) : null}
+      </article>
+    );
+  };
 
   return (
     <div className={styles.plan}>
@@ -261,10 +319,10 @@ export function Plan2027() {
           <div className={styles.calcActions}>
             <button
               type="button"
-              className={styles.actionBtn}
-              onClick={() => setSelected([...planDefaults.selected])}
+              className={styles.actionBtnPrimary}
+              onClick={() => setSelected([...planAllSelected])}
             >
-              تحديد الكل
+              أضف الكل
             </button>
             <button
               type="button"
@@ -278,7 +336,7 @@ export function Plan2027() {
 
         <p className={styles.hint}>
           اسحب المشروع من القائمة إلى الخطة، أو من الخطة إلى القائمة لإزالته.
-          يمكنك أيضًا استخدام الأزرار.
+          يمكنك أيضًا استخدام الأزرار. الخطة فارغة الآن — أضف ما تريد.
         </p>
 
         <div className={styles.workspace}>
@@ -313,53 +371,15 @@ export function Plan2027() {
               <span className={styles.libraryHint}>اسحب إلى الخطة</span>
             </div>
 
-            <ul className={styles.libraryList}>
-              {planProjects.map((project) => {
-                const isSelected = selectedSet.has(project.id);
-
-                return (
-                  <li key={project.id}>
-                    <div
-                      className={`${styles.libraryItem}${
-                        isSelected ? ` ${styles.isSelected}` : ""
-                      }`}
-                      draggable={!isSelected}
-                      onDragStart={(event) =>
-                        handleDragStart(event, project.id, "library")
-                      }
-                      onDragEnd={resetDrag}
-                      aria-disabled={isSelected}
-                    >
-                      <DragHandle />
-
-                      <div className={styles.libraryMain}>
-                        <span className={styles.libraryName}>
-                          {project.name}
-                        </span>
-                        <span className={styles.libraryMeta}>
-                          {project.units
-                            ? "لكل جمعية"
-                            : formatProductCount(project.products)}
-                        </span>
-                      </div>
-
-                      {isSelected ? (
-                        <span className={styles.addedBadge}>مضاف</span>
-                      ) : (
-                        <button
-                          type="button"
-                          className={styles.addButton}
-                          onClick={() => addProject(project.id)}
-                          aria-label={`إضافة ${project.name} إلى الخطة`}
-                        >
-                          أضف
-                        </button>
-                      )}
-                    </div>
-                  </li>
-                );
-              })}
-            </ul>
+            {libraryProjects.length > 0 ? (
+              <ul className={styles.libraryList}>
+                {libraryProjects.map((project) => (
+                  <li key={project.id}>{planCard(project, "library")}</li>
+                ))}
+              </ul>
+            ) : (
+              <p className={styles.emptyLibrary}>كل المشاريع في الخطة.</p>
+            )}
           </aside>
 
           <div className={styles.planner}>
@@ -397,11 +417,13 @@ export function Plan2027() {
 
               {calc.selected.length > 0 ? (
                 <div className={styles.planCards}>
-                  {calc.selected.map(planCard)}
+                  {calc.selected.map((project) =>
+                    planCard(project, "plan"),
+                  )}
                 </div>
               ) : (
                 <p className={styles.emptyPlan}>
-                  اسحب مشروعًا من القائمة إلى هنا لبدء الحساب.
+                  الخطة فارغة. اسحب مشروعًا من القائمة، أو اضغط «أضف الكل».
                 </p>
               )}
             </div>
@@ -451,17 +473,31 @@ export function Plan2027() {
           </div>
 
           <div className={styles.role}>
-            <span className={styles.roleLabel}>مهندس برمجيات</span>
+            <span className={styles.roleLabel}>
+              مهندس برمجيات — دوام كامل
+            </span>
             <strong className={styles.roleCount}>
-              {formatPlanNumber(calc.engineers)}
+              {formatPlanNumber(fullEngineers)}
             </strong>
             <p className={styles.roleNames}>
               {calc.engineers > 0 ? planTeam.engineers.join("، ") : "—"}
-              {calc.additional.engineers > 0 ? (
+              {additionalFullEngineers > 0 ? (
                 <span>
-                  {formatPlanNumber(calc.additional.engineers)} إضافي
+                  {formatPlanNumber(additionalFullEngineers)} إضافي
                 </span>
               ) : null}
+            </p>
+          </div>
+
+          <div className={styles.role}>
+            <span className={styles.roleLabel}>
+              مهندس برمجيات — دوام جزئي
+            </span>
+            <strong className={styles.roleCount}>
+              {formatPlanNumber(partTimeEngineers)}
+            </strong>
+            <p className={styles.roleNames}>
+              {partTimeEngineers > 0 ? "مهندس جزئي إضافي" : "—"}
             </p>
           </div>
 
@@ -495,9 +531,10 @@ export function Plan2027() {
                     المطلوب إضافته:{" "}
                     {formatPlanNumber(calc.additional.projectManagers)} مدير
                     منتجات،{" "}
-                    {formatPlanNumber(calc.additional.engineers)} مهندس
-                    برمجيات، {formatPlanNumber(calc.additional.testers)}{" "}
-                    مختبر.
+                    {formatPlanNumber(additionalFullEngineers)} مهندس دوام
+                    كامل،{" "}
+                    {formatPlanNumber(additionalPartTimeEngineers)} مهندس دوام
+                    جزئي، {formatPlanNumber(calc.additional.testers)} مختبر.
                   </>
                 ) : (
                   " الفريق الحالي يغطي المطلوب."

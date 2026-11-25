@@ -123,7 +123,7 @@
 
 .personButton[aria-pressed="true"] .portraitWrap::after {
   border-color: var(--gold-strong);
-  box-shadow: 0 0 0 4px rgba(183, 138, 63, 0.1);
+  box-shadow: 0 0 0 4px rgba(141, 159, 209, 0.1);
 }
 
 .personButton:hover .portraitWrap::after {
@@ -142,7 +142,7 @@
   overflow: hidden;
   border-radius: 50%;
   background: var(--paper-2);
-  box-shadow: inset 0 0 0 1px rgba(20, 35, 31, 0.1);
+  box-shadow: inset 0 0 0 1px rgba(41, 51, 63, 0.1);
   isolation: isolate;
 }
 
@@ -239,12 +239,12 @@
   background:
     radial-gradient(
       120% 120% at 88% -10%,
-      rgba(183, 138, 63, 0.22),
+      rgba(141, 159, 209, 0.22),
       transparent 55%
     ),
     linear-gradient(150deg, var(--green) 0%, var(--green-2) 72%);
   color: var(--cream);
-  box-shadow: 0 34px 80px -50px rgba(10, 43, 36, 0.65);
+  box-shadow: 0 34px 80px -50px rgba(34, 51, 65, 0.65);
 }
 
 .panel::before {
@@ -257,7 +257,7 @@
   background: linear-gradient(
     90deg,
     transparent,
-    rgba(216, 189, 139, 0.55),
+    rgba(185, 197, 232, 0.55),
     transparent
   );
   pointer-events: none;
@@ -270,10 +270,10 @@
   bottom: -170px;
   width: 360px;
   height: 360px;
-  border: 1px solid rgba(216, 189, 139, 0.18);
+  border: 1px solid rgba(185, 197, 232, 0.18);
   border-radius: 50%;
-  box-shadow: 0 0 0 36px rgba(216, 189, 139, 0.035),
-    0 0 0 72px rgba(216, 189, 139, 0.02);
+  box-shadow: 0 0 0 36px rgba(185, 197, 232, 0.035),
+    0 0 0 72px rgba(185, 197, 232, 0.02);
   pointer-events: none;
 }
 
@@ -303,7 +303,7 @@
   justify-content: space-between;
   gap: 28px;
   padding-bottom: clamp(20px, 3vw, 28px);
-  border-bottom: 1px solid rgba(247, 241, 229, 0.14);
+  border-bottom: 1px solid rgba(244, 241, 236, 0.14);
 }
 
 .identity {
@@ -325,7 +325,7 @@
   flex-wrap: wrap;
   gap: 7px 8px;
   margin-top: 10px;
-  color: rgba(247, 241, 229, 0.68);
+  color: rgba(244, 241, 236, 0.68);
   font-size: 12px;
   font-weight: 300;
   line-height: 1.8;
@@ -349,10 +349,10 @@
   align-items: center;
   gap: 6px;
   padding: 2px 8px 2px 3px;
-  border: 1px solid rgba(247, 241, 229, 0.14);
+  border: 1px solid rgba(244, 241, 236, 0.14);
   border-radius: 999px;
-  background: rgba(247, 241, 229, 0.06);
-  color: rgba(247, 241, 229, 0.78);
+  background: rgba(244, 241, 236, 0.06);
+  color: rgba(244, 241, 236, 0.78);
   font-size: 10px;
   line-height: 1.6;
 }
@@ -384,9 +384,9 @@
   justify-content: center;
   width: 64px;
   height: 64px;
-  border: 1px solid rgba(216, 189, 139, 0.4);
+  border: 1px solid rgba(185, 197, 232, 0.4);
   border-radius: 50%;
-  box-shadow: inset 0 0 0 4px rgba(216, 189, 139, 0.05);
+  box-shadow: inset 0 0 0 4px rgba(185, 197, 232, 0.05);
 }
 
 .indexNumber {
@@ -399,7 +399,7 @@
 
 .indexTotal {
   margin-top: 4px;
-  color: rgba(247, 241, 229, 0.5);
+  color: rgba(244, 241, 236, 0.5);
   font-size: 8px;
   line-height: 1;
 }
@@ -436,8 +436,8 @@
   grid-template-columns: repeat(4, minmax(0, 1fr));
   margin: 14px 0 0;
   padding: 0;
-  border-top: 1px solid rgba(247, 241, 229, 0.15);
-  border-bottom: 1px solid rgba(247, 241, 229, 0.15);
+  border-top: 1px solid rgba(244, 241, 236, 0.15);
+  border-bottom: 1px solid rgba(244, 241, 236, 0.15);
 }
 
 .stat {
@@ -458,12 +458,12 @@
 }
 
 .stat + .stat {
-  border-inline-start: 1px solid rgba(247, 241, 229, 0.12);
+  border-inline-start: 1px solid rgba(244, 241, 236, 0.12);
 }
 
 .statLabel {
   max-width: 26ch;
-  color: rgba(247, 241, 229, 0.62);
+  color: rgba(244, 241, 236, 0.62);
   font-size: 11.5px;
   font-weight: 400;
   line-height: 1.8;
@@ -481,7 +481,7 @@
 }
 
 .statValue[data-empty="true"] {
-  color: rgba(247, 241, 229, 0.55);
+  color: rgba(244, 241, 236, 0.55);
   font-weight: 300;
 }
 
@@ -499,9 +499,9 @@
   display: flex;
   flex-direction: column;
   padding: 14px 14px 12px;
-  border: 1px solid rgba(247, 241, 229, 0.12);
+  border: 1px solid rgba(244, 241, 236, 0.12);
   border-radius: 14px;
-  background: rgba(247, 241, 229, 0.04);
+  background: rgba(244, 241, 236, 0.04);
 }
 
 
@@ -542,9 +542,9 @@
 .solutionCount {
   margin-inline-start: auto;
   padding: 2px 8px;
-  border: 1px solid rgba(247, 241, 229, 0.14);
+  border: 1px solid rgba(244, 241, 236, 0.14);
   border-radius: 999px;
-  color: rgba(247, 241, 229, 0.55);
+  color: rgba(244, 241, 236, 0.55);
   font-size: 8.5px;
   line-height: 1.7;
   white-space: nowrap;
@@ -564,7 +564,7 @@
   justify-content: space-between;
   gap: 16px;
   padding: 6px 0;
-  border-top: 1px solid rgba(247, 241, 229, 0.07);
+  border-top: 1px solid rgba(244, 241, 236, 0.07);
 }
 
 .apps li:first-child {
@@ -572,7 +572,7 @@
 }
 
 .appName {
-  color: rgba(247, 241, 229, 0.82);
+  color: rgba(244, 241, 236, 0.82);
   font-size: 12px;
   font-weight: 300;
   line-height: 1.7;
@@ -581,9 +581,9 @@
 .appFeatures {
   flex: none;
   padding: 1px 7px;
-  border: 1px solid rgba(216, 189, 139, 0.16);
+  border: 1px solid rgba(185, 197, 232, 0.16);
   border-radius: 999px;
-  background: rgba(216, 189, 139, 0.06);
+  background: rgba(185, 197, 232, 0.06);
   color: var(--gold-2);
   font-size: 9px;
   font-weight: 500;
@@ -594,8 +594,8 @@
 .solutionNote {
   margin-top: 8px;
   padding-top: 6px;
-  border-top: 1px dashed rgba(247, 241, 229, 0.12);
-  color: rgba(247, 241, 229, 0.5);
+  border-top: 1px dashed rgba(244, 241, 236, 0.12);
+  color: rgba(244, 241, 236, 0.5);
   font-size: 9px;
   line-height: 1.7;
 }
@@ -680,7 +680,7 @@
   }
 
   .stat + .stat {
-    border-top: 1px solid rgba(247, 241, 229, 0.12);
+    border-top: 1px solid rgba(244, 241, 236, 0.12);
     border-inline-start: 0;
   }
 

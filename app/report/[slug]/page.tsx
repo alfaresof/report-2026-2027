@@ -5,6 +5,8 @@ import { PrintButton } from "@/components/print-button";
 import { DecemberCalendar } from "@/components/december-calendar";
 import { Plan2027 } from "@/components/plan-2027";
 import { AssociationsView } from "@/components/associations";
+import { TechAssets } from "@/components/tech-assets";
+import { TechAssetsPrint } from "@/components/tech-assets-print";
 import { TechStructureView } from "@/components/tech-structure";
 import { TechStructurePrint } from "@/components/tech-structure-print";
 import { YouthStats } from "@/components/youth-stats";
@@ -182,12 +184,36 @@ export default async function TopicPage({ params }: PageProps) {
                 </span>
               </div>
               <p className="calendar-hint">
-                اضغط على أي أسبوع لعرض تقييمه.
+                اضغط على أي أسبوع لعرض تقييمه؛ الأسبوعان الرابع والخامس هما
+                توصيتنا.
               </p>
               <DecemberCalendar weeks={topic.leaveCalendar} />
             </section>
           ) : topic.slug === "associations" ? (
             <AssociationsView />
+          ) : topic.techAssets ? (
+            <>
+              <TechAssets />
+              <div className="tech-print">
+                <TechAssetsPrint />
+              </div>
+
+              <section
+                className="questions-block tech-questions no-print"
+                id="questions"
+                aria-labelledby="questions-title"
+              >
+                <div className="questions-head">
+                  <QuestionIcon size={19} />
+                  <h2 id="questions-title">أسئلة يُجيب عنها المحور</h2>
+                </div>
+                <ul>
+                  {topic.questions.map((question) => (
+                    <li key={question}>{question}</li>
+                  ))}
+                </ul>
+              </section>
+            </>
           ) : topic.techStructure ? (
             <>
               <TechStructureView data={topic.techStructure} />
@@ -346,7 +372,25 @@ export default async function TopicPage({ params }: PageProps) {
 
           <nav className="aside-card toc" aria-label="فهرس المحور">
             <p className="aside-title">في هذه الصفحة</p>
-            {topic.slug === "associations" ? (
+            {topic.techAssets ? (
+              <ol>
+                <li>
+                  <a href="#tech-assets-summary">الأرقام المجملة</a>
+                </li>
+                <li>
+                  <a href="#tech-services">الاشتراكات التقنية</a>
+                </li>
+                <li>
+                  <a href="#tech-spaces">المساحات السحابية</a>
+                </li>
+                <li>
+                  <a href="#ai-forecast">الذكاء الاصطناعي</a>
+                </li>
+                <li>
+                  <a href="#questions">أسئلة المحور</a>
+                </li>
+              </ol>
+            ) : topic.slug === "associations" ? (
               <ol>
                 <li>
                   <a href="#associations-no-need">ليس لديها احتياج تقني</a>

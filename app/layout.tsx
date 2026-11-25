@@ -1,15 +1,6 @@
 import type { Metadata, Viewport } from "next";
-import { Alexandria, IBM_Plex_Sans_Arabic } from "next/font/google";
+import { IBM_Plex_Sans_Arabic } from "next/font/google";
 import "./globals.css";
-import { SiteHeader } from "@/components/site-header";
-import { SiteFooter } from "@/components/site-footer";
-
-const display = Alexandria({
-  subsets: ["arabic", "latin"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-display",
-  display: "swap",
-});
 
 const body = IBM_Plex_Sans_Arabic({
   subsets: ["arabic", "latin"],
@@ -41,7 +32,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0a2b24",
+  themeColor: "#223341",
   width: "device-width",
   initialScale: 1,
 };
@@ -54,15 +45,13 @@ export default function RootLayout({
       lang="ar"
       dir="rtl"
       data-scroll-behavior="smooth"
-      className={`${display.variable} ${body.variable}`}
+      className={body.variable}
     >
       <body>
         <a className="skip-link" href="#main">
           تخطَّ إلى المحتوى
         </a>
-        <SiteHeader />
         <main id="main">{children}</main>
-        <SiteFooter />
       </body>
     </html>
   );

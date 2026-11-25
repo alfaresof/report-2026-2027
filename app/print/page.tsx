@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { PrintButton } from "@/components/print-button";
-import { LogoMark, ArrowRightIcon } from "@/components/icons";
+import { ArrowRightIcon } from "@/components/icons";
 import { DecemberWeekTable } from "@/components/december-week-table";
 import { YouthPrint } from "@/components/youth-print";
 import { Plan2027Print } from "@/components/plan-2027-print";
 import { AssociationsView } from "@/components/associations";
+import { TechAssetsPrint } from "@/components/tech-assets-print";
 import { TechStructurePrint } from "@/components/tech-structure-print";
 import { reportMeta, topics } from "@/lib/topics";
 import { toArabicDigits } from "@/lib/format";
@@ -48,7 +49,13 @@ export default function PrintPage() {
           <section className="print-cover">
             <div className="print-cover-top">
               <span className="print-brand">
-                <LogoMark />
+                <img
+                  src="/logos/riyadh-bw.svg"
+                  alt="الريادة الاجتماعية"
+                  className="print-brand-logo"
+                  width={215}
+                  height={96}
+                />
                 تقرير ٢٠٢٦–٢٠٢٧
               </span>
               <span>{reportMeta.date}</span>
@@ -141,6 +148,21 @@ export default function PrintPage() {
                 </div>
               ) : topic.slug === "associations" ? (
                 <AssociationsView />
+              ) : topic.techAssets ? (
+                <>
+                  <TechAssetsPrint />
+
+                  {topic.questions.length > 0 ? (
+                    <div className="print-questions tech-questions">
+                      <h3>أسئلة المحور</h3>
+                      <ul>
+                        {topic.questions.map((question) => (
+                          <li key={question}>{question}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  ) : null}
+                </>
               ) : topic.techStructure ? (
                 <>
                   <TechStructurePrint data={topic.techStructure} />
