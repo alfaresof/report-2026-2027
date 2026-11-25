@@ -5,6 +5,7 @@ import { LogoMark, ArrowRightIcon } from "@/components/icons";
 import { DecemberWeekTable } from "@/components/december-week-table";
 import { YouthPrint } from "@/components/youth-print";
 import { Plan2027Print } from "@/components/plan-2027-print";
+import { AssociationsView } from "@/components/associations";
 import { TechStructurePrint } from "@/components/tech-structure-print";
 import { reportMeta, topics } from "@/lib/topics";
 import { toArabicDigits } from "@/lib/format";
@@ -138,6 +139,8 @@ export default function PrintPage() {
                   <h3>ديسمبر ٢٠٢٦</h3>
                   <DecemberWeekTable weeks={topic.leaveCalendar} />
                 </div>
+              ) : topic.slug === "associations" ? (
+                <AssociationsView />
               ) : topic.techStructure ? (
                 <>
                   <TechStructurePrint data={topic.techStructure} />

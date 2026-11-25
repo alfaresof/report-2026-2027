@@ -1,0 +1,402 @@
+
+
+
+
+
+
+
+
+
+
+
+
+      
+      
+      
+
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+		<meta name="description" content="">
+		<meta name="keywords" content="">
+		<title>Billing History</title>
+		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+		<style type="text/css" media="all">
+
+
+
+
+			body {
+				font-family: Arial, Helvetica, sans-serif;
+				font-size: 12pt;
+				color: #000;
+			}
+
+			body h1 {font-size: 14pt;}
+
+			body p.address-heading {text-align: center; margin: 35px 0; margin-bottom: 50px; font-size: 10pt; font-weight: bold;}
+
+			body hr {border: 0; border-top: 1px solid #9a9a9a; margin: 30px 0;}
+
+			div.invoice-wrap {margin-bottom: 50px;}
+
+			table.header {
+				margin-top: 0px;
+				border-collapse: separate;
+				margin-bottom: 30px;
+				font-size: 9pt;
+			}
+
+			table.header th {
+				text-align: left;
+				vertical-align: top;
+			}
+
+			table.header td {
+				vertical-align: top;
+				padding: 0px 10px;
+			}
+
+			table.billing-history {
+				border-collapse: separate;
+				border-spacing: 0px;
+				width: 100%;
+				border-bottom: 1px solid #9a9a9a;
+				margin-bottom: 35px;
+				font-size: 10pt;
+			}
+
+			table.billing-history th {
+				text-align: left;
+				font-size: 10pt;
+				vertical-align: top;
+				background-color: #9a9a9a;
+				padding: 10px 10px;
+				border-bottom: 2px solid #000;
+			}
+
+			table.billing-history td {
+				vertical-align: top;
+				padding: 10px;
+				font-weight: normal;
+			}
+
+			table.billing-history thead {}
+			table.billing-history tbody tr:nth-child(even) td {background: #cccccc;}
+			table.billing-history tfoot tr td {padding: 16px 10px;}
+			table.billing-history tfoot tr td.label {font-weight: bold;}
+
+
+			table.billing-history .date {width: 8%;}
+			table.billing-history .type {}
+			table.billing-history .product-type {}
+			table.billing-history .product-name {min-width: 150px; text-transform: capitalize;}
+			table.billing-history td.product-name {word-break: break-all;}	
+			table.billing-history .term,
+			table.billing-history .label {text-align: right; padding-right: 20px;}
+			table.billing-history .term {white-space: nowrap;}
+			table.billing-history .amount {}
+			table.billing-history .tax {}
+			table.billing-history .taxtype {}
+			table.billing-history .order-num {}
+			table.billing-history .payment-method {}
+			table.billing-history .reference {}
+			table.billing-history .total {width: 12%; min-width: 130px;}
+
+
+			table.billing-history th.amount::before {content: "";}
+			table.billing-history th.tax::before {content: "";}
+			table.billing-history th.total::before {content: "";}
+
+			ol.disclaimer {
+				font-size:9pt;
+			}
+
+			.ca-Tax-section
+			{
+				width: 200px;
+				background-color: #ccc;
+				border: 1px dotted #000;
+			}
+			.ca-Tax-section td
+				{
+					padding: 4px !important;
+				}
+			.tax-summary {
+				text-decoration: underline;
+				font-weight:bold !important;
+			}
+			.ca-total-tax{
+				font-weight: bold !important;
+			}
+			.total-price-section td {
+				font-weight: bold !important;
+			}
+
+			@media print {
+				table.billing-history th,
+				table.billing-history td {-webkit-print-color-adjust: exact;}
+			}
+
+			@page { 
+				size: auto;
+				margin: 0.25in;  
+			} 
+
+
+
+		</style>
+	</head>
+	
+	<body>
+	
+	
+	
+   
+
+		<div class="invoice-wrap">
+
+		
+			
+			
+
+			        
+				
+				
+					
+					<p class="address-heading">
+						Bluehost, Inc<br />
+						5335 Gate Parkway<br />
+						Jacksonville, FL &nbsp;32256
+						
+						
+                
+					</p>
+				
+				
+				<table class="header" style="float: right;">
+					<tr>
+						<th>Invoice #</th>
+						<td>136969810</td>
+					</tr>
+				</table>
+
+				<table class="header">
+					<tr>
+						<th>Account Name:</th>
+						<td class="private-mask">Mohammed
+							<span>&nbsp;</span>
+							badkhan
+							
+						</td>
+					</tr>
+					<tr>
+						<th>Account ID:</th>
+						<td class="private-mask">53501515</td>
+					</tr>
+					<tr>
+						<th>Address:</th>
+						<td class="private-mask">
+						
+							Nadiim<br />
+						
+						
+						
+							
+						
+						
+							Jeddah 4024<br />
+							
+						
+							
+							Jeddah, 55553
+							23213 SA<br />
+						</td>
+					</tr>
+					
+				</table>
+
+				<hr/>
+
+				<h1>Charges and Credits:</h1>
+
+				<table class="billing-history charges-credits">
+					<thead>
+						<tr>
+							<th class="date">Date</th>
+							<th class="type">Type</th>
+							<th class="product-type">Product Type</th>
+							<th class="product-name">Product Name</th>
+							<th class="term">Term</th>
+							<th class="amount">Amount</th>
+							<th class="tax">Tax</th>
+							<th class="taxtype">Tax Type</th>
+							<th class="total">Total Charges</th>
+						</tr>
+					</thead>
+					<tbody>
+				
+						
+
+					
+						<tr>
+							<td class="date">
+								08/18/26
+							</td>
+							<td class="type">Renewal</td>
+							<td class="product-type">WordPress Choice Plus Hosting</td>
+							<td class="product-name private-mask">almohassel.org</td>
+							<td class="term">Monthly</td>
+							<td class="amount"><span>USD</span>27.99</td>
+							<td class="tax"><span>USD</span>0.00</td>
+							<td class="taxtype"></td>
+							<td class="total"><span>USD</span>27.99</td>
+						</tr>
+					
+						<tr>
+							<td class="date">
+								08/18/26
+							</td>
+							<td class="type">Renewal</td>
+							<td class="product-type">domain .ORG</td>
+							<td class="product-name private-mask">almohassel.org</td>
+							<td class="term">1 Year</td>
+							<td class="amount"><span>USD</span>18.99</td>
+							<td class="tax"><span>USD</span>0.00</td>
+							<td class="taxtype"></td>
+							<td class="total"><span>USD</span>18.99</td>
+						</tr>
+					
+					</tbody>
+					<tbody>
+						
+							<tr class="total-price-section">
+								<td class="label" colspan="5">ICANN Fees</td>
+								<td class="amount">
+									<span>USD</span>0.20
+								</td>
+								<td class="tax">
+									<span>USD</span>0.00
+								</td>
+								<td>&nbsp;</td>
+								<td class="total">
+									<span>USD</span>0.20
+								</td>
+							</tr>
+						
+					
+						<tr class="total-price-section">
+							<td class="label" colspan="5">Total Invoice Amount</td>
+							<td class="amount">
+								<span>USD</span>47.18
+							</td>
+							<td class="tax">
+								<span>USD</span>0.00
+							</td>
+							<td>&nbsp;</td>
+							<td class="total">
+								<span>USD</span>47.18</td>
+					
+						</tr>
+					</tbody>
+					
+				</table>
+
+
+
+				<h1>Payments:</h1>
+
+				<table class="billing-history payments">
+					<thead>
+						<tr>
+							<th class="date">Date</th>
+							<th class="order-num">Order Number</th>
+							<th class="payment-method">Payment Method</th>
+							<th class="reference">
+								
+									
+										Check/Card#/PayPal ID
+									
+									
+								
+							</th>
+							<th class="total">Total Payments</th>
+						</tr>
+					</thead>
+					<tbody>
+						
+							<tr class="solid">
+								<td class="date">08/18/26</td>
+								<td class="order-num private-mask">1913425699</td>
+								<td class="payment-method">CreditCard</td>
+								<td class="reference private-mask">****6866</td>
+								<td class="total"><span>USD</span>47.18</td>
+							</tr>
+						
+					</tbody>
+				</table>
+
+
+				
+			 
+			
+		
+
+		</div>
+
+	
+
+
+
+	
+		<h4>Please Note:</h4>
+		<ol class="disclaimer">
+			<li>The payment information shown may not reflect the payment method used for each transaction, and all billing activity may not be shown here.</li>
+			<li>Order numbers may appear in multiple accounts if an order included services from more than one account.</li>
+			<li>Recent purchases may take 24 to 48 hours to appear in your billing information.</li>
+			<!-- <li>All .ca domain names are registered by Register Canada ULC (Business Number: 83624 3543 RT 0001). The amount charged for .ca domain names includes applicable Goods and Services Tax (GST) of 5%. Effective July 1, 2010, the amounts charged for .ca domain names are inclusive of Federal GST and, where applicable, also inclusive of Provincial HST. (GST Rate - 5%, Combined GST rate and HST rate for each Province - British Columbia - 12%, Ontario - 13%, Nova Scotia - 15%, Newfoundland and Labrador - 13%, New Brunswick - 13%)</li> -->
+			<li>Some products and services are subject to sales tax. Taxes charged reflect the jurisdiction of your business address.</li>
+		</ol>
+	
+
+	</body>
+	<script type="text/javascript">
+
+        $(document).ready(function () {
+    		const isMultiLingualFeatureEnabled = sessionStorage.getItem("multiLingualFeatureEnabled") === "true";
+            $.ajax({
+                type: "GET",
+                url: 'https://sfbff.newfold.com/getContent/content/account-manager-configuration/bluehost',
+                headers:{
+                    service: 'navigationService',
+                    'x-client-id': 'AEM',
+                    'x-api-key': 'o7qsuyqmznkscppcdro678vidbr',
+                },
+                dataType: 'json',
+                async: false,
+                contentType: 'application/json',
+                success: function (result) {
+                    if (result) {
+                        const responseData = JSON.parse(result.featureFlags)
+                        if(responseData.multiLingualFeatureEnabled || isMultiLingualFeatureEnabled){
+                            const scriptTag = document.createElement('script');
+                            scriptTag.setAttribute('src', 'https://www.onelink-edge.com/moxie.min.js');
+                            scriptTag.setAttribute('referrerpolicy', 'no-referrer-when-downgrade');
+                            scriptTag.setAttribute('type', 'text/javascript');
+                            scriptTag.setAttribute('data-oljs', 'PCB1A-A2E7-84D0-4452');
+                            document.head.insertBefore(scriptTag, document.head.firstChild);
+                        }
+                    }
+                },
+                error: function (data) {
+                    console.log('getfutureFlagAPI  Error');
+                    console.log(data);
+                }
+            });
+        });
+
+    </script>
+</html>

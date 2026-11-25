@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { PrintButton } from "@/components/print-button";
 import { DecemberCalendar } from "@/components/december-calendar";
 import { Plan2027 } from "@/components/plan-2027";
+import { AssociationsView } from "@/components/associations";
 import { TechStructureView } from "@/components/tech-structure";
 import { TechStructurePrint } from "@/components/tech-structure-print";
 import { YouthStats } from "@/components/youth-stats";
@@ -185,6 +186,8 @@ export default async function TopicPage({ params }: PageProps) {
               </p>
               <DecemberCalendar weeks={topic.leaveCalendar} />
             </section>
+          ) : topic.slug === "associations" ? (
+            <AssociationsView />
           ) : topic.techStructure ? (
             <>
               <TechStructureView data={topic.techStructure} />
@@ -343,7 +346,19 @@ export default async function TopicPage({ params }: PageProps) {
 
           <nav className="aside-card toc" aria-label="فهرس المحور">
             <p className="aside-title">في هذه الصفحة</p>
-            {topic.slug === "plan-2027" ? (
+            {topic.slug === "associations" ? (
+              <ol>
+                <li>
+                  <a href="#associations-no-need">ليس لديها احتياج تقني</a>
+                </li>
+                <li>
+                  <a href="#associations-has-tech">لديها تقنيون</a>
+                </li>
+                <li>
+                  <a href="#associations-no-tech">ليس لديها تقنيون</a>
+                </li>
+              </ol>
+            ) : topic.slug === "plan-2027" ? (
               <ol>
                 <li>
                   <a href="#plan-summary">الملخص</a>
